@@ -1,25 +1,18 @@
-import Head from 'next/head'
+
+import { Button, Heading, Text, Code } from '@chakra-ui/react';
 import { useAuth } from '@/lib/auth'
 
 export default function Home() {
   const auth = useAuth()
 
   return (
-    <div>
-      <Head>
-        <title>Logabug</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
       <main>
-        <h1>
-          Welcome to Logabug
-        </h1>
+        <Heading as="h1">
+          Logabug
+        </Heading>
 
-        <p> Current user: <code>{auth?.user ? auth.user.email : 'None'}</code></p>
-        {auth?.user ? <button type="button" onClick={(e) => auth.signout()}>Sign Out</button> : <button type="button" onClick={(e) => auth.signinWithGithub()}>Sign In</button>}
+        <Text> Current user: <Code>{auth?.user ? auth.user.email : 'None'}</Code></Text>
+        {auth?.user ? <Button type="button" onClick={(e) => auth.signout()}>Sign Out</Button> : <Button type="button" onClick={(e) => auth.signinWithGitHub()}>Sign In</Button>}
       </main>
- 
-    </div>
   )
 }
