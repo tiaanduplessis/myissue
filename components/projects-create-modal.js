@@ -17,16 +17,16 @@ import {
   useToast
 } from '@chakra-ui/react';
 
-import { addProject } from '@/lib/db';
+import { createProject } from '@/lib/db';
 import { useAuth } from '@/lib/auth';
 
-export const AddProjectModal = ({children = 'Add project'}) => {
+export const ProjectCreateModal = ({ children = 'Create project' }) => {
   const toast = useToast();
   const auth = useAuth();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { handleSubmit, register } = useForm();
 
-  const onAddProject = ({name, description = null, link = null}) => {
+  const onCreateProject = ({ name, description = null, link = null }) => {
 
     const project = {
       userId: auth.user.uid,
@@ -36,10 +36,10 @@ export const AddProjectModal = ({children = 'Add project'}) => {
       link
     };
 
-    addProject(project);
+    createProject(project);
     toast({
       title: 'Success!',
-      description: "We've added your project.",
+      description: "We've created your project.",
       status: 'success',
       duration: 5000,
       isClosable: true
@@ -58,18 +58,22 @@ export const AddProjectModal = ({children = 'Add project'}) => {
 
   return (
     <>
-      <Button fontWeight="medium" 
-
-       onClick={onOpen}>  
+      <Button fontWeight="medium"
+        colorScheme="green"
+        bg={'green.400'}
+        _hover={{
+          bg: 'green.500',
+        }}
+        onClick={onOpen}>
         {children}
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent as="form" onSubmit={handleSubmit(onAddProject)}>
+        <ModalContent as="form" onSubmit={handleSubmit(onCreateProject)}>
           <ModalHeader fontWeight="bold">Add new project</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
-            <FormControl>
+            <FormControl isRequired>
               <FormLabel>Name</FormLabel>
               <Input
                 placeholder="My project"
@@ -80,23 +84,21 @@ export const AddProjectModal = ({children = 'Add project'}) => {
               />
             </FormControl>
 
-            <FormControl mt={5}>
+            {/* <FormControl mt={5}>
               <FormLabel>Description (optional)</FormLabel>
               <Input
                 placeholder="Greatest project in the world"
                 name="description"
                 ref={register()}
               />
-            </FormControl>
+            </FormControl> */}
 
             <FormControl mt={5}>
               <FormLabel>Link</FormLabel>
               <Input
                 placeholder="Link to the project board"
                 name="link"
-                ref={register({
-                  required: 'Required'
-                })}
+                ref={register()}
               />
             </FormControl>
           </ModalBody>

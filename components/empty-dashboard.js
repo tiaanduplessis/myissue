@@ -1,7 +1,7 @@
 import React from 'react';
 import { Heading, Flex, Text } from '@chakra-ui/react';
 
-import {AddProjectModal} from "@/components/add-project-modal"
+import {ProjectCreateModal} from "@/components/projects-create-modal"
 
 export const EmptyDashboard = ({type}) => (
     <Flex
@@ -17,6 +17,6 @@ export const EmptyDashboard = ({type}) => (
         You haven’t added any {type}.
       </Heading>
       <Text mb={4}>Let’s get started.</Text>
-      <AddProjectModal>Add your first</AddProjectModal>
+      <ProjectCreateModal>Add your first</ProjectCreateModal>
     </Flex>
 );

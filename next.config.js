@@ -3,12 +3,17 @@ module.exports = {
       return [
         {
           source: '/new',
-          destination: '/issues/add',
+          destination: '/issues/create',
           permanent: true,
         },
         {
+            source: '/create',
+            destination: '/issues/create',
+            permanent: true,
+          },
+        {
             source: '/add',
-            destination: '/issues/add',
+            destination: '/issues/create',
             permanent: true,
         },
       ]

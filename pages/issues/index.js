@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import Head from 'next/head';
-import {useToast} from "@chakra-ui/react"
+import NextLink from 'next/link'
+import {useToast, Link, Button} from "@chakra-ui/react"
 import useSWR from 'swr';
 
 import { useAuth } from '@/lib/auth';
@@ -11,9 +13,8 @@ import {EmptyDashboard} from "@/components/empty-dashboard"
 import {ProjectsTableSkeleton} from "@/components/projects-table-skeleton"
 
 import {fetcher} from "@/utils/fetcher"
-import { useEffect } from 'react';
 
-const Issues = () => {
+const Dashboard = () => {
   const toast = useToast();
   const auth = useAuth();
   const { data, error } = useSWR('/api/issues', fetcher); 
@@ -31,17 +32,31 @@ const Issues = () => {
   }, [error]) 
 
   if (!data) {
-    return  <DashboardLayout type="issues">
+    return  <DashboardLayout 
+      type="issues" 
+        breadcrumbs={[{label: 'Issues'}]}
+    >
       <ProjectsTableSkeleton/>
     </DashboardLayout>
   }
 
-  return <DashboardLayout type="issues" >
+  return <DashboardLayout 
+        type="issues" 
+        breadcrumbs={[{label: 'Issues'}]}
+        actions={[
+          <NextLink href="/issues/create" >
+            <Button fontWeight="medium" >
+            + Create new issue
+            </Button>
+          </NextLink>
+        ]}
+    >
       <Head>
           <title>Issues</title>
       </Head>
-      {data.issues.length > 0 ? <ProjectsTable projects={data.projects} />: <EmptyDashboard type="issues"/>}
+    
+      {/* {data.projects.length > 0 ? <ProjectsTable projects={data.issues} />: <EmptyDashboard type="projects"/>} */}
   </DashboardLayout>
 };
 
-export default Issues;
+export default Dashboard;

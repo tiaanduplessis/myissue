@@ -5,23 +5,22 @@ import { parseISO, format } from 'date-fns';
 
 import { Table, Tr, Th, Td } from '@/components/table';
 
-export const ProjectsTable = ({ projects }) => {
+export const IssuesTable = ({ issues }) => {
     return (
         <Table>
             <thead>
                 <Tr>
-                    <Th>Name</Th>
-                    <Th>Link</Th>
-                    <Th>Issues</Th>
+                    <Th>Title</Th>
+                    <Th>Status</Th>
                     <Th>Date Added</Th>
                     <Th>{''}</Th>
                 </Tr>
             </thead>
             <tbody>
-                {projects.map((project) => (
-                    <Box as="tr" key={`${project.name}-${project.id}`}>
-                        <Td fontWeight="medium">{project.name}</Td>
-                        <Td><Link href={project.link} target="_blank" isExternal>
+                {issues.map((issue) => (
+                    <Box as="tr" key={`${issue.name}-${issue.id}`}>
+                        <Td fontWeight="medium">{issue.name}</Td>
+                        <Td><Link href={issue.link} target="_blank" isExternal>
                             {project.link}
                         </Link></Td>
                         <Td>

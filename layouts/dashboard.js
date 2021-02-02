@@ -7,19 +7,19 @@ import {
   Button,
   Flex,
   Link,
-  Avatar
+  Avatar,
+  SimpleGrid
 } from '@chakra-ui/react';
 import NextLink from "next/link"
 import {useRouter} from "next/router"
 
 import { useAuth } from '@/lib/auth';
 import { LogoIcon } from '@/icons/logo';
-import {AddProjectModal} from "@/components/add-project-modal"
 
 const NAV_LINKS = [
   {
     label: 'Projects',
-    href: '/dashboard'
+    href: '/projects'
   },
   {
     label: "Issues",
@@ -27,7 +27,7 @@ const NAV_LINKS = [
   }
 ]
 
-export const DashboardLayout = ({ children, type, breadcrumbs }) => {
+export const DashboardLayout = ({ children, type, breadcrumbs, actions = [] }) => {
   const { user, signout } = useAuth();
   const router = useRouter()
 
@@ -44,16 +44,24 @@ export const DashboardLayout = ({ children, type, breadcrumbs }) => {
           w="full"
           px={8}
         >
-          <Flex>
+          <Flex alignItems="center">
             <NextLink href='/'>
-              <LogoIcon width={6} height={6} mr={8} />
+              <LogoIcon width={10} height={10} mr={8} />
             </NextLink>
-            {NAV_LINKS.map(({label, href}) => {
-              const isActive = router.pathname.startsWith(href) 
-              return <NextLink key={href} href={href} passHref>
-                <Link mr={4} fontWeight={isActive ? "700" : "400"} aria-current={isActive ? 'page' : null}>{label}</Link>
-            </NextLink>
-            })}
+
+            <Box as="nav">
+              <Flex  as="ul" style={{listStyle: 'none'}}>
+              {NAV_LINKS.map(({label, href}) => {
+                const isActive = router.pathname.startsWith(href) 
+                return <li>
+                <NextLink key={href} href={href} passHref>
+                    <Link mr={4} fontWeight={isActive ? "700" : "400"} aria-current={isActive ? 'page' : null}>{label}</Link>
+                </NextLink>
+                </li>
+                
+              })}
+              </Flex>
+            </Box>
           </Flex>
           <Flex justifyContent="center" alignItems="center">
           {user && (
@@ -73,10 +81,10 @@ export const DashboardLayout = ({ children, type, breadcrumbs }) => {
         </Breadcrumb>}
       
         <Flex justifyContent="space-between">
-          <Heading mb={8} fontWeight="800">My {type}</Heading>
-          <AddProjectModal>
-          + Add project
-          </AddProjectModal>
+          <Heading mb={8} >My {type}</Heading>
+          <SimpleGrid spacing={2}>
+            {actions}
+          </SimpleGrid>
         </Flex>
         {children}
       </Flex>
