@@ -13,16 +13,16 @@ import {ProjectsTableSkeleton} from "@/components/projects-table-skeleton"
 import {fetcher} from "@/utils/fetcher"
 import { useEffect } from 'react';
 
-const Dashboard = () => {
+const Issues = () => {
   const toast = useToast();
   const auth = useAuth();
-  const { data, error } = useSWR('/api/projects', fetcher); 
+  const { data, error } = useSWR('/api/issues', fetcher); 
 
   useEffect(() => {
     if (error) {
       toast({
         title: "Oh noes!",
-        description: "We failed to load your projects.",
+        description: "We failed to load your issues.",
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -31,18 +31,18 @@ const Dashboard = () => {
   }, [error]) 
 
   if (!data) {
-    return  <DashboardLayout type="projects">
+    return  <DashboardLayout type="issues">
       <ProjectsTableSkeleton/>
     </DashboardLayout>
   }
 
-  return <DashboardLayout type="projects" breadcrumbs={[{label: 'Projects'}]}>
+  return <DashboardLayout type="issues"  breadcrumbs={
+      
+  }>
       <Head>
-          <title>Projects</title>
+          <title>Add issue</title>
       </Head>
-    
-      {data.projects.length > 0 ? <ProjectsTable projects={data.projects} />: <EmptyDashboard type="projects"/>}
   </DashboardLayout>
 };
 
-export default Dashboard;
+export default Issues;

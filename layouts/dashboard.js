@@ -9,12 +9,27 @@ import {
   Link,
   Avatar
 } from '@chakra-ui/react';
+import NextLink from "next/link"
+import {useRouter} from "next/router"
 
 import { useAuth } from '@/lib/auth';
 import { LogoIcon } from '@/icons/logo';
+import {AddProjectModal} from "@/components/add-project-modal"
 
-export const DashboardLayout = ({ children }) => {
+const NAV_LINKS = [
+  {
+    label: 'Projects',
+    href: '/dashboard'
+  },
+  {
+    label: "Issues",
+    href: '/issues'
+  }
+]
+
+export const DashboardLayout = ({ children, type, breadcrumbs }) => {
   const { user, signout } = useAuth();
+  const router = useRouter()
 
   return (
     <Box backgroundColor="gray.100" minHeight="100vh">
@@ -30,34 +45,42 @@ export const DashboardLayout = ({ children }) => {
           px={8}
         >
           <Flex>
-            <LogoIcon width={6} height={6} mr={8} />
-            <Link mr={4}>Projects</Link>
-            <Link>Issues</Link>
+            <NextLink href='/'>
+              <LogoIcon width={6} height={6} mr={8} />
+            </NextLink>
+            {NAV_LINKS.map(({label, href}) => {
+              const isActive = router.pathname.startsWith(href) 
+              return <NextLink key={href} href={href} passHref>
+                <Link mr={4} fontWeight={isActive ? "700" : "400"} aria-current={isActive ? 'page' : null}>{label}</Link>
+            </NextLink>
+            })}
           </Flex>
           <Flex justifyContent="center" alignItems="center">
-            <Button variant="ghost" mr={2} onClick={() => signout()}>
-              Log Out
-            </Button>
-            <Avatar size="sm" src={user.photoUrl} />
+          {user && (
+              <Button variant="ghost" mr={2} onClick={() => signout()}>
+                Log Out
+              </Button>
+            )}
+            <Avatar size="sm" src={user?.photoUrl} />
           </Flex>
         </Flex>
       </Flex>
       <Flex margin="0 auto" direction="column" maxW="80rem" px={8}>
-        <Breadcrumb>
-          <BreadcrumbItem>
-            <BreadcrumbLink>Projects</BreadcrumbLink>
-          </BreadcrumbItem>
-        </Breadcrumb>
+            {breadcrumbs && <Breadcrumb>
+              {breadcrumbs.map(({label, href = null}) => <BreadcrumbItem isCurrentPage={!href}>
+            <BreadcrumbLink href={href}>{label}</BreadcrumbLink>
+          </BreadcrumbItem>)}
+        </Breadcrumb>}
+      
         <Flex justifyContent="space-between">
-          <Heading mb={8}>My Projects</Heading>
-          <Button
-            fontWeight="medium"
-          >
-            + Add Site
-          </Button>
+          <Heading mb={8} fontWeight="800">My {type}</Heading>
+          <AddProjectModal>
+          + Add project
+          </AddProjectModal>
         </Flex>
         {children}
       </Flex>
     </Box>
+    
   );
 };
