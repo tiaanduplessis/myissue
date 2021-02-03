@@ -8,30 +8,35 @@ import {
   Flex,
   Link,
   Avatar,
-  SimpleGrid
-} from '@chakra-ui/react';
+  SimpleGrid,
+} from "@chakra-ui/react"
 import NextLink from "next/link"
-import {useRouter} from "next/router"
+import { useRouter } from "next/router"
 
-import { useAuth } from '@/lib/auth';
-import { LogoIcon } from '@/icons/logo';
+import { useAuth } from "@/lib/auth"
+import { LogoIcon } from "@/icons/logo"
 
-import {useOnlineNotifcation} from "@/hooks/use-online-notification"
+import { useOnlineNotifcation } from "@/hooks/use-online-notification"
 
 const NAV_LINKS = [
   {
-    label: 'Projects',
-    href: '/projects'
+    label: "Projects",
+    href: "/projects",
   },
   {
     label: "Issues",
-    href: '/issues'
-  }
+    href: "/issues",
+  },
 ]
 
-export const DashboardLayout = ({ children, title, breadcrumbs, actions = [] }) => {
+export const DashboardLayout = ({
+  children,
+  title,
+  breadcrumbs,
+  actions = [],
+}) => {
   useOnlineNotifcation()
-  const { user, signout } = useAuth();
+  const { user, signout } = useAuth()
   const router = useRouter()
 
   return (
@@ -48,26 +53,33 @@ export const DashboardLayout = ({ children, title, breadcrumbs, actions = [] }) 
           px={8}
         >
           <Flex alignItems="center">
-            <NextLink href='/'>
+            <NextLink href="/">
               <LogoIcon width={10} height={10} mr={8} />
             </NextLink>
 
             <Box as="nav">
-              <Flex  as="ul" style={{listStyle: 'none'}}>
-              {NAV_LINKS.map(({label, href}) => {
-                const isActive = router.pathname.startsWith(href) 
-                return <li>
-                <NextLink key={href} href={href} passHref>
-                    <Link mr={4} fontWeight={isActive ? "700" : "400"} aria-current={isActive ? 'page' : null}>{label}</Link>
-                </NextLink>
-                </li>
-                
-              })}
+              <Flex as="ul" style={{ listStyle: "none" }}>
+                {NAV_LINKS.map(({ label, href }) => {
+                  const isActive = router.pathname.startsWith(href)
+                  return (
+                    <li>
+                      <NextLink key={href} href={href} passHref>
+                        <Link
+                          mr={4}
+                          fontWeight={isActive ? "700" : "400"}
+                          aria-current={isActive ? "page" : null}
+                        >
+                          {label}
+                        </Link>
+                      </NextLink>
+                    </li>
+                  )
+                })}
               </Flex>
             </Box>
           </Flex>
           <Flex justifyContent="center" alignItems="center">
-          {user && (
+            {user && (
               <Button variant="ghost" mr={2} onClick={() => signout()}>
                 Log Out
               </Button>
@@ -77,20 +89,22 @@ export const DashboardLayout = ({ children, title, breadcrumbs, actions = [] }) 
         </Flex>
       </Flex>
       <Flex margin="0 auto" direction="column" maxW="7xl" px={8}>
-            {breadcrumbs && <Breadcrumb>
-              {breadcrumbs.map(({label, href = null}) => <BreadcrumbItem key={label} isCurrentPage={!href}>
-            <BreadcrumbLink href={href}>{label}</BreadcrumbLink>
-          </BreadcrumbItem>)}
-        </Breadcrumb>}
-      
+        {breadcrumbs && (
+          <Breadcrumb>
+            {breadcrumbs.map(({ label, href = null }) => (
+              <BreadcrumbItem key={label} isCurrentPage={!href}>
+                <BreadcrumbLink href={href}>{label}</BreadcrumbLink>
+              </BreadcrumbItem>
+            ))}
+          </Breadcrumb>
+        )}
+
         <Flex justifyContent="space-between">
-          <Heading mb={8} >{title}</Heading>
-          <SimpleGrid spacing={2}>
-            {actions}
-          </SimpleGrid>
+          <Heading mb={8}>{title}</Heading>
+          <SimpleGrid spacing={2}>{actions}</SimpleGrid>
         </Flex>
         {children}
       </Flex>
     </Box>
-  );
-};
+  )
+}

@@ -1,1 +1,1 @@
-export const isRenderingOnServer = typeof window === 'undefined'
+export const isRenderingOnServer = typeof window === "undefined"

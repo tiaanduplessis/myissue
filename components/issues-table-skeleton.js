@@ -1,7 +1,7 @@
-import React from 'react';
-import { Box, Skeleton } from '@chakra-ui/react';
+import React from "react"
+import { Box, Skeleton } from "@chakra-ui/react"
 
-import { Table, Tr, Th, Td } from '@/components/table';
+import { Table, Tr, Th, Td } from "@/components/table"
 
 const SkeletonRow = ({ width }) => (
   <Box as="tr">
@@ -18,17 +18,17 @@ const SkeletonRow = ({ width }) => (
       <Skeleton height="1rem" w={width} my={4} />
     </Td>
   </Box>
-);
+)
 
 export const IssuesTableSkeleton = () => {
   return (
     <Table>
       <thead>
         <Tr>
-            <Th>Title</Th>
-            <Th>Priorty</Th>
-            <Th>Date Added</Th>
-            <Th>{''}</Th>
+          <Th>Title</Th>
+          <Th>Priorty</Th>
+          <Th>Date Added</Th>
+          <Th>{""}</Th>
         </Tr>
       </thead>
       <tbody>
@@ -38,5 +38,5 @@ export const IssuesTableSkeleton = () => {
         <SkeletonRow width="8rem" />
       </tbody>
     </Table>
-  );
-};
+  )
+}

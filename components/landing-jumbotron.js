@@ -1,4 +1,4 @@
-import Head from 'next/head';
+import Head from "next/head"
 import NextLink from "next/link"
 import {
   Box,
@@ -10,15 +10,14 @@ import {
   Icon,
   useColorModeValue,
   createIcon,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react"
 
-import { useAuth } from '@/lib/auth'
+import { useAuth } from "@/lib/auth"
 
 export const LandingJumbotron = () => {
   const auth = useAuth()
 
   // TODO: Subset font
-
 
   return (
     <>
@@ -29,95 +28,100 @@ export const LandingJumbotron = () => {
         />
       </Head>
 
-      <Flex id="jumbotron" backgroundColor="gray.50" maxW="100%" minH="100vh" marginX="0" alignItems="center" justifyContent="center">
+      <Flex
+        id="jumbotron"
+        backgroundColor="gray.50"
+        maxW="100%"
+        minH="100vh"
+        marginX="0"
+        alignItems="center"
+        justifyContent="center"
+      >
         <Stack
           as={Box}
-          textAlign={'center'}
+          textAlign={"center"}
           spacing={{ base: 8, md: 14 }}
-          py={{ base: 20, md: 36 }}>
+          py={{ base: 20, md: 36 }}
+        >
           <Heading
             fontWeight={700}
-            fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
-            lineHeight={'110%'}>
-            <Text as={'span'} color={'purple.400'}>
+            fontSize={{ base: "2xl", sm: "4xl", md: "6xl" }}
+            lineHeight={"110%"}
+          >
+            <Text as={"span"} color={"purple.400"}>
               Save time and money
             </Text>
             <br />
-             with better issues
+            with better issues
           </Heading>
-          <Text color={'gray.700'} maxW="2xl">
-            A lot of time and money goes into dealing with ambiguity and vagueness in bug and feature requests. Cut down on that cost!
+          <Text color={"gray.700"} maxW="2xl">
+            A lot of time and money goes into dealing with ambiguity and
+            vagueness in bug and feature requests. Cut down on that cost!
           </Text>
           <Stack
-            direction={'column'}
+            direction={"column"}
             spacing={5}
-            align={'center'}
-            alignSelf={'center'}
-            position={'relative'}>
-
-            {auth?.user ? <NextLink href="/projects">
-              <Button
-                colorScheme="purple"
-                fontWeight="medium"
-                rounded="full"
-              >
-                View Dashboard
-              </Button>
-            </NextLink> : <>
-                <NextLink href='/sign-in'>
+            align={"center"}
+            alignSelf={"center"}
+            position={"relative"}
+          >
+            {auth?.user ? (
+              <NextLink href="/projects">
+                <Button colorScheme="purple" fontWeight="medium" rounded="full">
+                  View Dashboard
+                </Button>
+              </NextLink>
+            ) : (
+              <>
+                <NextLink href="/sign-in">
                   <Button
                     colorScheme="purple"
-                    bg={'purple.400'}
-                    rounded={'full'}
+                    bg={"purple.400"}
+                    rounded={"full"}
                     px={6}
-                    >
+                  >
                     Get Started
-            </Button>
-
-
+                  </Button>
                 </NextLink>
 
                 <NextLink href="#features">
-                  <Button variant={'link'} colorScheme="blue" size={'sm'}>
+                  <Button variant={"link"} colorScheme="blue" size={"sm"}>
                     Learn more
-              </Button>
+                  </Button>
                 </NextLink>
 
                 <Box>
                   <Icon
                     as={Arrow}
-                    color={useColorModeValue('gray.800', 'gray.300')}
+                    color={useColorModeValue("gray.800", "gray.300")}
                     w={71}
-                    position={'absolute'}
+                    position={"absolute"}
                     right={-71}
-                    top={'10px'}
+                    top={"10px"}
                   />
                   <Text
-                    fontSize={'lg'}
-                    fontFamily={'Caveat'}
-                    position={'absolute'}
-                    right={'-125px'}
-                    top={'-15px'}
-                    transform={'rotate(10deg)'}>
+                    fontSize={"lg"}
+                    fontFamily={"Caveat"}
+                    position={"absolute"}
+                    right={"-125px"}
+                    top={"-15px"}
+                    transform={"rotate(10deg)"}
+                  >
                     Start now for free!
-              </Text>
+                  </Text>
                 </Box>
-
-
-              </>}
-
-
-
+              </>
+            )}
           </Stack>
         </Stack>
       </Flex>
     </>
-  );
+  )
 }
 
 const Arrow = createIcon({
-  displayName: 'Arrow',
-  viewBox: '0 0 72 24',
+  displayName: "Arrow",
+  viewBox: "0 0 72 24",
   path: (
     <path
       fillRule="evenodd"
@@ -126,4 +130,4 @@ const Arrow = createIcon({
       fill="currentColor"
     />
   ),
-});
+})

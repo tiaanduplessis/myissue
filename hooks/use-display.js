@@ -1,11 +1,10 @@
-
-import {isRenderingOnServer} from "@/utils/is-rendering-on-server"
+import { isRenderingOnServer } from "@/utils/is-rendering-on-server"
 
 const getDevicePxRatio = () => window.devicePixelRatio || 1
 const getVisualViewport = () => ({
   pinchZoomScalingFactor: window.visualViewport.scale,
   cssPixelHight: window.visualViewport.height,
-  cssPixelWidth: window.visualViewport.width
+  cssPixelWidth: window.visualViewport.width,
 })
 const getWindow = () => ({
   innerHeight: window.innerHeight,
@@ -14,11 +13,12 @@ const getWindow = () => ({
   outerWidth: window.outerWidth,
 })
 
-
 export const useDisplay = () => {
-  return isRenderingOnServer ? {} : {
-    devicePixelRatio: getDevicePxRatio(),
-    ...getVisualViewport(),
-    ...getWindow()
-  }
+  return isRenderingOnServer
+    ? {}
+    : {
+        devicePixelRatio: getDevicePxRatio(),
+        ...getVisualViewport(),
+        ...getWindow(),
+      }
 }

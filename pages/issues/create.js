@@ -1,7 +1,7 @@
-import Head from 'next/head';
-import {useRouter} from 'next/router'
-import { mutate } from 'swr';
-import { useForm, Controller } from "react-hook-form";
+import Head from "next/head"
+import { useRouter } from "next/router"
+import { mutate } from "swr"
+import { useForm, Controller } from "react-hook-form"
 
 import {
   ButtonGroup,
@@ -18,21 +18,20 @@ import {
   FormErrorMessage,
   FormHelperText,
   usePrefersReducedMotion,
-  useToast
+  useToast,
 } from "@chakra-ui/react"
 
-import { useAuth } from '@/lib/auth';
+import { useAuth } from "@/lib/auth"
 
 import { DashboardLayout } from "@/layouts/dashboard"
-import { DeviceTable } from '@/components/device-table';
+import { DeviceTable } from "@/components/device-table"
 
+import { useDetectBrowser } from "@/hooks/use-detect-browser"
+import { useNetworkInfo } from "@/hooks/use-network-info"
+import { useLanguage } from "@/hooks/use-language"
+import { useDisplay } from "@/hooks/use-display"
 
-import {useDetectBrowser} from "@/hooks/use-detect-browser"
-import {useNetworkInfo} from "@/hooks/use-network-info"
-import {useLanguage} from "@/hooks/use-language"
-import {useDisplay} from "@/hooks/use-display"
-
-import { createIssue } from '@/lib/db';
+import { createIssue } from "@/lib/db"
 
 const IssuesCreate = () => {
   const browser = useDetectBrowser()
@@ -43,20 +42,20 @@ const IssuesCreate = () => {
 
   const { register, handleSubmit, watch, errors, control } = useForm({
     defaultValues: {
-      frequency: 'every-time',
-      priority: 'low',
-      share: true
+      frequency: "every-time",
+      priority: "low",
+      share: true,
     },
-  });
-  const toast = useToast();
-  const {user} = useAuth();
+  })
+  const toast = useToast()
+  const { user } = useAuth()
   const router = useRouter()
 
-  const {projectId}  = router.query
+  const { projectId } = router.query
 
-  const backURL = `/issues${projectId ? `?projectId=${projectId}` : ''}`
+  const backURL = `/issues${projectId ? `?projectId=${projectId}` : ""}`
 
-  const onCreateIssue = ({share, ...values}) => {
+  const onCreateIssue = ({ share, ...values }) => {
     const issue = {
       userId: user.uid,
       projectId: projectId,
@@ -67,190 +66,191 @@ const IssuesCreate = () => {
         language,
         ...browser,
         ...networkInfo,
-        ...display
-      })
-    };
+        ...display,
+      }),
+    }
 
-    createIssue(issue);
+    createIssue(issue)
 
     mutate(
-      projectId ? `/api/projects/${projectId}/issues`  : '/api/issues',
+      projectId ? `/api/projects/${projectId}/issues` : "/api/issues",
       async (data) => {
-        return { issues: [...data.issues, issue] };
+        return { issues: [...data.issues, issue] }
       },
       false
-    );
+    )
 
     toast({
-      title: 'Success!',
+      title: "Success!",
       description: "We've created your issue.",
-      status: 'success',
+      status: "success",
       duration: 5000,
-      isClosable: true
-    });
+      isClosable: true,
+    })
 
     router.push(backURL)
   }
 
   const share = watch("share")
 
-  return <DashboardLayout
-    title="Create an issue"
-    breadcrumbs={[{ label: 'Issues', href: backURL }, { label: 'Create' }]}
-  >
-    <Head>
-      <title>Create new issue</title>
-    </Head>
-
-    <Flex
-      width="100%"
-      backgroundColor="white"
-      bordered="sm"
-      boxShadow="sm"
-      p={10}
-      direction="column"
-      as="form"
-      onSubmit={handleSubmit(onCreateIssue)}
+  return (
+    <DashboardLayout
+      title="Create an issue"
+      breadcrumbs={[{ label: "Issues", href: backURL }, { label: "Create" }]}
     >
-      <FormControl id="title" isRequired maxW="xl">
-        <FormLabel>Title</FormLabel>
-        <Input
-          placeholder="Sign in: form failed to submit"
-          name="title"
-          ref={register({
-            required: 'Required'
-          })}
-        />
-        <FormHelperText>Briefly describe the issue.</FormHelperText>
-      </FormControl>
+      <Head>
+        <title>Create new issue</title>
+      </Head>
 
-      <FormControl id="steps" isRequired maxW="3xl" mt={10}>
-        <FormLabel>Steps to reproduce the bug</FormLabel>
-        <Textarea
-          placeholder={`Enter username. enter password. Click on sign in button...`}
-          name="steps"
-          ref={register({
-            required: 'Required'
-          })}
-        />
-        <FormHelperText>
-          Describe what actions you took before you encountered a bug.
+      <Flex
+        width="100%"
+        backgroundColor="white"
+        bordered="sm"
+        boxShadow="sm"
+        p={10}
+        direction="column"
+        as="form"
+        onSubmit={handleSubmit(onCreateIssue)}
+      >
+        <FormControl id="title" isRequired maxW="xl">
+          <FormLabel>Title</FormLabel>
+          <Input
+            placeholder="Sign in: form failed to submit"
+            name="title"
+            ref={register({
+              required: "Required",
+            })}
+          />
+          <FormHelperText>Briefly describe the issue.</FormHelperText>
+        </FormControl>
+
+        <FormControl id="steps" isRequired maxW="3xl" mt={10}>
+          <FormLabel>Steps to reproduce the bug</FormLabel>
+          <Textarea
+            placeholder={`Enter username. enter password. Click on sign in button...`}
+            name="steps"
+            ref={register({
+              required: "Required",
+            })}
+          />
+          <FormHelperText>
+            Describe what actions you took before you encountered a bug.
           </FormHelperText>
-      </FormControl>
+        </FormControl>
 
-      <FormControl id="expecting" isRequired maxW="3xl" mt={10}>
-        <FormLabel>Expected result/behaviour</FormLabel>
-        <Textarea
-          placeholder="Form submits and redirects to dashboard"
-          name="expecting"
-          ref={register({
-            required: 'Required'
-          })}
-        />
-        <FormHelperText>
-          How the software should have performed
-        </FormHelperText>
-      </FormControl>
+        <FormControl id="expecting" isRequired maxW="3xl" mt={10}>
+          <FormLabel>Expected result/behaviour</FormLabel>
+          <Textarea
+            placeholder="Form submits and redirects to dashboard"
+            name="expecting"
+            ref={register({
+              required: "Required",
+            })}
+          />
+          <FormHelperText>
+            How the software should have performed
+          </FormHelperText>
+        </FormControl>
 
+        <FormControl id="resulting" isRequired maxW="3xl" mt={10}>
+          <FormLabel>Resulting behaviour</FormLabel>
+          <Textarea
+            placeholder="Form stuck in signing in state"
+            name="resulting"
+            ref={register({
+              required: "Required",
+            })}
+          />
+          <FormHelperText>How the software actually performed</FormHelperText>
+        </FormControl>
 
-      <FormControl id="resulting" isRequired maxW="3xl" mt={10}>
-        <FormLabel>Resulting behaviour</FormLabel>
-        <Textarea
-          placeholder="Form stuck in signing in state"
-          name="resulting"
-          ref={register({
-            required: 'Required'
-          })}
-        />
-        <FormHelperText>
-          How the software actually performed
-        </FormHelperText>
-      </FormControl>
+        <FormControl id="frequency" mt={10}>
+          <FormLabel>Frequency</FormLabel>
 
+          <Controller
+            as={
+              <RadioGroup
+                name="frequency"
+                ref={register({
+                  required: "Required",
+                })}
+                defaultValue="every-time"
+              >
+                <Stack spacing={2}>
+                  <Radio value="every-time">Every time</Radio>
+                  <Radio value="occasionally">Occasionally</Radio>
+                  <Radio value="once">Once</Radio>
+                </Stack>
+              </RadioGroup>
+            }
+            name="frequency"
+            control={control}
+          />
+        </FormControl>
 
-      <FormControl id="frequency" mt={10}>
-        <FormLabel>Frequency</FormLabel>
+        <FormControl id="priority" mt={10}>
+          <FormLabel>Priority</FormLabel>
 
-        <Controller
-          as={
-            <RadioGroup name="frequency" ref={register({
-              required: 'Required'
-            })} defaultValue="every-time">
-              <Stack spacing={2}>
-                <Radio value="every-time">Every time</Radio>
-                <Radio value="occasionally">Occasionally</Radio>
-                <Radio value="once">Once</Radio>
-              </Stack>
-            </RadioGroup>
-          }
-          name="frequency"
-          control={control}
-        />
-      </FormControl>
+          <Controller
+            as={
+              <RadioGroup
+                name="priority"
+                ref={register({
+                  required: "Required",
+                })}
+                defaultValue="low"
+              >
+                <Stack spacing={2}>
+                  <Radio value="low">Low</Radio>
+                  <Radio value="medium">Medium</Radio>
+                  <Radio value="high">High</Radio>
+                </Stack>
+              </RadioGroup>
+            }
+            name="priority"
+            control={control}
+          />
+        </FormControl>
 
-      <FormControl id="priority" mt={10}>
-        <FormLabel>Priority</FormLabel>
+        <FormControl id="share" display="flex" alignItems="center" mt={10}>
+          <FormLabel>Share device information?</FormLabel>
+          <Switch name="share" size="lg" ref={register()} />
+        </FormControl>
 
-        <Controller
-          as={
-            <RadioGroup name="priority" ref={register({
-              required: 'Required'
-            })} defaultValue="low">
-              <Stack spacing={2}>
-                <Radio value="low">Low</Radio>
-                <Radio value="medium">Medium</Radio>
-                <Radio value="high">High</Radio>
-              </Stack>
-            </RadioGroup>
-          }
-          name="priority"
-          control={control}
-        />
-      </FormControl>
+        {share && (
+          <DeviceTable
+            mt={10}
+            data={{
+              Browser: browser.name,
+              "Browser version": browser.version,
+              OS: browser.os,
+              Language: language,
+              "Estimated effective network type": networkInfo.effectiveType,
+              "Estimated effective round-trip time (ms)": networkInfo.rtt,
+              "Prefers reduced data usage": networkInfo.saveData ? "Yes" : "No",
+              "Prefers reduced motion": prefersReducedMotion ? "Yes" : "No",
+              "Pixel ratio": `${display.devicePixelRatio}`,
+              "CSS pixel width": `${display.cssPixelWidth}px`,
+              "CSS pixel height": `${display.cssPixelHight}px`,
+              "Window width": `${display.innerWidth}px`,
+              "Window height": `${display.innerHeight}px`,
+              "Mobile pinch zoom": `${display.pinchZoomScalingFactor * 100}%`,
+            }}
+          />
+        )}
 
-      <FormControl id="share" display="flex" alignItems="center" mt={10}>
-        <FormLabel>
-          Share device information?
-          </FormLabel>
-        <Switch
-          name="share"
-          size="lg"
-          ref={register()}
-        />
-      </FormControl>
-
-      {share && <DeviceTable mt={10} data={{
-        'Browser': browser.name,
-        "Browser version": browser.version,
-        'OS': browser.os,
-        'Language': language,
-        'Estimated effective network type': networkInfo.effectiveType,
-        'Estimated effective round-trip time (ms)': networkInfo.rtt,
-        'Prefers reduced data usage': networkInfo.saveData ? 'Yes' : 'No',
-        'Prefers reduced motion': prefersReducedMotion ? 'Yes' : 'No',
-        'Pixel ratio': `${display.devicePixelRatio}`,
-        'CSS pixel width': `${display.cssPixelWidth}px`,
-        'CSS pixel height': `${display.cssPixelHight}px`,
-        'Window width': `${display.innerWidth}px`,
-        'Window height': `${display.innerHeight}px`,
-        'Mobile pinch zoom': `${display.pinchZoomScalingFactor * 100}%`
-      }}/>}
-
-      <ButtonGroup mt={20} size="lg" spacing={4}>
-              {/* <Button type="reset" fontWeight="medium">
+        <ButtonGroup mt={20} size="lg" spacing={4}>
+          {/* <Button type="reset" fontWeight="medium">
                 Reset
               </Button> */}
 
-              <Button
-                colorScheme="purple"
-                fontWeight="medium"
-                type="submit"
-              >
-              Create
-            </Button>
-            </ButtonGroup>
-    </Flex>
-  </DashboardLayout>
-};
+          <Button colorScheme="purple" fontWeight="medium" type="submit">
+            Create
+          </Button>
+        </ButtonGroup>
+      </Flex>
+    </DashboardLayout>
+  )
+}
 
-export default IssuesCreate;
+export default IssuesCreate

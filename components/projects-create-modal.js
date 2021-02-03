@@ -1,6 +1,5 @@
-
-import { useForm } from 'react-hook-form';
-import { mutate } from 'swr';
+import { useForm } from "react-hook-form"
+import { mutate } from "swr"
 import {
   Modal,
   ModalOverlay,
@@ -15,53 +14,50 @@ import {
   Button,
   Input,
   useDisclosure,
-  useToast
-} from '@chakra-ui/react';
+  useToast,
+} from "@chakra-ui/react"
 
-import { createProject } from '@/lib/db';
-import { useAuth } from '@/lib/auth';
+import { createProject } from "@/lib/db"
+import { useAuth } from "@/lib/auth"
 
-export const ProjectCreateModal = ({ children = 'Create project' }) => {
-  const toast = useToast();
-  const auth = useAuth();
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const { handleSubmit, register } = useForm();
+export const ProjectCreateModal = ({ children = "Create project" }) => {
+  const toast = useToast()
+  const auth = useAuth()
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { handleSubmit, register } = useForm()
 
   const onCreateProject = ({ name, description = null, link = null }) => {
-
     const project = {
       userId: auth.user.uid,
       createdAt: new Date().toISOString(),
       name,
       description,
-      link
-    };
+      link,
+    }
 
-    createProject(project);
+    createProject(project)
     toast({
-      title: 'Success!',
+      title: "Success!",
       description: "We've created your project.",
-      status: 'success',
+      status: "success",
       duration: 5000,
-      isClosable: true
-    });
+      isClosable: true,
+    })
 
     mutate(
-      '/api/projects',
+      "/api/projects",
       async (data) => {
-        return { projects: [...data.projects, project] };
+        return { projects: [...data.projects, project] }
       },
       false
-    );
+    )
 
-    onClose();
-  };
+    onClose()
+  }
 
   return (
     <>
-      <Button fontWeight="medium"
-        colorScheme="purple"
-        onClick={onOpen}>
+      <Button fontWeight="medium" colorScheme="purple" onClick={onOpen}>
         {children}
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -76,7 +72,7 @@ export const ProjectCreateModal = ({ children = 'Create project' }) => {
                 placeholder="My project"
                 name="name"
                 ref={register({
-                  required: 'Required'
+                  required: "Required",
                 })}
               />
             </FormControl>
@@ -106,20 +102,13 @@ export const ProjectCreateModal = ({ children = 'Create project' }) => {
                 Cancel
               </Button>
 
-              <Button
-              colorScheme="purple"
-              fontWeight="medium"
-              type="submit"
-            >
-              Create
-            </Button>
+              <Button colorScheme="purple" fontWeight="medium" type="submit">
+                Create
+              </Button>
             </ButtonGroup>
-            
-            
           </ModalFooter>
         </ModalContent>
       </Modal>
     </>
-  );
-};
-
+  )
+}

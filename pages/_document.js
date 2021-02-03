@@ -1,11 +1,11 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document';
+import Document, { Html, Head, Main, NextScript } from "next/document"
 
 class Doc extends Document {
   render() {
     return (
       <Html>
         <Head>
-            <title>Logabug</title>
+          <title>Logabug</title>
           <link rel="icon" href="/favicon.ico" />
           <link
             href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap"
@@ -17,8 +17,8 @@ class Doc extends Document {
           <NextScript />
         </body>
       </Html>
-    );
+    )
   }
 }
 
-export default Doc;
+export default Doc
