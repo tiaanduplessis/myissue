@@ -13,7 +13,7 @@ import {
 
     return (
       <Flex minH={'100vh'} align={'center'} justify={'center'} bg={'gray.100'}>
-        <Stack spacing={8} mx={'auto'} w={'full'} maxW={'md'} py={12} px={6}>
+        <Stack spacing={8} mx={'auto'} w={'full'} maxW="md" py={12} px={6}>
           <Heading fontSize={'3xl'} textAlign={'center'}>
             Sign in to your account
           </Heading>

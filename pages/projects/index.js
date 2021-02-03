@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import {useRouter} from 'next/router'
 import { useToast } from "@chakra-ui/react"
 import useSWR from 'swr';
 
@@ -7,7 +8,7 @@ import { useAuth } from '@/lib/auth';
 import { DashboardLayout } from "@/layouts/dashboard"
 
 import { ProjectsTable } from "@/components/projects-table"
-import { EmptyDashboard } from "@/components/empty-dashboard"
+import { EmptyDashboard } from "@/components/projects-empty-dashboard"
 import { ProjectCreateModal } from "@/components/projects-create-modal"
 import { ProjectsTableSkeleton } from "@/components/projects-table-skeleton"
 
@@ -16,9 +17,10 @@ import { useEffect } from 'react';
 
 const Dashboard = () => {
   const toast = useToast();
+  const router = useRouter();
   const auth = useAuth();
   const { data, error } = useSWR('/api/projects', fetcher);
-
+  console.log('data', data)
   useEffect(() => {
     if (error) {
       toast({
@@ -33,7 +35,7 @@ const Dashboard = () => {
 
   if (!data) {
     return <DashboardLayout
-      type="projects"
+      title="Projects"
       breadcrumbs={[{ label: 'Projects' }]}
     >
       <ProjectsTableSkeleton />
@@ -41,7 +43,7 @@ const Dashboard = () => {
   }
 
   return <DashboardLayout
-    type="projects"
+    title="All projects"
     breadcrumbs={[{ label: 'Projects' }]}
     actions={[
       <ProjectCreateModal>

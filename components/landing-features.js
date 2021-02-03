@@ -34,7 +34,7 @@ import {
   export const LandingFeatures = () => {
     return (
       <Box id="features" px={4} py={20}>
-        <Stack spacing={4} as={Container} maxW={'3xl'} textAlign={'center'}>
+        <Stack spacing={4} as={Container} maxW="3xl" textAlign={'center'}>
           <Heading fontSize={'3xl'}>Features</Heading>
           <Text color={'gray.700'} fontSize={'xl'}>
             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
@@ -43,11 +43,11 @@ import {
           </Text>
         </Stack>
   
-        <Container maxW={'5xl'} mt={10}>
+        <Container maxW="3xl" mt={10}>
           <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={10}>
             {[...features, ...features].map((feature) => (
               <HStack key={feature.title} align={'top'}>
-                <Box color={'green.600'} px={2}>
+                <Box color={'purple.600'} px={2}>
                   <Icon as={TiTickOutline} />
                 </Box>
                 <VStack align={'start'}>

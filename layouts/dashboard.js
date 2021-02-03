@@ -16,6 +16,8 @@ import {useRouter} from "next/router"
 import { useAuth } from '@/lib/auth';
 import { LogoIcon } from '@/icons/logo';
 
+import {useOnlineNotifcation} from "@/hooks/use-online-notification"
+
 const NAV_LINKS = [
   {
     label: 'Projects',
@@ -27,19 +29,20 @@ const NAV_LINKS = [
   }
 ]
 
-export const DashboardLayout = ({ children, type, breadcrumbs, actions = [] }) => {
+export const DashboardLayout = ({ children, title, breadcrumbs, actions = [] }) => {
+  useOnlineNotifcation()
   const { user, signout } = useAuth();
   const router = useRouter()
 
   return (
-    <Box backgroundColor="gray.100" minHeight="100vh">
+    <Box backgroundColor="gray.100" minHeight="100vh" pb={8}>
       <Flex backgroundColor="white" mb={16} w="full">
         <Flex
           alignItems="center"
           justifyContent="space-between"
           pt={4}
           pb={4}
-          maxW="80rem"
+          maxW="7xl"
           margin="0 auto"
           w="full"
           px={8}
@@ -73,15 +76,15 @@ export const DashboardLayout = ({ children, type, breadcrumbs, actions = [] }) =
           </Flex>
         </Flex>
       </Flex>
-      <Flex margin="0 auto" direction="column" maxW="80rem" px={8}>
+      <Flex margin="0 auto" direction="column" maxW="7xl" px={8}>
             {breadcrumbs && <Breadcrumb>
-              {breadcrumbs.map(({label, href = null}) => <BreadcrumbItem isCurrentPage={!href}>
+              {breadcrumbs.map(({label, href = null}) => <BreadcrumbItem key={label} isCurrentPage={!href}>
             <BreadcrumbLink href={href}>{label}</BreadcrumbLink>
           </BreadcrumbItem>)}
         </Breadcrumb>}
       
         <Flex justifyContent="space-between">
-          <Heading mb={8} >My {type}</Heading>
+          <Heading mb={8} >{title}</Heading>
           <SimpleGrid spacing={2}>
             {actions}
           </SimpleGrid>
@@ -89,6 +92,5 @@ export const DashboardLayout = ({ children, type, breadcrumbs, actions = [] }) =
         {children}
       </Flex>
     </Box>
-    
   );
 };

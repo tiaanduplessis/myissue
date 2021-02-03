@@ -7,16 +7,17 @@ export const EmptyDashboard = ({type}) => (
     <Flex
       width="100%"
       backgroundColor="white"
-      borderRadius="8px"
+      borderRadius={6}
+      boxShadow="sm"
       p={16}
       justify="center"
       align="center"
       direction="column"
     >
-      <Heading size="lg" mb={2}>
-        You haven’t added any {type}.
+      <Heading size="xl" maxW="lg" textAlign="center">
+      🤯 You haven’t added any issues yet.
       </Heading>
-      <Text mb={4}>Let’s get started.</Text>
+      {/* <Text my={8}>Let’s get started.</Text> */}
       <ProjectCreateModal>Add your first</ProjectCreateModal>
     </Flex>
 );

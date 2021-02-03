@@ -12,7 +12,6 @@ export const ProjectsTable = ({ projects }) => {
                 <Tr>
                     <Th>Name</Th>
                     <Th>Link</Th>
-                    <Th>Issues</Th>
                     <Th>Date Added</Th>
                     <Th>{''}</Th>
                 </Tr>
@@ -21,15 +20,15 @@ export const ProjectsTable = ({ projects }) => {
                 {projects.map((project) => (
                     <Box as="tr" key={`${project.name}-${project.id}`}>
                         <Td fontWeight="medium">{project.name}</Td>
-                        <Td><Link href={project.link} target="_blank" isExternal>
+                        <Td><Link color="blue.600" href={project.link} target="_blank" isExternal>
                             {project.link}
                         </Link></Td>
+                        <Td>{format(parseISO(project.createdAt), 'PPpp')}</Td>
                         <Td>
                             {project.id ? <NextLink href={`/issues?projectId=${project.id}`}>
                                 <Link>View issues</Link>
                             </NextLink> : <Spinner />}
                         </Td>
-                        <Td>{format(parseISO(project.createdAt), 'PPpp')}</Td>
                     </Box>
                 ))}
             </tbody>

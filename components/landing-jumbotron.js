@@ -39,13 +39,13 @@ export const LandingJumbotron = () => {
             fontWeight={700}
             fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
             lineHeight={'110%'}>
-            <Text as={'span'} color={'green.400'}>
+            <Text as={'span'} color={'purple.400'}>
               Save time and money
             </Text>
             <br />
              with better issues
           </Heading>
-          <Text color={'gray.700'} maxW={'2xl'}>
+          <Text color={'gray.700'} maxW="2xl">
             A lot of time and money goes into dealing with ambiguity and vagueness in bug and feature requests. Cut down on that cost!
           </Text>
           <Stack
@@ -57,25 +57,20 @@ export const LandingJumbotron = () => {
 
             {auth?.user ? <NextLink href="/projects">
               <Button
-                colorScheme="green"
+                colorScheme="purple"
                 fontWeight="medium"
-                bg="green.400"
-                rounded={'full'}
-                _hover={{
-                  bg: 'green.500',
-                }}>
+                rounded="full"
+              >
                 View Dashboard
               </Button>
             </NextLink> : <>
                 <NextLink href='/sign-in'>
                   <Button
-                    colorScheme="green"
-                    bg={'green.400'}
+                    colorScheme="purple"
+                    bg={'purple.400'}
                     rounded={'full'}
                     px={6}
-                    _hover={{
-                      bg: 'green.500',
-                    }}>
+                    >
                     Get Started
             </Button>
 

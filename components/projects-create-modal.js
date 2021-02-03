@@ -1,10 +1,11 @@
-import { useRef } from 'react';
+
 import { useForm } from 'react-hook-form';
 import { mutate } from 'swr';
 import {
   Modal,
   ModalOverlay,
   ModalContent,
+  ButtonGroup,
   ModalHeader,
   ModalFooter,
   ModalBody,
@@ -59,11 +60,7 @@ export const ProjectCreateModal = ({ children = 'Create project' }) => {
   return (
     <>
       <Button fontWeight="medium"
-        colorScheme="green"
-        bg={'green.400'}
-        _hover={{
-          bg: 'green.500',
-        }}
+        colorScheme="purple"
         onClick={onOpen}>
         {children}
       </Button>
@@ -73,7 +70,7 @@ export const ProjectCreateModal = ({ children = 'Create project' }) => {
           <ModalHeader fontWeight="bold">Add new project</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
-            <FormControl isRequired>
+            <FormControl id="name" isRequired>
               <FormLabel>Name</FormLabel>
               <Input
                 placeholder="My project"
@@ -84,7 +81,7 @@ export const ProjectCreateModal = ({ children = 'Create project' }) => {
               />
             </FormControl>
 
-            {/* <FormControl mt={5}>
+            {/* <FormControl mt={10}>
               <FormLabel>Description (optional)</FormLabel>
               <Input
                 placeholder="Greatest project in the world"
@@ -93,7 +90,7 @@ export const ProjectCreateModal = ({ children = 'Create project' }) => {
               />
             </FormControl> */}
 
-            <FormControl mt={5}>
+            <FormControl id="link" mt={10}>
               <FormLabel>Link</FormLabel>
               <Input
                 placeholder="Link to the project board"
@@ -104,17 +101,21 @@ export const ProjectCreateModal = ({ children = 'Create project' }) => {
           </ModalBody>
 
           <ModalFooter>
-            <Button onClick={onClose} mr={3} fontWeight="medium">
-              Cancel
-            </Button>
-            <Button
-              backgroundColor="#99FFFE"
-              color="#194D4C"
+            <ButtonGroup spacing={4}>
+              <Button onClick={onClose} fontWeight="medium">
+                Cancel
+              </Button>
+
+              <Button
+              colorScheme="purple"
               fontWeight="medium"
               type="submit"
             >
-              Add
+              Create
             </Button>
+            </ButtonGroup>
+            
+            
           </ModalFooter>
         </ModalContent>
       </Modal>

@@ -7,7 +7,8 @@
         "@/styles/*": ["styles/*"],
         "@/layouts/*": ["layouts/*"],
         "@/icons/*": ["icons/*"],
-        "@/utils/*": ["utils/*"]
+        "@/utils/*": ["utils/*"],
+        "@/hooks/*": ["hooks/*"]
       }
     }
   }
