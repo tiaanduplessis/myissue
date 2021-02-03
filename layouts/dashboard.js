@@ -62,8 +62,8 @@ export const DashboardLayout = ({
                 {NAV_LINKS.map(({ label, href }) => {
                   const isActive = router.pathname.startsWith(href)
                   return (
-                    <li>
-                      <NextLink key={href} href={href} passHref>
+                    <li key={href}>
+                      <NextLink  href={href} passHref>
                         <Link
                           mr={4}
                           fontWeight={isActive ? "700" : "400"}
