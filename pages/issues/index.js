@@ -18,11 +18,11 @@ import { IssuesEmptyDashboard } from "@/components/issues-empty-dashboard"
 const Dashboard = () => {
   const toast = useToast()
   const router = useRouter()
-  const auth = useAuth()
+  const {user} = useAuth()
 
   const { projectId } = router.query
   const { data, error } = useSWR(
-    projectId ? `/api/projects/${projectId}/issues` : "/api/issues",
+    user ? projectId ? `/api/projects/${projectId}/issues` : "/api/issues" : null,
     fetcher
   )
 

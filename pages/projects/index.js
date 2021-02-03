@@ -17,7 +17,7 @@ import { fetcher } from "@/utils/fetcher"
 const Dashboard = () => {
   const toast = useToast()
   const { user } = useAuth()
-  const { data, error } = useSWR("/api/projects", fetcher)
+  const { data, error } = useSWR(user ? "/api/projects" : null, fetcher)
   useEffect(() => {
     if (error) {
       toast({
