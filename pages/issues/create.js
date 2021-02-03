@@ -41,8 +41,6 @@ const IssuesCreate = () => {
   const display = useDisplay()
   const prefersReducedMotion = usePrefersReducedMotion()
 
-  console.log('display', display)
-
   const { register, handleSubmit, watch, errors, control } = useForm({
     defaultValues: {
       frequency: 'every-time',
@@ -51,7 +49,7 @@ const IssuesCreate = () => {
     },
   });
   const toast = useToast();
-  const auth = useAuth();
+  const {user} = useAuth();
   const router = useRouter()
 
   const {projectId}  = router.query
@@ -60,7 +58,7 @@ const IssuesCreate = () => {
 
   const onCreateIssue = ({share, ...values}) => {
     const issue = {
-      userId: auth.user.uid,
+      userId: user.uid,
       projectId: projectId,
       createdAt: new Date().toISOString(),
       ...values,

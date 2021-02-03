@@ -12,7 +12,6 @@ export const useOnlineNotifcation = () => {
     useEffect(() => {
         if (!isRenderingOnServer) {
             const handleOnline = () => {
-                console.log(isOnline, navigator.onLine)
                 if (!isOnline) {
                     toast({
                         title: "Yay!",

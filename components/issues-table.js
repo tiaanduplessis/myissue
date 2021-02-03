@@ -24,7 +24,7 @@ export const IssuesTable = ({ issues }) => {
                 </Tr>
             </thead>
             <tbody>
-                {issues.map((issue) => console.log(issue) || (
+                {issues.map((issue) => (
                     <Box as="tr" key={`${issue.title}-${issue.id}`}>
                         <Td fontWeight="medium">{issue.title}</Td>
                         <Td><Badge colorScheme={PRIORTY_COLOR_MAP[issue.priority]}>{issue.priority}</Badge></Td>
