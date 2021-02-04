@@ -44,7 +44,6 @@ export const LandingJumbotron = () => {
           py={{ base: 20, md: 36 }}
         >
           <Heading
-            fontWeight={700}
             fontSize={{ base: "2xl", sm: "4xl", md: "6xl" }}
             lineHeight={"110%"}
           >

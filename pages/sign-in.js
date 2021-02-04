@@ -13,8 +13,11 @@ const SignIn = () => {
         </Heading>
         <Box bg={"white"} rounded={"sm"} boxShadow="sm" p={{ base: 4, md: 8 }}>
           <Stack spacing={4}>
-            <Button mt={4} size="sm" onClick={(e) => auth.signinWithGitHub()}>
+            <Button colorScheme="gray" mt={4} size="md" onClick={(e) => auth.signinWithGitHub()}>
               Sign in with Github
+            </Button>
+            <Button colorScheme="red"  mt={4} size="md" onClick={(e) => auth.signinWithGoogle()}>
+              Sign in with Google
             </Button>
           </Stack>
         </Box>
