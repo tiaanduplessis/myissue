@@ -77,7 +77,7 @@ export const ProjectCreateModal = ({ children = "Create project" }) => {
               />
             </FormControl>
 
-            {/* <FormControl mt={10}>
+            {/* <FormControl mt={6}>
               <FormLabel>Description (optional)</FormLabel>
               <Input
                 placeholder="Greatest project in the world"
@@ -86,7 +86,7 @@ export const ProjectCreateModal = ({ children = "Create project" }) => {
               />
             </FormControl> */}
 
-            <FormControl id="link" mt={10}>
+            <FormControl id="link" mt={6}>
               <FormLabel>Link</FormLabel>
               <Input
                 placeholder="Link to the project board"

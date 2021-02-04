@@ -66,7 +66,7 @@ export const DashboardLayout = ({
                       <NextLink  href={href} passHref>
                         <Link
                           mr={4}
-                          fontWeight={isActive ? "700" : "400"}
+                          fontWeight={isActive ? "medium" : "normal"}
                           aria-current={isActive ? "page" : null}
                         >
                           {label}

@@ -58,7 +58,7 @@ const IssuesCreate = () => {
   const onCreateIssue = ({ share, ...values }) => {
     const issue = {
       userId: user.uid,
-      projectId: projectId,
+      projectId: projectId || null,
       createdAt: new Date().toISOString(),
       ...values,
       ...(share && {

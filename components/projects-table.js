@@ -1,48 +1,66 @@
 import React from "react"
 import NextLink from "next/link"
-import { Box, Link, Spinner } from "@chakra-ui/react"
+import { Box, Link, Button, Menu, MenuButton, MenuList, MenuItem, useClipboard } from "@chakra-ui/react"
 import { parseISO, format } from "date-fns"
 
 import { Table, Tr, Th, Td } from "@/components/table"
+import { RiArrowDownSLine } from "react-icons/ri"
 
-export const ProjectsTable = ({ projects }) => {
-  return (
-    <Table>
-      <thead>
-        <Tr>
-          <Th>Name</Th>
-          <Th>Link</Th>
-          <Th>Date Added</Th>
-          <Th>{""}</Th>
-        </Tr>
-      </thead>
-      <tbody>
-        {projects.map((project) => (
-          <Box as="tr" key={`${project.name}-${project.id}`}>
-            <Td fontWeight="medium">{project.name}</Td>
-            <Td>
-              <Link
+const Row = ({ name, id, link, createdAt }) => {
+    const { hasCopied, onCopy } = useClipboard(link)
+    return <Box as="tr" >
+        <Td fontWeight="medium">{name}</Td>
+        <Td>
+            <Link
                 color="blue.600"
-                href={project.link}
+                href={link}
                 target="_blank"
                 isExternal
-              >
-                {project.link}
-              </Link>
-            </Td>
-            <Td>{format(parseISO(project.createdAt), "PPpp")}</Td>
-            <Td>
-              {project.id ? (
-                <NextLink href={`/issues?projectId=${project.id}`}>
-                  <Link>View issues</Link>
-                </NextLink>
-              ) : (
-                <Spinner />
-              )}
-            </Td>
-          </Box>
-        ))}
-      </tbody>
-    </Table>
-  )
+                fontSize="sm"
+            >
+                {link}
+            </Link>
+        </Td>
+        <Td>{format(parseISO(createdAt), "PPpp")}</Td>
+        <Td>
+            <Menu>
+                <MenuButton as={Button} isLoading={!id} fontWeight="medium" rightIcon={<RiArrowDownSLine />}>
+                    {hasCopied ? 'Copied' : 'Actions'}
+                </MenuButton>
+                <MenuList>
+                        <NextLink href={`/issues?projectId=${id}`} passHref>
+                            <MenuItem as={Link}>
+                                View issues
+                            </MenuItem>
+                        </NextLink>
+                    <MenuItem hidden={!link} onClick={onCopy}>
+                        Copy link
+                    </MenuItem>
+                    <MenuItem>Delete</MenuItem>
+                </MenuList>
+            </Menu>
+
+        </Td>
+    </Box>
+
+
+}
+
+export const ProjectsTable = ({ projects }) => {
+
+    return (
+        <Table>
+            <thead>
+                <Tr>
+                    <Th>Name</Th>
+                    <Th>Link</Th>
+                    <Th>Date Added</Th>
+                    <Th>{""}</Th>
+                </Tr>
+            </thead>
+            <tbody>
+                {projects.map((project) => <Row key={`${project.name}-${project.id}`} {...project} />)}
+            </tbody>
+        </Table>
+    )
 }

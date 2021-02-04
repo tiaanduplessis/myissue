@@ -1,10 +1,8 @@
-import { CSSReset } from "@chakra-ui/react"
 import { Global, css } from "@emotion/react"
 
 export const GlobalStyle = ({ children }) => {
   return (
     <>
-      <CSSReset />
       <Global
         styles={css`
           html {
