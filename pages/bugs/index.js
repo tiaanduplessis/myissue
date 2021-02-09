@@ -9,11 +9,10 @@ import { useAuth } from "@/lib/auth"
 
 import { DashboardLayout } from "@/layouts/dashboard"
 
-import { IssuesTableSkeleton } from "@/components/issues-table-skeleton"
-import { IssuesTable } from "@/components/issues-table"
+import { BugsTableSkeleton } from "@/components/bugs-table-skeleton"
+import { BugsTable } from "@/components/bugs-table"
 
-import { fetcher } from "@/utils/fetcher"
-import { IssuesEmptyDashboard } from "@/components/issues-empty-dashboard"
+import { BugsEmptyDashboard } from "@/components/bugs-empty-dashboard"
 
 const Dashboard = () => {
   const toast = useToast()
@@ -22,15 +21,13 @@ const Dashboard = () => {
 
   const { projectId } = router.query
   const { data, error } = useSWR(
-    user ? projectId ? `/api/projects/${projectId}/issues` : "/api/issues" : null,
-    fetcher
-  )
+    user ? projectId ? `/api/projects/${projectId}/bugs` : "/api/bugs" : null)
 
   useEffect(() => {
     if (error) {
       toast({
         title: "Oh noes!",
-        description: "We failed to load your issues.",
+        description: "We failed to load your bugs.",
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -39,30 +36,31 @@ const Dashboard = () => {
   }, [error])
 
   const href = projectId
-    ? `/issues/create?projectId=${projectId}`
-    : "/issues/create"
+    ? `/bugs/create?projectId=${projectId}`
+    : "/bugs/create"
+
 
   return (
     <DashboardLayout
-      title={projectId ? `Project's issues` : "All issues"}
-      breadcrumbs={[{ label: "Issues" }]}
+      title={projectId ? `Project's bugs` : "All bugs"}
+      breadcrumbs={[{ label: "Bugs" }]}
       actions={[
         <NextLink href={href}>
-          <Button fontWeight="medium" colorScheme="purple">
-            + Create new issue
+          <Button fontWeight="medium" colorScheme="cyan">
+            + Create new bugs
           </Button>
         </NextLink>,
       ]}
     >
       <Head>
-        <title>Issues</title>
+        <title>Bugs</title>
       </Head>
       {!data ? (
-        <IssuesTableSkeleton />
-      ) : data.issues.length > 0 ? (
-        <IssuesTable issues={data.issues} />
+        <BugsTableSkeleton />
+      ) : data?.bugs?.length > 0 ? (
+        <BugsTable bugs={data.bugs} />
       ) : (
-        <IssuesEmptyDashboard href={href} />
+        <BugsEmptyDashboard href={href} />
       )}
     </DashboardLayout>
   )

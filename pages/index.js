@@ -1,10 +1,11 @@
 import {useEffect} from "react"
-import {useRouter} from 'next/router'
 
 import { LandingJumbotron } from "@/components/landing-jumbotron"
 import { LandingFeatures } from "@/components/landing-features"
+import { Footer } from "@/components/footer"
 
 import { useAuth } from "@/lib/auth"
+
 
 export default function Landing() {
   const auth = useAuth()
@@ -19,6 +20,7 @@ export default function Landing() {
     <>
       <LandingJumbotron />
       <LandingFeatures />
+      <Footer/>
     </>
   )
 }

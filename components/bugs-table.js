@@ -13,7 +13,7 @@ const PRIORTY_COLOR_MAP = {
 }
 
 const Row = ({ title, id, priority, createdAt }) => {
-  const { hasCopied, onCopy } = useClipboard(`${window.location.origin}/issues/${id}`)
+  const { hasCopied, onCopy } = useClipboard(`${window.location.origin}/bugs/${id}`)
   return <Box as="tr">
       <Td fontWeight="medium" style={{
           textOverflow: 'ellipsis',
@@ -35,14 +35,14 @@ const Row = ({ title, id, priority, createdAt }) => {
               </MenuButton>
               <MenuList>
                   {id ?
-                      <NextLink href={`/issues/${id}`} passHref>
+                      <NextLink href={`/bugs/${id}`} passHref>
                           <MenuItem as={Link}>
-                              View issue
+                              View bug
                           </MenuItem>
                       </NextLink>
                       : null}
                   <MenuItem onClick={onCopy}>
-                      Copy issue link
+                      Copy bug link
                   </MenuItem>
                   <MenuItem>Delete</MenuItem>
               </MenuList>
@@ -51,7 +51,7 @@ const Row = ({ title, id, priority, createdAt }) => {
   </Box>
 }
 
-export const IssuesTable = ({ issues }) => {
+export const BugsTable = ({ bugs }) => {
   return (
     <Table>
       <thead>
@@ -64,8 +64,8 @@ export const IssuesTable = ({ issues }) => {
         </Tr>
       </thead>
       <tbody>
-        {issues.map((issue) => (
-          <Row key={`${issue.name}-${issue.id}`} {...issue} />
+        {bugs.map((bug) => (
+          <Row key={`${bug.name}-${bug.id}`} {...bug} />
         ))}
       </tbody>
     </Table>

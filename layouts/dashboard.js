@@ -18,14 +18,25 @@ import { LogoIcon } from "@/icons/logo"
 
 import { useOnlineNotifcation } from "@/hooks/use-online-notification"
 
+const ANOM_NAV_LINKS = [
+  {
+    label: "Home",
+    href: "/",
+  },
+]
+
 const NAV_LINKS = [
   {
     label: "Projects",
     href: "/projects",
   },
   {
-    label: "Issues",
-    href: "/issues",
+    label: "Bugs",
+    href: "/bugs",
+  },
+  {
+    label: "Features",
+    href: "/features",
   },
 ]
 
@@ -41,7 +52,10 @@ export const DashboardLayout = ({
 
   return (
     <Box backgroundColor="gray.100" minHeight="100vh" pb={8}>
-      <Flex backgroundColor="white" mb={16} w="full">
+      <Flex backgroundColor="white" mb={{
+        base: 8,
+        md: 16,
+      }} w="full">
         <Flex
           alignItems="center"
           justifyContent="space-between"
@@ -57,9 +71,10 @@ export const DashboardLayout = ({
               <LogoIcon width={10} height={10} mr={8} />
             </NextLink>
 
+
             <Box as="nav">
               <Flex as="ul" style={{ listStyle: "none" }}>
-                {NAV_LINKS.map(({ label, href }) => {
+                {(user ? NAV_LINKS : ANOM_NAV_LINKS).map(({ label, href }) => {
                   const isActive = router.pathname.startsWith(href)
                   return (
                     <li key={href}>
@@ -77,19 +92,26 @@ export const DashboardLayout = ({
                 })}
               </Flex>
             </Box>
+        
+
+            
           </Flex>
           <Flex justifyContent="center" alignItems="center">
             {user && (
-              <Button variant="ghost" mr={2} onClick={() => signout()}>
+              <>
+                <Avatar size="sm" src={user?.photoUrl} />
+                <Button variant="ghost" mr={2} onClick={() => signout()}>
                 Log Out
               </Button>
+              </>
+             
             )}
-            <Avatar size="sm" src={user?.photoUrl} />
+            
           </Flex>
         </Flex>
       </Flex>
       <Flex margin="0 auto" direction="column" maxW="7xl" px={8}>
-        {breadcrumbs && (
+        {(breadcrumbs && user) && (
           <Breadcrumb>
             {breadcrumbs.map(({ label, href = null }) => (
               <BreadcrumbItem key={label} isCurrentPage={!href}>

@@ -30,10 +30,11 @@ export const LandingJumbotron = () => {
 
       <Flex
         id="jumbotron"
-        backgroundColor="gray.50"
+        backgroundColor="gray.900"
         maxW="100%"
         minH="100vh"
         marginX="0"
+        p={2}
         alignItems="center"
         justifyContent="center"
       >
@@ -44,18 +45,19 @@ export const LandingJumbotron = () => {
           py={{ base: 20, md: 36 }}
         >
           <Heading
-            fontSize={{ base: "2xl", sm: "4xl", md: "6xl" }}
+            color="white"
+            fontSize={{ base: "3xl", sm: "4xl", md: "6xl" }}
             lineHeight={"110%"}
           >
-            <Text as={"span"} color={"purple.400"}>
+            <Text as={"span"} color={"cyan.400"}>
               Save time and money
             </Text>
             <br />
             with better issues
           </Heading>
-          <Text color={"gray.700"} maxW="2xl">
+          <Text color={"gray.300"} maxW="2xl">
             A lot of time and money goes into dealing with ambiguity and
-            vagueness in bug and feature requests. Cut down on that cost!
+            vagueness in bug and feature requests. Cut down on that cost by giving your developer the information required to get the job done.
           </Text>
           <Stack
             direction={"column"}
@@ -66,39 +68,40 @@ export const LandingJumbotron = () => {
           >
             {auth?.user ? (
               <NextLink href="/projects">
-                <Button colorScheme="purple" fontWeight="medium" rounded="full">
+                <Button colorScheme="cyan" fontWeight="medium" rounded="full">
                   View Dashboard
                 </Button>
               </NextLink>
             ) : (
               <>
-                <NextLink href="/sign-in">
+                <NextLink href="/bugs/create">
                   <Button
-                    colorScheme="purple"
-                    bg={"purple.400"}
+                    colorScheme="cyan"
+                    bg={"cyan.400"}
                     rounded={"full"}
                     px={6}
                   >
-                    Get Started
+                    Create a bug
                   </Button>
                 </NextLink>
 
-                <NextLink href="#features">
-                  <Button variant={"link"} colorScheme="blue" size={"sm"}>
-                    Learn more
+                <NextLink href="/sign-in">
+                  <Button variant={"link"} color="white" size={"sm"}>
+                    Sign in
                   </Button>
                 </NextLink>
 
                 <Box>
                   <Icon
                     as={Arrow}
-                    color={useColorModeValue("gray.800", "gray.300")}
+                    color={"gray.300"}
                     w={71}
                     position={"absolute"}
                     right={-71}
                     top={"10px"}
                   />
                   <Text
+                  color={"gray.300"}
                     fontSize={"lg"}
                     fontFamily={"Caveat"}
                     position={"absolute"}
@@ -106,7 +109,7 @@ export const LandingJumbotron = () => {
                     top={"-15px"}
                     transform={"rotate(10deg)"}
                   >
-                    Start now for free!
+                    No sign in. It's free!
                   </Text>
                 </Box>
               </>

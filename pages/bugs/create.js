@@ -31,9 +31,9 @@ import { useNetworkInfo } from "@/hooks/use-network-info"
 import { useLanguage } from "@/hooks/use-language"
 import { useDisplay } from "@/hooks/use-display"
 
-import { createIssue } from "@/lib/db"
+import { createBug } from "@/lib/db"
 
-const IssuesCreate = () => {
+const BugsCreate = () => {
   const browser = useDetectBrowser()
   const networkInfo = useNetworkInfo()
   const language = useLanguage()
@@ -53,11 +53,11 @@ const IssuesCreate = () => {
 
   const { projectId } = router.query
 
-  const backURL = `/issues${projectId ? `?projectId=${projectId}` : ""}`
+  const backURL = `/bugs${projectId ? `?projectId=${projectId}` : ""}`
 
-  const onCreateIssue = ({ share, ...values }) => {
-    const issue = {
-      userId: user.uid,
+  const onCreateBug = ({ share, ...values }) => {
+    const bug = {
+      userId: user?.uid || null,
       projectId: projectId || null,
       createdAt: new Date().toISOString(),
       ...values,
@@ -70,24 +70,22 @@ const IssuesCreate = () => {
       }),
     }
 
-    createIssue(issue)
-
+    const key = projectId ? `/api/projects/${projectId}/bugs` : "/api/bugs"
     mutate(
-      projectId ? `/api/projects/${projectId}/issues` : "/api/issues",
-      async (data) => {
-        return { issues: [...data.issues, issue] }
+      key,
+     (data) => {
+        return { bugs: [...data.bugs, bugs] }
       },
       false
     )
-
     toast({
       title: "Success!",
-      description: "We've created your issue.",
+      description: "We've created your bug.",
       status: "success",
       duration: 5000,
       isClosable: true,
     })
-
+    createBug(bug).then(() => mutate(key))
     router.push(backURL)
   }
 
@@ -95,11 +93,11 @@ const IssuesCreate = () => {
 
   return (
     <DashboardLayout
-      title="Create an issue"
-      breadcrumbs={[{ label: "Issues", href: backURL }, { label: "Create" }]}
+      title="Create an bug"
+      breadcrumbs={[{ label: "Bugs", href: backURL }, { label: "Create" }]}
     >
       <Head>
-        <title>Create new issue</title>
+        <title>Create new bug</title>
       </Head>
 
       <Flex
@@ -107,10 +105,13 @@ const IssuesCreate = () => {
         backgroundColor="white"
         bordered="sm"
         boxShadow="sm"
-        p={10}
+        p={{
+          base: 5,
+          md: 10,
+        }}
         direction="column"
         as="form"
-        onSubmit={handleSubmit(onCreateIssue)}
+        onSubmit={handleSubmit(onCreateBug)}
       >
         <FormControl id="title" isRequired maxW="xl">
           <FormLabel>Title</FormLabel>
@@ -121,7 +122,7 @@ const IssuesCreate = () => {
               required: "Required",
             })}
           />
-          <FormHelperText>Briefly describe the issue.</FormHelperText>
+          <FormHelperText>Briefly describe the bug.</FormHelperText>
         </FormControl>
 
         <FormControl id="steps" isRequired maxW="3xl" mt={10}>
@@ -244,7 +245,7 @@ const IssuesCreate = () => {
                 Reset
               </Button> */}
 
-          <Button colorScheme="purple" fontWeight="medium" type="submit">
+          <Button colorScheme="cyan" fontWeight="medium" type="submit">
             Create
           </Button>
         </ButtonGroup>
@@ -253,4 +254,4 @@ const IssuesCreate = () => {
   )
 }
 
-export default IssuesCreate
+export default BugsCreate

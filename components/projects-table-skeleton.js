@@ -27,7 +27,7 @@ export const ProjectsTableSkeleton = () => {
         <Tr>
           <Th>Name</Th>
           <Th>Link</Th>
-          <Th>Issues</Th>
+          <Th>Bugs</Th>
           <Th>Date Added</Th>
           <Th>{""}</Th>
         </Tr>

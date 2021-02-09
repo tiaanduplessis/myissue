@@ -12,12 +12,10 @@ import { EmptyDashboard } from "@/components/projects-empty-dashboard"
 import { ProjectCreateModal } from "@/components/projects-create-modal"
 import { ProjectsTableSkeleton } from "@/components/projects-table-skeleton"
 
-import { fetcher } from "@/utils/fetcher"
-
 const Dashboard = () => {
   const toast = useToast()
   const { user } = useAuth()
-  const { data, error } = useSWR(user ? "/api/projects" : null, fetcher)
+  const { data, error } = useSWR(user ? "/api/projects" : null)
   useEffect(() => {
     if (error) {
       toast({

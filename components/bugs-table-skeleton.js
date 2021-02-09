@@ -20,7 +20,7 @@ const SkeletonRow = ({ width }) => (
   </Box>
 )
 
-export const IssuesTableSkeleton = () => {
+export const BugsTableSkeleton = () => {
   return (
     <Table>
       <thead>

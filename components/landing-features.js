@@ -13,13 +13,13 @@ import { TiTickOutline } from "react-icons/ti"
 
 const features = [
   {
-    title: "Instantly sharable issue link",
+    title: "Instantly sharable bug link",
     text: "Use with any project management tool you like. Just drop the link!",
   },
   {
     title: "Proven reporting template",
     text:
-      "No more vague issues that cause devs headaches. Get all the information you need.",
+      "No more vague bugs that cause devs headaches. Get all the information you need.",
   },
   {
     title: "Device specific information",
@@ -37,9 +37,8 @@ export const LandingFeatures = () => {
       <Stack spacing={4} as={Container} maxW="3xl" textAlign={"center"}>
         <Heading fontSize={"3xl"}>Features</Heading>
         <Text color={"gray.700"} fontSize={"xl"}>
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-          sed diam voluptua.
+          Software can be expensive and not everyone can afford to have a dedicated QA person on staff. 
+          With our suite of tools a small business owner can create bug reports and feature requests without ambiguity.
         </Text>
       </Stack>
 
@@ -47,7 +46,7 @@ export const LandingFeatures = () => {
         <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={10}>
           {[...features, ...features].map((feature) => (
             <HStack key={feature.title} align={"top"}>
-              <Box color={"purple.600"} px={2}>
+              <Box color={"cyan.600"} px={2}>
                 <Icon as={TiTickOutline} />
               </Box>
               <VStack align={"start"}>

@@ -28,9 +28,14 @@ const Row = ({ name, id, link, createdAt }) => {
                     {hasCopied ? 'Copied' : 'Actions'}
                 </MenuButton>
                 <MenuList>
-                        <NextLink href={`/issues?projectId=${id}`} passHref>
+                        <NextLink href={`/bugs?projectId=${id}`} passHref>
                             <MenuItem as={Link}>
-                                View issues
+                                View bugs
+                            </MenuItem>
+                        </NextLink>
+                        <NextLink href={`/features?projectId=${id}`} passHref>
+                            <MenuItem as={Link}>
+                                View features
                             </MenuItem>
                         </NextLink>
                     <MenuItem hidden={!link} onClick={onCopy}>

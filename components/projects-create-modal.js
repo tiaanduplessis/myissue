@@ -35,7 +35,7 @@ export const ProjectCreateModal = ({ children = "Create project" }) => {
       link,
     }
 
-    createProject(project)
+    createProject(project).then(() => mutate("/api/projects"))
     toast({
       title: "Success!",
       description: "We've created your project.",
@@ -43,7 +43,6 @@ export const ProjectCreateModal = ({ children = "Create project" }) => {
       duration: 5000,
       isClosable: true,
     })
-
     mutate(
       "/api/projects",
       async (data) => {
@@ -57,7 +56,7 @@ export const ProjectCreateModal = ({ children = "Create project" }) => {
 
   return (
     <>
-      <Button fontWeight="medium" colorScheme="purple" onClick={onOpen}>
+      <Button fontWeight="medium" colorScheme="cyan" onClick={onOpen}>
         {children}
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -102,7 +101,7 @@ export const ProjectCreateModal = ({ children = "Create project" }) => {
                 Cancel
               </Button>
 
-              <Button colorScheme="purple" fontWeight="medium" type="submit">
+              <Button colorScheme="cyan" fontWeight="medium" type="submit">
                 Create
               </Button>
             </ButtonGroup>

@@ -15,7 +15,7 @@ export const EmptyDashboard = ({ type }) => (
     direction="column"
   >
     <Heading size="xl" maxW="lg" textAlign="center">
-      🤯 You haven’t added any issues yet.
+      🤯 You haven’t added any projects yet.
     </Heading>
     {/* <Text my={8}>Let’s get started.</Text> */}
     <ProjectCreateModal>Add your first</ProjectCreateModal>
