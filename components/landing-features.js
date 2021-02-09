@@ -35,14 +35,14 @@ export const LandingFeatures = () => {
   return (
     <Box id="features" px={4} py={20}>
       <Stack spacing={4} as={Container} maxW="3xl" textAlign={"center"}>
-        <Heading fontSize={"3xl"}>Features</Heading>
+        <Heading fontSize={"3xl"} mb={5}>Features</Heading>
         <Text color={"gray.700"} fontSize={"xl"}>
           Software can be expensive and not everyone can afford to have a dedicated QA person on staff. 
           With our suite of tools a small business owner can create bug reports and feature requests without ambiguity.
         </Text>
       </Stack>
 
-      <Container maxW="3xl" mt={10}>
+      <Container maxW="3xl" mt={12}>
         <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={10}>
           {[...features, ...features].map((feature) => (
             <HStack key={feature.title} align={"top"}>
