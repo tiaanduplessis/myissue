@@ -1,39 +1,88 @@
-import { Box, Flex, Link } from "@chakra-ui/react"
-import NextLink from "next/link"
+import {
+  Container,
+  Icon,
+  Box,
+  Stack,
+  Text,
+  Link,
+  SimpleGrid,
+} from '@chakra-ui/react';
+import { IoLogoVercel } from 'react-icons/io5';
+import NextLink from 'next/link';
 
-const FOOTER_LINKS = [
+const SOCIAL_LINKS = [
   {
-    label: "Feedback",
-    href: "/feedback",
+    label: 'GitHub Repository',
+    href: 'https://github.com/tiaanduplessis/myissue',
+  },
+];
+
+const OTHER_INFO_LINKS = [
+  {
+    label: 'Roadmap',
+    href: '/roadmap',
   },
   {
-    label: "Roadmap",
-    href: "/roadmap",
-  },
-  {
-    label: "FAQs",
-    href: "/faqs",
+    label: 'Feedback',
+    href: '/feedback',
   },
 ]
 
 export const Footer = () => {
   return (
-    <Flex
-      background="white"
-      alignItems="center"
-      justifyContent="flex-start"
-      px={8}
-      py={12}
-    >
-      <Box maxW="80rem" margin="0 auto" w="full">
-        <Flex as="nav" flexDirection="column">
-          {FOOTER_LINKS.map(({ label, href }) => (
-            <NextLink href={href} passHref>
-              <Link mb={2}>{label}</Link>
-            </NextLink>
-          ))}
-        </Flex>
-      </Box>
-    </Flex>
-  )
-}
+    <Box
+
+      bg={'gray.900'}
+      color={"gray.300"}
+      py={{ base: 5, sm: 10 }}>
+      <Container maxW={'7xl'}>
+        <SimpleGrid columns={{ md: 1, lg: 2 }} mb={10} spacing={6}>
+
+          <Stack spacing={4}>
+            <Text fontFamily={'heading'} fontWeight="black" fontSize={'lg'}>
+              Social
+            </Text>
+            <Stack align={'start'}>
+              {SOCIAL_LINKS.map((link) => (
+                <Link href={link.href}>{link.label}</Link>
+              ))}
+            </Stack>
+          </Stack>
+
+          <Stack spacing={4}>
+            <Text fontFamily={'heading'} fontSize={'lg'} fontWeight="black">
+              Other info
+            </Text>
+            <Stack align={'start'}>
+            {OTHER_INFO_LINKS.map((link) => (
+                <NextLink href={link.href} passHref>
+                  <Link >{link.label}</Link>
+                </NextLink>  
+              ))}
+            </Stack>
+          </Stack>
+
+        </SimpleGrid>
+
+        <Stack
+          textAlign={'center'}
+          borderTopWidth={1}
+          borderTopStyle={'solid'}
+          borderTopColor="cyan.900"
+          pt={8}>
+          <Text>
+            <a
+              href="https://vercel.com"
+              target={'_blank'}>
+              Hosted on <Icon mt={-1} as={IoLogoVercel} /> Vercel
+            </a>
+          </Text>
+          <Text>
+            Made in Cape Town by{' '}
+            <Link href={'https://tiaan.dev'}>Tiaan du Plessis</Link>
+          </Text>
+        </Stack>
+      </Container>
+    </Box>
+  );
+};
