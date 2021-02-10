@@ -1,6 +1,8 @@
 import React from "react"
 import NextLink from "next/link"
-import { Heading, Flex, Text, Button } from "@chakra-ui/react"
+import { Heading, Flex, Button } from "@chakra-ui/react"
+
+import {PRIMARY_COLOR_SCHEME} from "@/styles/theme"
 
 export const BugsEmptyDashboard = ({ href }) => (
   <Flex
@@ -18,7 +20,7 @@ export const BugsEmptyDashboard = ({ href }) => (
     </Heading>
     {/* <Text mt={8}>Let’s get started.</Text> */}
     <NextLink href={href}>
-      <Button mt={8} fontWeight="medium" colorScheme="cyan">
+      <Button variant="ghost"  mt={8} fontWeight="medium" colorScheme={PRIMARY_COLOR_SCHEME}>
         + Create new bug
       </Button>
     </NextLink>

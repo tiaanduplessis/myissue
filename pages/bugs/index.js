@@ -11,8 +11,10 @@ import { DashboardLayout } from "@/layouts/dashboard"
 
 import { BugsTableSkeleton } from "@/components/bugs-table-skeleton"
 import { BugsTable } from "@/components/bugs-table"
-
 import { BugsEmptyDashboard } from "@/components/bugs-empty-dashboard"
+
+import {PRIMARY_COLOR_SCHEME} from "@/styles/theme"
+
 
 const Dashboard = () => {
   const toast = useToast()
@@ -46,7 +48,7 @@ const Dashboard = () => {
       breadcrumbs={[{ label: "Bugs" }]}
       actions={[
         <NextLink href={href}>
-          <Button fontWeight="medium" colorScheme="cyan">
+          <Button fontWeight="medium" colorScheme={PRIMARY_COLOR_SCHEME}>
             + Create new bugs
           </Button>
         </NextLink>,

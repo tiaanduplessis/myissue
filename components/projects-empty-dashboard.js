@@ -18,6 +18,6 @@ export const EmptyDashboard = ({ type }) => (
       🤯 You haven’t added any projects yet.
     </Heading>
     {/* <Text my={8}>Let’s get started.</Text> */}
-    <ProjectCreateModal>Add your first</ProjectCreateModal>
+    <ProjectCreateModal variant="ghost">Add your first</ProjectCreateModal>
   </Flex>
 )

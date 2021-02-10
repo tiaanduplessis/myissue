@@ -33,6 +33,9 @@ import { useDisplay } from "@/hooks/use-display"
 
 import { createBug } from "@/lib/db"
 
+import {PRIMARY_COLOR_SCHEME} from "@/styles/theme"
+
+
 const BugsCreate = () => {
   const browser = useDetectBrowser()
   const networkInfo = useNetworkInfo()
@@ -74,7 +77,7 @@ const BugsCreate = () => {
     mutate(
       key,
      (data) => {
-        return { bugs: [...data.bugs, bugs] }
+        return { bugs: [bug, ...data.bugs] }
       },
       false
     )
@@ -128,6 +131,7 @@ const BugsCreate = () => {
         <FormControl id="steps" isRequired maxW="3xl" mt={10}>
           <FormLabel>Steps to reproduce the bug</FormLabel>
           <Textarea
+            size="lg"
             placeholder={`Enter username. enter password. Click on sign in button...`}
             name="steps"
             ref={register({
@@ -142,6 +146,7 @@ const BugsCreate = () => {
         <FormControl id="expecting" isRequired maxW="3xl" mt={10}>
           <FormLabel>Expected result/behaviour</FormLabel>
           <Textarea
+             size="lg"
             placeholder="Form submits and redirects to dashboard"
             name="expecting"
             ref={register({
@@ -156,6 +161,7 @@ const BugsCreate = () => {
         <FormControl id="resulting" isRequired maxW="3xl" mt={10}>
           <FormLabel>Resulting behaviour</FormLabel>
           <Textarea
+           size="lg"
             placeholder="Form stuck in signing in state"
             name="resulting"
             ref={register({
@@ -245,7 +251,7 @@ const BugsCreate = () => {
                 Reset
               </Button> */}
 
-          <Button colorScheme="cyan" fontWeight="medium" type="submit">
+          <Button colorScheme={PRIMARY_COLOR_SCHEME} fontWeight="medium" type="submit">
             Create
           </Button>
         </ButtonGroup>

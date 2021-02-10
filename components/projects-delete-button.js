@@ -21,7 +21,7 @@ const toast = useToast()
 
   const onClose = () => setIsOpen(false);
   const onDelete = () => {
-    deleteProject(id).then(() => console.log('mutateee') || mutate('/api/projects'))
+    deleteProject(id).then(() => mutate('/api/projects'))
     toast({
         title: "Success!",
         description: "We've deleted the project.",

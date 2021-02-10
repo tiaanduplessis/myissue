@@ -2,7 +2,7 @@
 
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
-> Detailed issue reporting made trivial
+> Bug reports and feature requests made simple
 ## Setup
 
 After cloning the repo, install the required dependencies using `npm`:

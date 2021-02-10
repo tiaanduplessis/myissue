@@ -10,6 +10,9 @@ import {
 import { IoLogoVercel } from 'react-icons/io5';
 import NextLink from 'next/link';
 
+import {PRIMARY_COLOR_SCHEME} from "@/styles/theme"
+
+
 const SOCIAL_LINKS = [
   {
     label: 'GitHub Repository',
@@ -68,7 +71,7 @@ export const Footer = () => {
           textAlign={'center'}
           borderTopWidth={1}
           borderTopStyle={'solid'}
-          borderTopColor="cyan.900"
+          borderTopColor={`${PRIMARY_COLOR_SCHEME}.900`}
           pt={8}>
           <Text>
             <a

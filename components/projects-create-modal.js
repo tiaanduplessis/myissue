@@ -20,7 +20,10 @@ import {
 import { createProject } from "@/lib/db"
 import { useAuth } from "@/lib/auth"
 
-export const ProjectCreateModal = ({ children = "Create project" }) => {
+import {PRIMARY_COLOR_SCHEME} from "@/styles/theme"
+
+
+export const ProjectCreateModal = ({ children = "Create project", ...props }) => {
   const toast = useToast()
   const auth = useAuth()
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -46,7 +49,7 @@ export const ProjectCreateModal = ({ children = "Create project" }) => {
     mutate(
       "/api/projects",
       async (data) => {
-        return { projects: [...data.projects, project] }
+        return { projects: [project, ...data.projects ] }
       },
       false
     )
@@ -56,7 +59,7 @@ export const ProjectCreateModal = ({ children = "Create project" }) => {
 
   return (
     <>
-      <Button fontWeight="medium" colorScheme="cyan" onClick={onOpen}>
+      <Button fontWeight="medium" colorScheme={PRIMARY_COLOR_SCHEME} onClick={onOpen} {...props}>
         {children}
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -101,7 +104,7 @@ export const ProjectCreateModal = ({ children = "Create project" }) => {
                 Cancel
               </Button>
 
-              <Button colorScheme="cyan" fontWeight="medium" type="submit">
+              <Button colorScheme={PRIMARY_COLOR_SCHEME} fontWeight="medium" type="submit">
                 Create
               </Button>
             </ButtonGroup>

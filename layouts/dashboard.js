@@ -18,6 +18,7 @@ import { LogoIcon } from "@/icons/logo"
 
 import { useOnlineNotifcation } from "@/hooks/use-online-notification"
 
+
 const ANOM_NAV_LINKS = [
   {
     label: "Home",
@@ -52,7 +53,8 @@ export const DashboardLayout = ({
 
   return (
     <Box backgroundColor="gray.100" minHeight="100vh" pb={8}>
-      <Flex backgroundColor="white" mb={{
+      <Flex backgroundColor="white" 
+      mb={{
         base: 8,
         md: 16,
       }} w="full">

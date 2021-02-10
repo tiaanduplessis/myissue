@@ -8,9 +8,11 @@ import {
   Button,
   Stack,
   Icon,
-  useColorModeValue,
   createIcon,
 } from "@chakra-ui/react"
+
+import {PRIMARY_COLOR_SCHEME} from "@/styles/theme"
+
 
 import { useAuth } from "@/lib/auth"
 
@@ -50,7 +52,7 @@ export const LandingJumbotron = () => {
             lineHeight={"110%"}
             as="h1"
           >
-            <Text  as={"span"} color={"cyan.400"}>
+            <Text  as={"span"} color={`${PRIMARY_COLOR_SCHEME}.400`}>
               Save time and money
             </Text>
             <br />
@@ -70,7 +72,7 @@ export const LandingJumbotron = () => {
           >
             {auth?.user ? (
               <NextLink href="/projects">
-                <Button colorScheme="cyan" fontWeight="medium" rounded="full">
+                <Button colorScheme={PRIMARY_COLOR_SCHEME} fontWeight="medium" rounded="full">
                   View Dashboard
                 </Button>
               </NextLink>
@@ -78,8 +80,7 @@ export const LandingJumbotron = () => {
               <>
                 <NextLink href="/bugs/create">
                   <Button
-                    colorScheme="cyan"
-                    bg={"cyan.400"}
+                    colorScheme={PRIMARY_COLOR_SCHEME}
                     rounded={"full"}
                     px={6}
                   >

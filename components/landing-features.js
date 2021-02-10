@@ -11,6 +11,10 @@ import {
 } from "@chakra-ui/react"
 import { TiTickOutline } from "react-icons/ti"
 
+import {PRIMARY_COLOR_SCHEME} from "@/styles/theme"
+
+
+
 const features = [
   {
     title: "Instantly sharable issue link",
@@ -53,7 +57,7 @@ export const LandingFeatures = () => {
         <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={10}>
           {features.map((feature) => (
             <HStack key={feature.title} align={"top"}>
-              <Box color={"cyan.600"} px={2}>
+              <Box color={`${PRIMARY_COLOR_SCHEME}.600`} px={2}>
                 <Icon as={TiTickOutline} />
               </Box>
               <VStack align={"start"}>

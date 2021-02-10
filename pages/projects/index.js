@@ -16,6 +16,7 @@ const Dashboard = () => {
   const toast = useToast()
   const { user } = useAuth()
   const { data, error } = useSWR(user ? "/api/projects" : null)
+
   useEffect(() => {
     if (error) {
       toast({
@@ -39,7 +40,7 @@ const Dashboard = () => {
       </Head>
       {!data ? (
         <ProjectsTableSkeleton />
-      ) : data.projects.length > 0 ? (
+      ) : data?.projects?.length > 0 ? (
         <ProjectsTable projects={data.projects} />
       ) : (
         <EmptyDashboard type="projects" />
