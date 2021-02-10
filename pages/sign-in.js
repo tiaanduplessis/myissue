@@ -1,27 +1,53 @@
-import { Flex, Box, Stack, Button, Heading } from "@chakra-ui/react"
+import { Flex, Box, Stack, Button, Heading, useToast, } from "@chakra-ui/react"
+import {useRouter} from 'next/router'
+import { IoLogoGithub, IoLogoGoogle } from "react-icons/io5";
+
+import {LogoIcon} from '@/icons/logo'
 
 import { useAuth } from "@/lib/auth"
 
 const SignIn = () => {
+  const toast = useToast()
+  const router = useRouter()
   const auth = useAuth()
 
+  const handleAuth = (authHandler) => async () => {
+    try {
+      const user = await authHandler()
+      if (user) router.push('/projects')
+    } catch(error) {
+      console.error(error)
+      toast({
+        title: "Oh noes!",
+        description: error.message,
+        status: "error",
+        duration: 10000,
+        isClosable: true,
+      })
+    }
+ 
+  }
+
   return (
-    <Flex minH={"100vh"} align={"center"} justify={"center"} bg={"gray.100"}>
-      <Stack spacing={8} mx={"auto"} w={"full"} maxW="md" py={12} px={6}>
-        <Heading fontSize={"3xl"} textAlign={"center"}>
+    <Flex minH={"100vh"} align={"center"} justify={"center"} flexDirection="column" bg={"gray.100"}>
+        <LogoIcon w={14} h={14}/>
+
+        <Heading mt={5} as="h1" fontSize={"3xl"} textAlign={"center"}>
           Sign in to your account
         </Heading>
-        <Box bg={"white"} rounded={"sm"} boxShadow="sm" p={{ base: 4, md: 8 }}>
+
+
+        <Box mt={10} bg={"white"} rounded={"sm"} boxShadow="sm" p={{ base: 4, md: 8 }} w={"full"} maxW="md">
           <Stack spacing={4}>
-            <Button colorScheme="gray" mt={4} size="md" onClick={(e) => auth.signinWithGitHub()}>
+            <Button leftIcon={<IoLogoGithub/>} iconSpacing={3} colorScheme="gray" size="md" onClick={handleAuth(auth.signinWithGitHub)}>
               Sign in with Github
             </Button>
-            <Button colorScheme="red"  mt={4} size="md" onClick={(e) => auth.signinWithGoogle()}>
+            <Button leftIcon={<IoLogoGoogle/>} colorScheme="red" iconSpacing={3}  mt={6} size="md" onClick={handleAuth(auth.signinWithGoogle)}>
               Sign in with Google
             </Button>
           </Stack>
         </Box>
-      </Stack>
+
     </Flex>
   )
 }
