@@ -10,36 +10,37 @@ import {
     AccordionIcon,
   } from "@chakra-ui/react"
 
-  const features = [
+  const faqs = [
     {
-      title: "Instantly sharable bug link",
-      text: "Use with any project management tool you like. Just drop the link!",
-    },
-    {
-      title: "Proven reporting template",
+      title: "Why build a tool for just creating bugs and features?",
       text:
-        "No more vague bugs that cause devs headaches. Get all the information you need.",
+        "When working with clients that have a limited budget, we've found that investing in expensive project management software isn't always a viable option. In many cases the business owner is the one performing the QA and just wants the ability to log bugs, create feature requests and know what the status is.",
     },
     {
-      title: "Device specific information",
-      text: "Get all the information about the device the issue occured on.",
+      title: "How much does it cost?",
+      text: "It's free to create a bug. You can also sign up and use the rest of the platform for free. Some additional priced features may be added in the future.",
+    },
+    
+    {
+      title: "Can it integrate with my project management software?",
+      text:
+        "Additional integrations are planned for the future. Our primary focus will be on Github as that is where we work.",
     },
     {
-      title: "Smart feedback",
-      text: "Know what makes a good issue report with our feedback system",
-    },
+      title: "It feels limited. Can I do additional configuration for my use case?",
+      text: "Things are kept as simple as possible to make it easy for non-technical users to get things done. Additioanl configuration features may be added in the future, but not at cost of complexity.",
+    }
   ]
   
   export const LandingFAQs = () => {
     return (
       <Box id="faqs" px={4} py={20}>
           <Heading as="h2" fontSize={"3xl"} textAlign="center" maxW="3xl" mx="auto" >FAQs</Heading>
-
   
         <Container maxW="3xl" mt={12}>
 
         <Accordion spacing={10}>
-            {features.map(faq => {
+            {faqs.map(faq => {
                 return  <AccordionItem>
     <Heading as="h3" >
       <AccordionButton fontWeight='bold' py={4}>

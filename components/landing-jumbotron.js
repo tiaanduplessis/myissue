@@ -48,16 +48,18 @@ export const LandingJumbotron = () => {
             color="white"
             fontSize={{ base: "3xl", sm: "4xl", md: "6xl" }}
             lineHeight={"110%"}
+            as="h1"
           >
-            <Text as={"span"} color={"cyan.400"}>
+            <Text  as={"span"} color={"cyan.400"}>
               Save time and money
             </Text>
             <br />
             with better issues
           </Heading>
-          <Text color={"gray.300"} maxW="2xl">
-            A lot of time and money goes into dealing with ambiguity and
-            vagueness in bug and feature requests. Cut down on that cost by giving your developer the information required to get the job done.
+          <Text color={"gray.300"} maxW="2xl" letterSpacing=".01rem">
+
+          Building software can be expensive and not everyone can afford to have a dedicated QA person on staff. With our suite of tools, a small business owner can create bug reports and feature requests without ambiguity.
+
           </Text>
           <Stack
             direction={"column"}
@@ -102,11 +104,14 @@ export const LandingJumbotron = () => {
                   />
                   <Text
                   color={"gray.300"}
-                    fontSize={"lg"}
+                    fontSize={{
+                      base: 'sm',
+                      md: "lg"
+                    }}
                     fontFamily={"Caveat"}
                     position={"absolute"}
-                    right={"-125px"}
-                    top={"-15px"}
+                    right={["-90px", null, "-130px"]}
+                    top={"-20px"}
                     transform={"rotate(10deg)"}
                   >
                     No sign in. It's free!

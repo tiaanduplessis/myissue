@@ -13,22 +13,30 @@ import { TiTickOutline } from "react-icons/ti"
 
 const features = [
   {
-    title: "Instantly sharable bug link",
-    text: "Use with any project management tool you like. Just drop the link!",
+    title: "Instantly sharable issue link",
+    text: "Use with any project management tool you like. Just drop the link.",
   },
   {
-    title: "Proven reporting template",
-    text:
-      "No more vague bugs that cause devs headaches. Get all the information you need.",
+    title: "Proven bug reporting template",
+    text: "No more vague bugs that cause devs headaches. All the information in one link.",
   },
   {
     title: "Device specific information",
-    text: "Get all the information about the device the issue occured on.",
+    text: "Attach all your device information with the bug.",
+  },
+  {
+    title: "Manage issues",
+    text: "Group issues under projects and their priorty and status",
   },
   {
     title: "Smart feedback",
-    text: "Know what makes a good issue report with our feedback system",
+    text: "Get suggestions for consise language while writing your issues",
   },
+  {
+    title: "High performance",
+    text: "Don't get bogged down with slow project management software",
+  },
+  
 ]
 
 export const LandingFeatures = () => {
@@ -37,20 +45,19 @@ export const LandingFeatures = () => {
       <Stack spacing={4} as={Container} maxW="3xl" textAlign={"center"}>
         <Heading fontSize={"3xl"} mb={5}>Features</Heading>
         <Text color={"gray.700"} fontSize={"xl"}>
-          Software can be expensive and not everyone can afford to have a dedicated QA person on staff. 
-          With our suite of tools a small business owner can create bug reports and feature requests without ambiguity.
+        A lot of time and money goes into dealing with ambiguity and vagueness in bug reports and feature requests. Cut down on that cost by giving your developer the information required to get the job done.
         </Text>
       </Stack>
 
       <Container maxW="3xl" mt={12}>
         <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={10}>
-          {[...features, ...features].map((feature) => (
+          {features.map((feature) => (
             <HStack key={feature.title} align={"top"}>
               <Box color={"cyan.600"} px={2}>
                 <Icon as={TiTickOutline} />
               </Box>
               <VStack align={"start"}>
-                <Text fontWeight={500}>{feature.title}</Text>
+                <Text fontWeight={500} as='h3'>{feature.title}</Text>
                 <Text color={"gray.600"}>{feature.text}</Text>
               </VStack>
             </HStack>

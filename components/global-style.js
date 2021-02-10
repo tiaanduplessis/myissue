@@ -15,6 +15,7 @@ export const GlobalStyle = ({ children }) => {
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            line-height: 1.75;
           }
         `}
       />

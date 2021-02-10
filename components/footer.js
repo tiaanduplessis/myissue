@@ -24,7 +24,7 @@ const OTHER_INFO_LINKS = [
   },
   {
     label: 'Feedback',
-    href: '/feedback',
+    href: 'mailto:tiaanduplessis@hotmail.com',
   },
 ]
 
@@ -39,7 +39,7 @@ export const Footer = () => {
         <SimpleGrid columns={{ md: 1, lg: 2 }} mb={10} spacing={6}>
 
           <Stack spacing={4}>
-            <Text fontFamily={'heading'} fontWeight="black" fontSize={'lg'}>
+            <Text as="h2"  fontFamily={'heading'} fontWeight="black" fontSize={'lg'}>
               Social
             </Text>
             <Stack align={'start'}>
@@ -50,7 +50,7 @@ export const Footer = () => {
           </Stack>
 
           <Stack spacing={4}>
-            <Text fontFamily={'heading'} fontSize={'lg'} fontWeight="black">
+            <Text as="h2" fontFamily={'heading'} fontSize={'lg'} fontWeight="black">
               Other info
             </Text>
             <Stack align={'start'}>
