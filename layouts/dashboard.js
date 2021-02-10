@@ -102,9 +102,11 @@ export const DashboardLayout = ({
             {user && (
               <>
                 <Avatar size="sm" src={user?.photoUrl} />
-                <Button variant="ghost" mr={2} onClick={() => signout()}>
-                Log Out
-              </Button>
+                <NextLink href="/account" passHref>
+                  <Button as="a" variant="ghost" mr={2}>
+                    Account
+                  </Button>
+              </NextLink>
               </>
              
             )}

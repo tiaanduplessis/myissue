@@ -12,7 +12,7 @@ import { EmptyDashboard } from "@/components/projects-empty-dashboard"
 import { ProjectCreateModal } from "@/components/projects-create-modal"
 import { ProjectsTableSkeleton } from "@/components/projects-table-skeleton"
 
-const Dashboard = () => {
+const Projects = () => {
   const toast = useToast()
   const { user } = useAuth()
   const { data, error } = useSWR(user ? "/api/projects" : null)
@@ -49,4 +49,4 @@ const Dashboard = () => {
   )
 }
 
-export default Dashboard
+export default Projects

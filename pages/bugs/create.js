@@ -60,7 +60,7 @@ const BugsCreate = () => {
 
   const onCreateBug = ({ share, ...values }) => {
     const bug = {
-      userId: user?.uid || null,
+      authorId: user?.uid || null,
       projectId: projectId || null,
       createdAt: new Date().toISOString(),
       ...values,

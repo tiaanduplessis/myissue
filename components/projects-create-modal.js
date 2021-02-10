@@ -31,7 +31,7 @@ export const ProjectCreateModal = ({ children = "Create project", ...props }) =>
 
   const onCreateProject = ({ name, description = null, link = null }) => {
     const project = {
-      userId: auth.user.uid,
+      authorId: auth.user.uid,
       createdAt: new Date().toISOString(),
       name,
       description,
