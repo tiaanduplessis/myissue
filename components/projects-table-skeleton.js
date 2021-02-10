@@ -27,16 +27,14 @@ export const ProjectsTableSkeleton = () => {
         <Tr>
           <Th>Name</Th>
           <Th>Link</Th>
-          <Th>Bugs</Th>
           <Th>Date Added</Th>
           <Th>{""}</Th>
         </Tr>
       </thead>
       <tbody>
-        <SkeletonRow width="4.5rem" />
+        <SkeletonRow width="8rem" />
         <SkeletonRow width="8rem" />
         <SkeletonRow width="3rem" />
-        <SkeletonRow width="6.25rem" />
         <SkeletonRow width="4.5rem" />
       </tbody>
     </Table>

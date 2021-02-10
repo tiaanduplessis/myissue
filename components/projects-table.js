@@ -2,9 +2,12 @@ import React from "react"
 import NextLink from "next/link"
 import { Box, Link, Button, Menu, MenuButton, MenuList, MenuItem, useClipboard } from "@chakra-ui/react"
 import { parseISO, format } from "date-fns"
+import { RiArrowDownSLine } from "react-icons/ri"
+
 
 import { Table, Tr, Th, Td } from "@/components/table"
-import { RiArrowDownSLine } from "react-icons/ri"
+import {ProjectsDeleteButton} from "@/components/projects-delete-button"
+
 
 const Row = ({ name, id, link, createdAt }) => {
     const { hasCopied, onCopy } = useClipboard(link)
@@ -33,15 +36,17 @@ const Row = ({ name, id, link, createdAt }) => {
                                 View bugs
                             </MenuItem>
                         </NextLink>
-                        <NextLink href={`/features?projectId=${id}`} passHref>
+                        {/* <NextLink href={`/features?projectId=${id}`} passHref>
                             <MenuItem as={Link}>
                                 View features
                             </MenuItem>
-                        </NextLink>
+                        </NextLink> */}
                     <MenuItem hidden={!link} onClick={onCopy}>
                         Copy link
                     </MenuItem>
-                    <MenuItem>Delete</MenuItem>
+        
+                    <ProjectsDeleteButton id={id} />
+              
                 </MenuList>
             </Menu>
 
