@@ -1,4 +1,5 @@
 import Head from "next/head"
+import {useRouter} from 'next/router'
 import {Flex, Button} from "@chakra-ui/react"
 
 import { useAuth } from "@/lib/auth"
@@ -6,6 +7,7 @@ import { useAuth } from "@/lib/auth"
 import { DashboardLayout } from "@/layouts/dashboard"
 
 const Account = () => {
+  const router = useRouter()
     const {signout} = useAuth()
 
   return (
@@ -28,7 +30,10 @@ const Account = () => {
         direction="column"
       >
 
-        <Button onClick={() => signout()}>
+        <Button onClick={async () => {
+          await signout()
+          router.push('/')
+        }}>
           Log Out
         </Button>
 
