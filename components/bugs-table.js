@@ -26,7 +26,6 @@ const Row = ({ title, id, priority, createdAt }) => {
           {priority}
         </Badge>
       </Td>
-      <Td>TODO</Td>
       <Td>{format(parseISO(createdAt), "PPpp")}</Td>
       <Td style={{display: 'flex', justifyContent: 'flex-end'}}>
           <Menu>
@@ -58,7 +57,6 @@ export const BugsTable = ({ bugs }) => {
         <Tr>
           <Th>Title</Th>
           <Th>Priorty</Th>
-          <Th>Status</Th>
           <Th>Date Added</Th>
           <Th>{""}</Th>
         </Tr>
