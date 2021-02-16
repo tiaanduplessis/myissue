@@ -19,15 +19,18 @@ import { useAuth } from "@/lib/auth"
 export const LandingJumbotron = () => {
   const auth = useAuth()
 
-  // TODO: Subset font
-
   return (
     <>
       <Head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap"
-          rel="stylesheet"
-        />
+
+        <link rel="preload"
+              as="style"
+              href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap&subset=latin" />
+
+        <link rel="stylesheet"
+              href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap&subset=latin"
+              media="print" onload="this.media='all'" />
+  
       </Head>
 
       <Flex

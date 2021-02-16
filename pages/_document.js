@@ -18,7 +18,15 @@ class Doc extends Document {
           <meta name="theme-color" content="#ffffff" />
           
           <link rel="preconnect" href="https://fonts.gstatic.com" />
-          <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet" />
+          
+          <link rel="preload"
+              as="style"
+              href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap&subset=latin"  />
+
+        <link rel="stylesheet"
+              href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap&subset=latin" 
+              media="print" onload="this.media='all'" />
+
         </Head>
         <body>
           <Main />
