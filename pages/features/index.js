@@ -9,9 +9,9 @@ import { useAuth } from "@/lib/auth"
 
 import { DashboardLayout } from "@/layouts/dashboard"
 
-import { BugsTableSkeleton } from "@/components/bugs-table-skeleton"
-import { BugsTable } from "@/components/bugs-table"
-import { BugsEmptyDashboard } from "@/components/bugs-empty-dashboard"
+import { FeaturesTableSkeleton } from "@/components/features-table-skeleton"
+import { FeaturesTable } from "@/components/features-table"
+import { FeaturesEmptyDashboard } from "@/components/features-empty-dashboard"
 
 import {PRIMARY_COLOR_SCHEME} from "@/styles/theme"
 
@@ -23,13 +23,13 @@ const Dashboard = () => {
 
   const { projectId } = router.query
   const { data, error } = useSWR(
-    user ? projectId ? `/api/projects/${projectId}/bugs` : "/api/bugs" : null)
+    user ? projectId ? `/api/projects/${projectId}/features` : "/api/features" : null)
 
   useEffect(() => {
     if (error) {
       toast({
         title: "Oh noes!",
-        description: "We failed to load your bugs.",
+        description: "We failed to load your features.",
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -38,31 +38,31 @@ const Dashboard = () => {
   }, [error])
 
   const href = projectId
-    ? `/bugs/create?projectId=${projectId}`
-    : "/bugs/create"
+    ? `/features/create?projectId=${projectId}`
+    : "/features/create"
 
 
   return (
     <DashboardLayout
-      title={projectId ? `Project's bugs` : "All bugs"}
-      breadcrumbs={[{ label: "Bugs" }]}
+      title={projectId ? `Project's features` : "All features"}
+      breadcrumbs={[{ label: "Features" }]}
       actions={[
         <NextLink href={href}>
           <Button fontWeight="medium" colorScheme={PRIMARY_COLOR_SCHEME}>
-            + Create new bug
+            + Create new feature
           </Button>
         </NextLink>,
       ]}
     >
       <Head>
-        <title>Bugs</title>
+        <title>Features</title>
       </Head>
       {!data ? (
-        <BugsTableSkeleton />
-      ) : data?.bugs?.length > 0 ? (
-        <BugsTable bugs={data.bugs} />
+        <FeaturesTableSkeleton />
+      ) : data?.features?.length > 0 ? (
+        <FeaturesTable features={data.features} />
       ) : (
-        <BugsEmptyDashboard href={href} />
+        <FeaturesEmptyDashboard href={href} />
       )}
     </DashboardLayout>
   )

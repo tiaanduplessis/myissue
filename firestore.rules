@@ -12,6 +12,13 @@ service cloud.firestore {
       allow update: if isOwner() && willBeOwner();
       allow create: if willBeOwner();
     }
+
+    match /features/{uid} {
+      allow read: if true;
+      allow delete: if isOwner();
+      allow update: if isOwner() && willBeOwner();
+      allow create: if willBeOwner();
+    }
     
     match /projects/{uid} {
       allow read: if isOwner();

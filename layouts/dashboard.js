@@ -35,10 +35,10 @@ const NAV_LINKS = [
     label: "Bugs",
     href: "/bugs",
   },
-  // {
-  //   label: "Features",
-  //   href: "/features",
-  // },
+  {
+    label: "Features",
+    href: "/features",
+  },
 ]
 
 export const DashboardLayout = ({
@@ -48,7 +48,7 @@ export const DashboardLayout = ({
   actions = [],
 }) => {
   useOnlineNotifcation()
-  const { user, signout } = useAuth()
+  const { user } = useAuth()
   const router = useRouter()
 
   return (

@@ -96,7 +96,7 @@ const BugsCreate = () => {
 
   return (
     <DashboardLayout
-      title="Create an bug"
+      title="Create a bug"
       breadcrumbs={[{ label: "Bugs", href: backURL }, { label: "Create" }]}
     >
       <Head>

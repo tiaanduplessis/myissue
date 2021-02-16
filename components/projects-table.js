@@ -36,11 +36,11 @@ const Row = ({ name, id, link, createdAt }) => {
                                 View bugs
                             </MenuItem>
                         </NextLink>
-                        {/* <NextLink href={`/features?projectId=${id}`} passHref>
+                        <NextLink href={`/features?projectId=${id}`} passHref>
                             <MenuItem as={Link}>
                                 View features
                             </MenuItem>
-                        </NextLink> */}
+                        </NextLink>
                     <MenuItem hidden={!link} onClick={onCopy}>
                         Copy link
                     </MenuItem>
