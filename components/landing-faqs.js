@@ -41,7 +41,7 @@ import {
 
         <Accordion spacing={10}>
             {faqs.map(faq => {
-                return  <AccordionItem>
+                return  <AccordionItem key={faq.title}>
     <Heading as="h3" >
       <AccordionButton fontWeight='bold' py={4}>
         <Box flex="1" textAlign="left">
