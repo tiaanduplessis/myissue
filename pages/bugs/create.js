@@ -19,6 +19,7 @@ import {
   FormHelperText,
   usePrefersReducedMotion,
   useToast,
+  createIcon,
 } from "@chakra-ui/react"
 
 import { useAuth } from "@/lib/auth"
@@ -30,10 +31,11 @@ import { useDetectBrowser } from "@/hooks/use-detect-browser"
 import { useNetworkInfo } from "@/hooks/use-network-info"
 import { useLanguage } from "@/hooks/use-language"
 import { useDisplay } from "@/hooks/use-display"
+import { useCookieEnabled } from "@/hooks/use-cookie-enabled"
 
 import { createBug } from "@/lib/db"
 
-import {PRIMARY_COLOR_SCHEME} from "@/styles/theme"
+import { PRIMARY_COLOR_SCHEME } from "@/styles/theme"
 
 
 const BugsCreate = () => {
@@ -41,15 +43,17 @@ const BugsCreate = () => {
   const networkInfo = useNetworkInfo()
   const language = useLanguage()
   const display = useDisplay()
+  const cookieEnabled = useCookieEnabled()
   const prefersReducedMotion = usePrefersReducedMotion()
 
-  const { register, handleSubmit, watch, errors, control } = useForm({
+  const { register, handleSubmit, watch, errors, control, formState } = useForm({
     defaultValues: {
       frequency: "every-time",
       priority: "low",
       share: true,
     },
   })
+ 
   const toast = useToast()
   const { user } = useAuth()
   const router = useRouter()
@@ -58,7 +62,7 @@ const BugsCreate = () => {
 
   const backURL = `/bugs${projectId ? `?projectId=${projectId}` : ""}`
 
-  const onCreateBug = ({ share, ...values }) => {
+  const onCreateBug = async ({ share, ...values }) => {
     const bug = {
       authorId: user?.uid || null,
       projectId: projectId || null,
@@ -67,6 +71,7 @@ const BugsCreate = () => {
       ...(share && {
         prefersReducedMotion,
         language,
+        cookieEnabled,
         ...browser,
         ...networkInfo,
         ...display,
@@ -74,26 +79,37 @@ const BugsCreate = () => {
     }
 
     const key = projectId ? `/api/projects/${projectId}/bugs` : "/api/bugs"
+
     mutate(
       key,
-     (data) => {
-        return { bugs: [bug, ...data.bugs] }
+      (data) => {
+        return { bugs: [bug, ...(data?.bugs ?? [])] }
       },
       false
     )
-    toast({
-      title: "Success!",
-      description: "We've created your bug.",
-      status: "success",
-      duration: 5000,
-      isClosable: true,
-    })
-    createBug(bug).then(() => mutate(key))
-    router.push(backURL)
+
+    if (user) {
+      createBug(bug).then(() => mutate(key))
+      toast({
+        title: "Success!",
+        description: "We've created your bug.",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      })
+      router.push(backURL)
+    } else {
+      const doc = await createBug(bug)
+      mutate(key)
+      router.push({
+        pathname: '/bugs/[id]',
+        query: { id: doc.id, created: true },
+      })
+    }
   }
 
   const share = watch("share")
-
+ 
   return (
     <DashboardLayout
       title="Create a bug"
@@ -131,7 +147,7 @@ const BugsCreate = () => {
         <FormControl id="steps" isRequired maxW="3xl" mt={10}>
           <FormLabel>Steps to reproduce the bug</FormLabel>
           <Textarea
-            size="lg"
+            minHeight="10rem"
             placeholder={`Enter username. enter password. Click on sign in button...`}
             name="steps"
             ref={register({
@@ -146,7 +162,8 @@ const BugsCreate = () => {
         <FormControl id="expecting" isRequired maxW="3xl" mt={10}>
           <FormLabel>Expected result/behaviour</FormLabel>
           <Textarea
-             size="lg"
+            minHeight="10rem"
+
             placeholder="Form submits and redirects to dashboard"
             name="expecting"
             ref={register({
@@ -154,21 +171,21 @@ const BugsCreate = () => {
             })}
           />
           <FormHelperText>
-            How the software should have performed
+            How the software should have performed.
           </FormHelperText>
         </FormControl>
 
         <FormControl id="resulting" isRequired maxW="3xl" mt={10}>
           <FormLabel>Resulting behaviour</FormLabel>
           <Textarea
-           size="lg"
+            minHeight="10rem"
             placeholder="Form stuck in signing in state"
             name="resulting"
             ref={register({
               required: "Required",
             })}
           />
-          <FormHelperText>How the software actually performed</FormHelperText>
+          <FormHelperText>How the software actually performed.</FormHelperText>
         </FormControl>
 
         <FormControl id="frequency" mt={10}>
@@ -236,11 +253,12 @@ const BugsCreate = () => {
               "Estimated effective round-trip time (ms)": networkInfo.rtt,
               "Prefers reduced data usage": networkInfo.saveData ? "Yes" : "No",
               "Prefers reduced motion": prefersReducedMotion ? "Yes" : "No",
+              "Cookies enabled": cookieEnabled ? 'Yes' : 'No',
               "Pixel ratio": `${display.devicePixelRatio}`,
-              "CSS pixel width": `${display.cssPixelWidth}px`,
-              "CSS pixel height": `${display.cssPixelHight}px`,
-              "Window width": `${display.innerWidth}px`,
-              "Window height": `${display.innerHeight}px`,
+              "Screen (width x height)": `${display.screenWidth} x ${display.screenHeight}`,
+              "Viewport (width x height)": `${display.windowWidth} x ${display.windowHeight}`,
+              "Page (width x height)": `${display.pageWidth} x ${display.pageHeight}`,
+              "CSS pixel (width x height)": `${display.cssPixelWidth} x ${display.cssPixelHight}`,
               "Mobile pinch zoom": `${display.pinchZoomScalingFactor * 100}%`,
             }}
           />
@@ -251,7 +269,12 @@ const BugsCreate = () => {
                 Reset
               </Button> */}
 
-          <Button colorScheme={PRIMARY_COLOR_SCHEME} fontWeight="medium" type="submit">
+          <Button 
+            colorScheme={PRIMARY_COLOR_SCHEME} 
+            fontWeight="medium" 
+            isLoading={formState.isSubmitting}
+            loadingText="Submitting"
+            type="submit">
             Create
           </Button>
         </ButtonGroup>

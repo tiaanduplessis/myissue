@@ -5,7 +5,7 @@ import { Table, Tr, Th, Td } from "@/components/table"
 
 export const DeviceTable = ({ data, ...props }) => {
   return (
-    <Table {...props}>
+    <Table  {...props}>
       <thead>
         <Tr>
           <Th>Name</Th>
@@ -16,7 +16,12 @@ export const DeviceTable = ({ data, ...props }) => {
         {Object.entries(data).map(([name, value]) => (
           <Box as="tr" key={name}>
             <Td fontWeight="medium">{name}</Td>
-            <Td>{value}</Td>
+            <Td sx={{
+              "&:last-child": {
+                "display": "flex",
+                "justifyContent": "flex-start"
+              }
+            }}>{value}</Td>
           </Box>
         ))}
       </tbody>
