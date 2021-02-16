@@ -23,11 +23,11 @@ const SOCIAL_LINKS = [
 const OTHER_INFO_LINKS = [
   {
     label: 'Roadmap',
-    href: '/roadmap',
+    href: 'https://github.com/tiaanduplessis/myissue/projects/1?fullscreen=true',
   },
   {
     label: 'Feedback',
-    href: 'mailto:tiaanduplessis@hotmail.com',
+    href: 'https://github.com/tiaanduplessis/myissue/issues/new',
   },
 ]
 
@@ -58,9 +58,7 @@ export const Footer = () => {
             </Text>
             <Stack align={'start'}>
             {OTHER_INFO_LINKS.map((link) => (
-                <NextLink key={link.href} href={link.href} passHref>
-                  <Link >{link.label}</Link>
-                </NextLink>  
+                  <Link key={link.href}  href={link.href} isExternal>{link.label}</Link>
               ))}
             </Stack>
           </Stack>
