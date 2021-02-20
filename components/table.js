@@ -49,9 +49,9 @@ export const Table = (props) => {
       as="table"
       textAlign="left"
       backgroundColor="white"
-      ml={0}
-      mr={0}
+      mx={0}
       rounded="sm"
+      w="full"
       boxShadow="sm"
       {...props}
     />

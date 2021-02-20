@@ -15,6 +15,8 @@ import { NextSeo } from 'next-seo';
 import NextLink from "next/link"
 import { useRouter } from "next/router"
 
+
+import {SkipLink} from "@/components/skip-link"
 import { useAuth } from "@/lib/auth"
 import { LogoIcon } from "@/icons/logo"
 
@@ -57,6 +59,7 @@ export const PageLayout = ({
     <NextSeo
       title={title}
     />
+    <SkipLink/>
     <Box backgroundColor="gray.100" minHeight="100vh" pb={8}>
       <Flex backgroundColor="white" 
       mb={{
@@ -116,7 +119,7 @@ export const PageLayout = ({
           </Flex>
         </Flex>
       </Flex>
-      <Flex margin="0 auto" direction="column" maxW="7xl" px={8}>
+      <Flex id="content" margin="0 auto" direction="column" maxW="7xl" px={8}>
         {(breadcrumbs && user) && (
           <Breadcrumb>
             {breadcrumbs.map(({ label, href = null }) => (
