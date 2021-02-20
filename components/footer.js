@@ -22,6 +22,14 @@ const SOCIAL_LINKS = [
 
 const OTHER_INFO_LINKS = [
   {
+    label: 'Privacy policy',
+    href: '/privacy'
+  },
+  {
+    label: 'Terms of use',
+    href: '/terms'
+  },
+  {
     label: 'Roadmap',
     href: 'https://github.com/tiaanduplessis/myissue/projects/1?fullscreen=true',
   },
@@ -42,6 +50,24 @@ export const Footer = () => {
         <SimpleGrid columns={{ md: 1, lg: 2 }} mb={10} spacing={6}>
 
           <Stack spacing={4}>
+            <Text as="h2" fontFamily={'heading'} fontSize={'lg'} fontWeight="black">
+              Other info
+            </Text>
+            <Stack align={'start'}>
+            {OTHER_INFO_LINKS.map((link) => {
+              if (link.href.startsWith('http')) {
+                return <Link key={link.href}  href={link.href} isExternal>{link.label}</Link>
+              } else {
+                return <NextLink key={link.href} href={link.href} passHref>
+                 <Link>{link.label}</Link>
+                </NextLink>
+              }
+            }
+           )}
+            </Stack>
+          </Stack>
+
+          <Stack spacing={4}>
             <Text as="h2"  fontFamily={'heading'} fontWeight="black" fontSize={'lg'}>
               Social
             </Text>
@@ -52,16 +78,6 @@ export const Footer = () => {
             </Stack>
           </Stack>
 
-          <Stack spacing={4}>
-            <Text as="h2" fontFamily={'heading'} fontSize={'lg'} fontWeight="black">
-              Other info
-            </Text>
-            <Stack align={'start'}>
-            {OTHER_INFO_LINKS.map((link) => (
-                  <Link key={link.href}  href={link.href} isExternal>{link.label}</Link>
-              ))}
-            </Stack>
-          </Stack>
 
         </SimpleGrid>
 
