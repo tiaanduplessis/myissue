@@ -7,9 +7,11 @@ import {
   Button,
   Flex,
   Link,
+  VisuallyHidden,
   Avatar,
   SimpleGrid,
 } from "@chakra-ui/react"
+import { NextSeo } from 'next-seo';
 import NextLink from "next/link"
 import { useRouter } from "next/router"
 
@@ -51,7 +53,10 @@ export const PageLayout = ({
   const { user } = useAuth()
   const router = useRouter()
 
-  return (
+  return (<>
+    <NextSeo
+      title={title}
+    />
     <Box backgroundColor="gray.100" minHeight="100vh" pb={8}>
       <Flex backgroundColor="white" 
       mb={{
@@ -98,11 +103,11 @@ export const PageLayout = ({
           <Flex justifyContent="center" alignItems="center">
             {user && (
               <>
+              <NextLink href="/account" passHref>
+                <a>
                 <Avatar size="sm" src={user?.photoUrl} />
-                <NextLink href="/account" passHref>
-                  <Button as="a" variant="ghost" mr={2}>
-                    Account
-                  </Button>
+                  <VisuallyHidden>Account</VisuallyHidden>
+                </a>            
               </NextLink>
               </>
              
@@ -129,5 +134,6 @@ export const PageLayout = ({
         {children}
       </Flex>
     </Box>
+      </>
   )
 }

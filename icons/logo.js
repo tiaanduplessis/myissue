@@ -4,7 +4,7 @@ export const LogoIcon = createIcon({
   displayName: "Logo",
   viewBox: "0 0 512 512",
   defaultProps: {
-    color: "gray.700"
+    color: "gray.800"
   },
   path: [
     <circle key="circle" cx="256" cy="256" r="256" fill="currentColor"/>,

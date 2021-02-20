@@ -1,6 +1,6 @@
 {
-    "name": "myissue.link",
-    "short_name": "myissue.link",
+    "name": "myissue",
+    "short_name": "myissue",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
