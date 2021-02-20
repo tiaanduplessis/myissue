@@ -23,7 +23,7 @@ import {
 
 import { useAuth } from "@/lib/auth"
 
-import { DashboardLayout } from "@/layouts/dashboard"
+import { PageLayout } from "@/layouts/page"
 
 import { createFeature } from "@/lib/db"
 
@@ -74,7 +74,7 @@ const FeaturesCreate = () => {
     }
 
     return (
-        <DashboardLayout
+        <PageLayout
             title="Create a feature"
             breadcrumbs={[{ label: "Features", href: backURL }, { label: "Create" }]}
         >
@@ -238,7 +238,7 @@ const FeaturesCreate = () => {
           </Button>
                 </ButtonGroup>
             </Flex>
-        </DashboardLayout>
+        </PageLayout>
     )
 }
 

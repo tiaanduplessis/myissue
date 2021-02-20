@@ -5,7 +5,7 @@ import useSWR from "swr"
 
 import { useAuth } from "@/lib/auth"
 
-import { DashboardLayout } from "@/layouts/dashboard"
+import { PageLayout } from "@/layouts/page"
 
 import { ProjectsTable } from "@/components/projects-table"
 import { EmptyDashboard } from "@/components/projects-empty-dashboard"
@@ -30,7 +30,7 @@ const Projects = () => {
   }, [error])
 
   return (
-    <DashboardLayout
+    <PageLayout
       title="All projects"
       breadcrumbs={[{ label: "Projects" }]}
       actions={[<ProjectCreateModal>+ Create project</ProjectCreateModal>]}
@@ -45,7 +45,7 @@ const Projects = () => {
       ) : (
         <EmptyDashboard type="projects" />
       )}
-    </DashboardLayout>
+    </PageLayout>
   )
 }
 

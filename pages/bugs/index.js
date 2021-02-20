@@ -7,7 +7,7 @@ import useSWR from "swr"
 
 import { useAuth } from "@/lib/auth"
 
-import { DashboardLayout } from "@/layouts/dashboard"
+import { PageLayout } from "@/layouts/page"
 
 import { BugsTableSkeleton } from "@/components/bugs-table-skeleton"
 import { BugsTable } from "@/components/bugs-table"
@@ -43,7 +43,7 @@ const Dashboard = () => {
 
 
   return (
-    <DashboardLayout
+    <PageLayout
       title={projectId ? `Project's bugs` : "All bugs"}
       breadcrumbs={[{ label: "Bugs" }]}
       actions={[
@@ -64,7 +64,7 @@ const Dashboard = () => {
       ) : (
         <BugsEmptyDashboard href={href} />
       )}
-    </DashboardLayout>
+    </PageLayout>
   )
 }
 

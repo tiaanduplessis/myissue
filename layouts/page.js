@@ -19,14 +19,14 @@ import { LogoIcon } from "@/icons/logo"
 import { useOnlineNotifcation } from "@/hooks/use-online-notification"
 
 
-const ANOM_NAV_LINKS = [
+const DEFAULT_LINKS = [
   {
     label: "Home",
     href: "/",
   },
 ]
 
-const NAV_LINKS = [
+const SIGNED_IN_LINKS = [
   {
     label: "Projects",
     href: "/projects",
@@ -41,7 +41,7 @@ const NAV_LINKS = [
   },
 ]
 
-export const DashboardLayout = ({
+export const PageLayout = ({
   children,
   title,
   breadcrumbs,
@@ -73,10 +73,9 @@ export const DashboardLayout = ({
               <LogoIcon width={10} height={10} mr={8} />
             </NextLink>
 
-
             <Box as="nav">
               <Flex as="ul" style={{ listStyle: "none" }}>
-                {(user ? NAV_LINKS : ANOM_NAV_LINKS).map(({ label, href }) => {
+                {(user ? SIGNED_IN_LINKS : DEFAULT_LINKS).map(({ label, href }) => {
                   const isActive = router.pathname.startsWith(href)
                   return (
                     <li key={href}>
@@ -94,8 +93,6 @@ export const DashboardLayout = ({
                 })}
               </Flex>
             </Box>
-        
-
             
           </Flex>
           <Flex justifyContent="center" alignItems="center">

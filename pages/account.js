@@ -4,14 +4,14 @@ import {Flex, Button} from "@chakra-ui/react"
 
 import { useAuth } from "@/lib/auth"
 
-import { DashboardLayout } from "@/layouts/dashboard"
+import { PageLayout } from "@/layouts/page"
 
 const Account = () => {
   const router = useRouter()
     const {signout} = useAuth()
 
   return (
-    <DashboardLayout
+    <PageLayout
       title="Account"
     >
       <Head>
@@ -40,7 +40,7 @@ const Account = () => {
 
       </Flex>
 
-    </DashboardLayout>
+    </PageLayout>
   )
 }
 

@@ -24,7 +24,7 @@ import {
 
 import { useAuth } from "@/lib/auth"
 
-import { DashboardLayout } from "@/layouts/dashboard"
+import { PageLayout } from "@/layouts/page"
 import { DeviceTable } from "@/components/device-table"
 
 import { useDetectBrowser } from "@/hooks/use-detect-browser"
@@ -111,7 +111,7 @@ const BugsCreate = () => {
   const share = watch("share")
  
   return (
-    <DashboardLayout
+    <PageLayout
       title="Create a bug"
       breadcrumbs={[{ label: "Bugs", href: backURL }, { label: "Create" }]}
     >
@@ -279,7 +279,7 @@ const BugsCreate = () => {
           </Button>
         </ButtonGroup>
       </Flex>
-    </DashboardLayout>
+    </PageLayout>
   )
 }
 

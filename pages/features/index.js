@@ -7,7 +7,7 @@ import useSWR from "swr"
 
 import { useAuth } from "@/lib/auth"
 
-import { DashboardLayout } from "@/layouts/dashboard"
+import { PageLayout } from "@/layouts/page"
 
 import { FeaturesTableSkeleton } from "@/components/features-table-skeleton"
 import { FeaturesTable } from "@/components/features-table"
@@ -43,7 +43,7 @@ const Dashboard = () => {
 
 
   return (
-    <DashboardLayout
+    <PageLayout
       title={projectId ? `Project's features` : "All features"}
       breadcrumbs={[{ label: "Features" }]}
       actions={[
@@ -64,7 +64,7 @@ const Dashboard = () => {
       ) : (
         <FeaturesEmptyDashboard href={href} />
       )}
-    </DashboardLayout>
+    </PageLayout>
   )
 }
 
