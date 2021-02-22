@@ -88,8 +88,10 @@ export const PageLayout = ({
                       <NextLink  href={href} passHref>
                         <Link
                           mr={4}
+
                           fontWeight={isActive ? "medium" : "normal"}
                           aria-current={isActive ? "page" : null}
+                          textDecoration={isActive ? 'underline' : 'none'}
                         >
                           {label}
                         </Link>

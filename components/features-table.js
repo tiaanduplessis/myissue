@@ -6,6 +6,8 @@ import { RiArrowDownSLine } from "react-icons/ri"
 
 import { Table, Tr, Th, Td } from "@/components/table"
 
+import {FeaturesDeleteButton} from '@/components/features-delete-button'
+
 const PRIORTY_COLOR_MAP = {
   low: "green",
   medium: "yellow",
@@ -17,7 +19,7 @@ const TYPE_COLOR_MAP = {
     epic: 'cyan'
 }
 
-const Row = ({ type, problem, id, priority, createdAt }) => {
+const Row = ({ type, problem, id, priority, createdAt, projectId }) => {
   const { hasCopied, onCopy } = useClipboard(`${window.location.origin}/features/${id}`)
 
   return <Box as="tr">
@@ -57,7 +59,7 @@ const Row = ({ type, problem, id, priority, createdAt }) => {
                   <MenuItem onClick={onCopy}>
                       Copy feature link
                   </MenuItem>
-                  <MenuItem>Delete</MenuItem>
+                  <FeaturesDeleteButton id={id} projectId={projectId}/>
               </MenuList>
           </Menu>
       </Td>

@@ -12,20 +12,21 @@ import {
     MenuItem
 } from '@chakra-ui/react';
 
-import { deleteBug } from '@/lib/db';
+import { deleteFeature } from '@/lib/db';
 
-export const BugsDeleteButton = ({ id, projectId, ...props }) => {
+export const FeaturesDeleteButton = ({ id, projectId, ...props }) => {
     const toast = useToast()
     const [isOpen, setIsOpen] = useState();
     const cancelRef = useRef();
-    const key = projectId ? `/api/projects/${projectId}/bugs` : "/api/bugs"
-
+    const key = projectId ? `/api/features/${projectId}/` : "/api/features"
+ 
     const onClose = () => setIsOpen(false);
+
     const onDelete = () => {
-        deleteBug(id).then(() => mutate(key))
+        deleteFeature(id).then(() => mutate(key))
         toast({
             title: "Success!",
-            description: "We've deleted the bug.",
+            description: "We've deleted the feature.",
             status: "success",
             duration: 5000,
             isClosable: true,
@@ -35,8 +36,8 @@ export const BugsDeleteButton = ({ id, projectId, ...props }) => {
             key,
             async (data) => {
                 return {
-                    bugs: data?.bugs.filter(
-                        bug => bug.id !== id
+                    features: data?.features.filter(
+                        feature => feature.id !== id
                     ) ?? []
                 };
             },
@@ -60,7 +61,7 @@ export const BugsDeleteButton = ({ id, projectId, ...props }) => {
                 <AlertDialogOverlay />
                 <AlertDialogContent>
                     <AlertDialogHeader fontSize="xl" fontWeight="black">
-                        Delete bug
+                        Delete feature
           </AlertDialogHeader>
                     <AlertDialogBody>
                         Are you sure? You can't undo this action afterwards.

@@ -24,7 +24,7 @@ const Dashboard = () => {
   const { projectId } = router.query
   const { data, error } = useSWR(
     user ? projectId ? `/api/projects/${projectId}/features` : "/api/features" : null)
-
+   
   useEffect(() => {
     if (error) {
       toast({
