@@ -85,6 +85,7 @@ export const LandingJumbotron = () => {
                   <Button
                     colorScheme={PRIMARY_COLOR_SCHEME}
                     rounded={"full"}
+                    size="lg"
                     px={6}
                   >
                     Create a bug
@@ -92,7 +93,7 @@ export const LandingJumbotron = () => {
                 </NextLink>
 
                 <NextLink href="/sign-in">
-                  <Button variant={"link"} color="white" size={"sm"}>
+                  <Button variant={"link"} color="white" size="md">
                     Sign in
                   </Button>
                 </NextLink>

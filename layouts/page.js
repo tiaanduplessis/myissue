@@ -4,7 +4,6 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   Heading,
-  Button,
   Flex,
   Link,
   VisuallyHidden,
@@ -130,7 +129,7 @@ export const PageLayout = ({
         )}
 
         <Flex justifyContent="space-between" mb={8}>
-          <Heading >{title}</Heading>
+          <Heading as="h1">{title}</Heading>
           <SimpleGrid spacing={2}>{actions}</SimpleGrid>
         </Flex>
         {children}

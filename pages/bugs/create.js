@@ -19,7 +19,6 @@ import {
   FormHelperText,
   usePrefersReducedMotion,
   useToast,
-  createIcon,
 } from "@chakra-ui/react"
 
 import { useAuth } from "@/lib/auth"
@@ -36,7 +35,6 @@ import { useCookieEnabled } from "@/hooks/use-cookie-enabled"
 import { createBug } from "@/lib/db"
 
 import { PRIMARY_COLOR_SCHEME } from "@/styles/theme"
-
 
 const BugsCreate = () => {
   const browser = useDetectBrowser()
@@ -141,7 +139,46 @@ const BugsCreate = () => {
               required: "Required",
             })}
           />
+          <FormHelperText></FormHelperText>
+        </FormControl>
+
+        <FormControl id="overview" maxW="3xl" mt={10}>
+          <FormLabel>Overview</FormLabel>
+          <Textarea
+            minHeight="10rem"
+            placeholder="When a user tries to sign in to the platform, they get stuck..."
+            name="overview"
+            ref={register()}
+          />
           <FormHelperText>Briefly describe the bug.</FormHelperText>
+        </FormControl>
+
+        <FormControl id="expecting" isRequired maxW="3xl" mt={10}>
+          <FormLabel>What should happen? (Expected behaviour)</FormLabel>
+          <Textarea
+            minHeight="10rem"
+            placeholder="Form submits and redirects to dashboard"
+            name="expecting"
+            ref={register({
+              required: "Required",
+            })}
+          />
+          <FormHelperText>
+            How the software should have performed.
+          </FormHelperText>
+        </FormControl>
+
+        <FormControl id="resulting" isRequired maxW="3xl" mt={10}>
+          <FormLabel>What happened? (Resulting behaviour)</FormLabel>
+          <Textarea
+            minHeight="10rem"
+            placeholder="Form stuck in signing in state"
+            name="resulting"
+            ref={register({
+              required: "Required",
+            })}
+          />
+          <FormHelperText>How the software actually performed.</FormHelperText>
         </FormControl>
 
         <FormControl id="steps" isRequired maxW="3xl" mt={10}>
@@ -159,34 +196,6 @@ const BugsCreate = () => {
           </FormHelperText>
         </FormControl>
 
-        <FormControl id="expecting" isRequired maxW="3xl" mt={10}>
-          <FormLabel>Expected result/behaviour</FormLabel>
-          <Textarea
-            minHeight="10rem"
-
-            placeholder="Form submits and redirects to dashboard"
-            name="expecting"
-            ref={register({
-              required: "Required",
-            })}
-          />
-          <FormHelperText>
-            How the software should have performed.
-          </FormHelperText>
-        </FormControl>
-
-        <FormControl id="resulting" isRequired maxW="3xl" mt={10}>
-          <FormLabel>Resulting behaviour</FormLabel>
-          <Textarea
-            minHeight="10rem"
-            placeholder="Form stuck in signing in state"
-            name="resulting"
-            ref={register({
-              required: "Required",
-            })}
-          />
-          <FormHelperText>How the software actually performed.</FormHelperText>
-        </FormControl>
 
         <FormControl id="frequency" mt={10}>
           <FormLabel>Frequency</FormLabel>
