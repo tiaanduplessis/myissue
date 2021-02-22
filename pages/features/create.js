@@ -119,7 +119,7 @@ const FeaturesCreate = () => {
                 </FormControl>
 
                 <FormControl id="problem" isRequired maxW="3xl" mt={10}>
-                    <FormLabel>Problem</FormLabel>
+                    <FormLabel>Problem statement</FormLabel>
                     <Textarea
                         size="lg"
                         placeholder={"The user can not sign in using Google..."}
@@ -134,7 +134,7 @@ const FeaturesCreate = () => {
                 </FormControl>
 
                 <FormControl id="impact" isRequired maxW="3xl" mt={10}>
-                    <FormLabel>Impact</FormLabel>
+                    <FormLabel>Impact on user</FormLabel>
                     <Textarea
                         size="lg"
                         placeholder={"User's without a Google account can not sign in to the platform..."}

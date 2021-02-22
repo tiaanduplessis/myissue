@@ -47,7 +47,7 @@ const Dashboard = () => {
       title={projectId ? `Project's features` : "All features"}
       breadcrumbs={[{ label: "Features" }]}
       actions={[
-        <NextLink href={href}>
+        <NextLink key="create-new-feature" href={href}>
           <Button fontWeight="medium" colorScheme={PRIMARY_COLOR_SCHEME}>
             + Create new feature
           </Button>

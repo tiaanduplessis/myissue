@@ -1,13 +1,11 @@
-import { useEffect, useState } from "react";
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 import {
   Badge, Stack,
-  Flex, Heading, Text, Link, Button, Alert, Box,
+  Flex, Heading, Text, Link, Alert, Box,
   AlertIcon, AlertTitle, AlertDescription
 } from '@chakra-ui/react'
-import { RiShareFill } from "react-icons/ri"
 import { NextSeo } from 'next-seo';
 
 import { DeviceTable } from "@/components/device-table"
@@ -18,8 +16,8 @@ import {PRIMARY_COLOR_SCHEME} from "@/styles/theme"
 
 import { getBugById } from "@/lib/db-admin"
 
-const RWebShare = dynamic(() =>
-  import('react-web-share').then((mod) => mod.RWebShare)
+const ShareLinkButton = dynamic(() =>
+    import('@/components/share-link-button').then((mod) => mod.ShareLinkButton)
 )
 
 const PRIORTY_COLOR_MAP = {
@@ -36,23 +34,10 @@ const FREQUENCY_TEXT_MAP = {
 
 export default function BugDetail({ bug }) {
   const router = useRouter()
-  const [url, setUrl] = useState('')
   const { title: description } = bug
   const title = router.query?.created ? "Sorted! Bug created" : "Bug report"
 
-  useEffect(() => {
-    setUrl(`${window.location.origin}${window.location.pathname}`)
-  }, [])
-
-  return <PageLayout title={title} actions={<RWebShare
-    data={{
-      text: description,
-      url,
-      title: "Bug report",
-    }}
-  >
-    <Button leftIcon={<RiShareFill />} >Share</Button>
-  </RWebShare>}>
+  return <PageLayout title={title} actions={<ShareLinkButton description={description} title="Bug report" />}>
     <NextSeo
       title={title}
       description={description}

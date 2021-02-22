@@ -1,9 +1,22 @@
 import React from "react"
-import { Box } from "@chakra-ui/react"
+import { Box, useMediaQuery, StatGroup, Stat, StatLabel, StatNumber, StatHelpText, StatArrow } from "@chakra-ui/react"
 
 import { Table, Tr, Th, Td } from "@/components/table"
 
 export const DeviceTable = ({ data, ...props }) => {
+  const [isSmallDisplay] = useMediaQuery("screen and (max-width: 45em)")
+
+  if (isSmallDisplay) {
+    return <StatGroup flexDirection="column">
+      {Object.entries(data).map(([name, value]) => {
+        return <Stat mb={4}>
+          <StatLabel>{name}</StatLabel>
+          <StatNumber>{value}</StatNumber>
+        </Stat>
+      })}
+    </StatGroup>
+  }
+
   return (
     <Table  {...props}>
       <thead>
