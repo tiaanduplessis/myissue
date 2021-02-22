@@ -15,7 +15,6 @@ import { BugsEmptyDashboard } from "@/components/bugs-empty-dashboard"
 
 import {PRIMARY_COLOR_SCHEME} from "@/styles/theme"
 
-
 const Dashboard = () => {
   const toast = useToast()
   const router = useRouter()
@@ -60,7 +59,7 @@ const Dashboard = () => {
       {!data ? (
         <BugsTableSkeleton />
       ) : data?.bugs?.length > 0 ? (
-        <BugsTable bugs={data.bugs} />
+        <BugsTable bugs={data?.bugs} />
       ) : (
         <BugsEmptyDashboard href={href} />
       )}

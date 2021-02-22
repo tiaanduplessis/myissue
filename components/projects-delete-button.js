@@ -33,9 +33,9 @@ const toast = useToast()
       '/api/projects',
       async (data) => {
         return {
-          projects: data.projects.filter(
+          projects: data?.projects.filter(
             (project) => project.id !== id
-          )
+          ) ?? []
         };
       },
       false

@@ -5,6 +5,7 @@ import { parseISO, format } from "date-fns"
 import { RiArrowDownSLine } from "react-icons/ri"
 
 import { Table, Tr, Th, Td } from "@/components/table"
+import { BugsDeleteButton } from "@/components/bugs-delete-button"
 
 const PRIORTY_COLOR_MAP = {
   low: "green",
@@ -12,8 +13,9 @@ const PRIORTY_COLOR_MAP = {
   high: "red",
 }
 
-const Row = ({ title, id, priority, createdAt }) => {
+const Row = ({ title, id, priority, createdAt, projectId }) => {
   const { hasCopied, onCopy } = useClipboard(`${window.location.origin}/bugs/${id}`)
+
   return <Box as="tr">
       <Td fontWeight="medium" style={{
           textOverflow: 'ellipsis',
@@ -43,7 +45,7 @@ const Row = ({ title, id, priority, createdAt }) => {
                   <MenuItem onClick={onCopy}>
                       Copy bug link
                   </MenuItem>
-                  <MenuItem>Delete</MenuItem>
+                  <BugsDeleteButton id={id} projectId={projectId}/>
               </MenuList>
           </Menu>
       </Td>

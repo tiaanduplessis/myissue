@@ -70,8 +70,8 @@ export const FeaturesTable = ({ features }) => {
       <thead>
         <Tr>
           <Th>Problem</Th>
-          <Th>Priority</Th>
           <Th>Type</Th>
+          <Th>Priority</Th>
           <Th>Date Added</Th>
           <Th>{""}</Th>
         </Tr>

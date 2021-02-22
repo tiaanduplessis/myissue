@@ -18,7 +18,6 @@ import {PRIMARY_COLOR_SCHEME} from "@/styles/theme"
 
 import { getBugById } from "@/lib/db-admin"
 
-
 const RWebShare = dynamic(() =>
   import('react-web-share').then((mod) => mod.RWebShare)
 )
