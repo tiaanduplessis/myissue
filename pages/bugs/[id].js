@@ -4,11 +4,13 @@ import dynamic from 'next/dynamic'
 import {
   Badge, Stack,
   Flex, Heading, Text, Link, Alert, Box,
-  AlertIcon, AlertTitle, AlertDescription
+  AlertIcon, AlertTitle, AlertDescription,
+  Divider
 } from '@chakra-ui/react'
 import { NextSeo } from 'next-seo';
 
 import { DeviceTable } from "@/components/device-table"
+import {MarkdownPreview} from "@/components/markdown-preview"
 
 import { PageLayout } from "@/layouts/page"
 
@@ -68,21 +70,26 @@ export default function BugDetail({ bug }) {
       </Stack>
 
       <Heading as="h2" size='md' mb={2}>Title</Heading>
-      <Text maxW="2xl" mb={8}>{bug.title}</Text>
+      <Divider mb={2}/>
+      <Text maxW="2xl" mb={14}>{bug.title}</Text>
 
       {bug.overview && <>
         <Heading as="h2" size='md' mb={2}>Overview</Heading>
-        <Text maxW="2xl" mb={8}>{bug.overview}</Text>
+        <Divider mb={2}/>
+        <MarkdownPreview maxW="2xl" mb={14}>{bug.overview}</MarkdownPreview>
       </>}
       
       <Heading as="h2" size='md' mb={2}>Expected result/behaviour</Heading>
-      <Text maxW="2xl" mb={8}>{bug.expecting}</Text>
+      <Divider mb={2}/>
+      <MarkdownPreview maxW="2xl" mb={14}>{bug.expecting}</MarkdownPreview>
 
       <Heading as="h2" size='md' mb={2}>Resulting behaviour</Heading>
-      <Text maxW="2xl" mb={8}>{bug.resulting}</Text>
+      <Divider mb={2}/>
+      <MarkdownPreview maxW="2xl" mb={14}>{bug.resulting}</MarkdownPreview>
      
       <Heading as="h2" size='md' mb={2}>Steps to reproduce</Heading>
-      <Text maxW="2xl" mb={14}>{bug.steps}</Text>
+      <Divider mb={2}/>
+      <MarkdownPreview maxW="2xl" mb={14}>{bug.steps}</MarkdownPreview>
 
         {bug.name && <DeviceTable
             data={{
