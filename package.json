@@ -27,10 +27,12 @@
     "prettier": "^2.2.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
-    "react-hook-form": "^6.15.0",
+    "react-hook-form": "^6.15.3",
     "react-icons": "^4.1.0",
     "react-web-share": "^1.0.18",
-    "swr": "^0.4.1"
+    "@hookform/resolvers": "1.4.0-beta.1",
+    "swr": "^0.4.2",
+    "yup": "^0.32.9"
   },
   "husky": {
     "hooks": {
