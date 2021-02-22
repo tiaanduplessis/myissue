@@ -29,6 +29,7 @@
     "react-dom": "17.0.1",
     "react-hook-form": "^6.15.0",
     "react-icons": "^4.1.0",
+    "react-web-share": "^1.0.18",
     "swr": "^0.4.1"
   },
   "husky": {

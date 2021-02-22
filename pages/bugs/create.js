@@ -122,7 +122,7 @@ const BugsCreate = () => {
       <Flex
         width="100%"
         backgroundColor="white"
-        bordered="sm"
+        borderRadius={8}
         boxShadow="sm"
         p={{
           base: 5,

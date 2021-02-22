@@ -15,7 +15,6 @@ import { NextSeo } from 'next-seo';
 import NextLink from "next/link"
 import { useRouter } from "next/router"
 
-
 import {SkipLink} from "@/components/skip-link"
 import { useAuth } from "@/lib/auth"
 import { LogoIcon } from "@/icons/logo"
@@ -130,8 +129,8 @@ export const PageLayout = ({
           </Breadcrumb>
         )}
 
-        <Flex justifyContent="space-between">
-          <Heading mb={8}>{title}</Heading>
+        <Flex justifyContent="space-between" mb={8}>
+          <Heading >{title}</Heading>
           <SimpleGrid spacing={2}>{actions}</SimpleGrid>
         </Flex>
         {children}
