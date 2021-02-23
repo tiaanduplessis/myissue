@@ -36,7 +36,7 @@ export default function FeatureDetail({ feature }) {
         <Flex
             width="100%"
             backgroundColor="white"
-            borderRadius={8}
+            borderRadius="md"
             boxShadow="sm"
             p={{
                 base: 5,

@@ -20,6 +20,7 @@ import {
   usePrefersReducedMotion,
   useToast,
 } from "@chakra-ui/react"
+import { yupResolver } from '@hookform/resolvers/yup';
 
 import { useAuth } from "@/lib/auth"
 
@@ -36,6 +37,8 @@ import { createBug } from "@/lib/db"
 
 import { PRIMARY_COLOR_SCHEME } from "@/styles/theme"
 
+import { bugsCreateSchema } from "@/schemas/bugs-create-schema"
+
 const BugsCreate = () => {
   const browser = useDetectBrowser()
   const networkInfo = useNetworkInfo()
@@ -45,13 +48,15 @@ const BugsCreate = () => {
   const prefersReducedMotion = usePrefersReducedMotion()
 
   const { register, handleSubmit, watch, errors, control, formState } = useForm({
+    mode: 'onTouched',
+    resolver: yupResolver(bugsCreateSchema),
     defaultValues: {
       frequency: "every-time",
       priority: "low",
       share: true,
     },
   })
- 
+
   const toast = useToast()
   const { user } = useAuth()
   const router = useRouter()
@@ -107,7 +112,7 @@ const BugsCreate = () => {
   }
 
   const share = watch("share")
- 
+
   return (
     <PageLayout
       title="Create a bug"
@@ -120,7 +125,7 @@ const BugsCreate = () => {
       <Flex
         width="100%"
         backgroundColor="white"
-        borderRadius={8}
+        borderRadius="md"
         boxShadow="sm"
         p={{
           base: 5,
@@ -130,47 +135,50 @@ const BugsCreate = () => {
         as="form"
         onSubmit={handleSubmit(onCreateBug)}
       >
-        <FormControl id="title" isRequired maxW="xl">
-          <FormLabel>Title</FormLabel>
+        <FormControl isRequired maxW="xl" isInvalid={errors.title?.message?.length > 0}>
+          <FormLabel htmlFor="title">Title</FormLabel>
           <Input
+            id="title"
             placeholder="Sign in: form failed to submit"
             name="title"
-            ref={register({
-              required: "Required",
-            })}
+            ref={register}
           />
-          <FormHelperText></FormHelperText>
+          <FormErrorMessage>{errors.title?.message}</FormErrorMessage>
         </FormControl>
 
-        <FormControl id="overview" maxW="3xl" mt={10}>
-          <FormLabel>Overview</FormLabel>
+        <FormControl maxW="3xl" mt={10} isInvalid={errors.overview?.message?.length > 0}>
+          <FormLabel htmlFor="overview">Overview</FormLabel>
           <Textarea
+            id="overview"
             minHeight="10rem"
             placeholder="When a user tries to sign in to the platform, they get stuck..."
             name="overview"
-            ref={register()}
+            ref={register}
           />
-          <FormHelperText>Briefly describe the bug.</FormHelperText>
+
+          {errors.overview?.message ? <FormErrorMessage>{errors.overview?.message}</FormErrorMessage> : <FormHelperText>
+            Briefly describe the bug.
+            </FormHelperText>}
         </FormControl>
 
-        <FormControl id="expecting" isRequired maxW="3xl" mt={10}>
-          <FormLabel>What should happen? (Expected behaviour)</FormLabel>
+        <FormControl isRequired maxW="3xl" mt={10} isInvalid={errors.expecting?.message?.length > 0}>
+          <FormLabel htmlFor="expecting">What should happen? (Expected behaviour)</FormLabel>
           <Textarea
             minHeight="10rem"
+            id="expecting"
             placeholder="Form submits and redirects to dashboard"
             name="expecting"
-            ref={register({
-              required: "Required",
-            })}
+            ref={register}
           />
-          <FormHelperText>
-            How the software should have performed.
-          </FormHelperText>
+          {errors.expecting?.message ? <FormErrorMessage>{errors.expecting?.message}</FormErrorMessage> : <FormHelperText>
+          How the software should have performed.
+            </FormHelperText>}
         </FormControl>
 
-        <FormControl id="resulting" isRequired maxW="3xl" mt={10}>
-          <FormLabel>What happened? (Resulting behaviour)</FormLabel>
+        <FormControl isRequired maxW="3xl" mt={10}  isInvalid={errors.resulting?.message?.length > 0}>
+          <FormLabel htmlFor="resulting">What happened? (Resulting behaviour)</FormLabel>
           <Textarea
+            id="resulting"
             minHeight="10rem"
             placeholder="Form stuck in signing in state"
             name="resulting"
@@ -178,35 +186,38 @@ const BugsCreate = () => {
               required: "Required",
             })}
           />
-          <FormHelperText>How the software actually performed.</FormHelperText>
+          {errors.resulting?.message ? <FormErrorMessage>{errors.resulting?.message}</FormErrorMessage> : <FormHelperText>
+            How the software actually performed.
+            </FormHelperText>}
         </FormControl>
 
-        <FormControl id="steps" isRequired maxW="3xl" mt={10}>
-          <FormLabel>Steps to reproduce the bug</FormLabel>
+        <FormControl isRequired maxW="3xl" mt={10} isInvalid={errors.steps?.message?.length > 0}>
+          <FormLabel htmlFor="steps">Steps to reproduce the bug</FormLabel>
           <Textarea
+            id="steps"
             minHeight="10rem"
             placeholder={`Enter username. enter password. Click on sign in button...`}
             name="steps"
-            ref={register({
-              required: "Required",
-            })}
+            ref={register}
           />
           <FormHelperText>
-            Describe what actions you took before you encountered a bug.
+            
           </FormHelperText>
+
+          {errors.steps?.message ? <FormErrorMessage>{errors.steps?.message}</FormErrorMessage> : <FormHelperText>
+          Describe what actions you took before you encountered a bug.
+            </FormHelperText>}
         </FormControl>
 
 
-        <FormControl id="frequency" mt={10}>
-          <FormLabel>Frequency</FormLabel>
-
+        <FormControl mt={10}>
+          <FormLabel htmlFor="frequency">Frequency</FormLabel>
           <Controller
             as={
               <RadioGroup
+                id="frequency"
                 name="frequency"
-                ref={register({
-                  required: "Required",
-                })}
+                ref={register}
                 defaultValue="every-time"
               >
                 <Stack spacing={2}>
@@ -221,16 +232,15 @@ const BugsCreate = () => {
           />
         </FormControl>
 
-        <FormControl id="priority" mt={10}>
-          <FormLabel>Priority</FormLabel>
+        <FormControl mt={10}>
+          <FormLabel htmlFor="priority">Priority</FormLabel>
 
           <Controller
             as={
               <RadioGroup
+                id="priority"
                 name="priority"
-                ref={register({
-                  required: "Required",
-                })}
+                ref={register}
                 defaultValue="low"
               >
                 <Stack spacing={2}>
@@ -247,7 +257,7 @@ const BugsCreate = () => {
 
         <FormControl id="share" display="flex" alignItems="center" mt={10}>
           <FormLabel>Share device information?</FormLabel>
-          <Switch name="share" size="lg" ref={register()} />
+          <Switch name="share" size="lg" ref={register} />
         </FormControl>
 
         {share && (
@@ -274,13 +284,10 @@ const BugsCreate = () => {
         )}
 
         <ButtonGroup mt={20} size="lg" spacing={4}>
-          {/* <Button type="reset" fontWeight="medium">
-                Reset
-              </Button> */}
 
-          <Button 
-            colorScheme={PRIMARY_COLOR_SCHEME} 
-            fontWeight="medium" 
+          <Button
+            colorScheme={PRIMARY_COLOR_SCHEME}
+            fontWeight="medium"
             isLoading={formState.isSubmitting}
             loadingText="Submitting"
             type="submit">

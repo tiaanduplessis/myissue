@@ -8,7 +8,7 @@ export const BugsEmptyDashboard = ({ href }) => (
   <Flex
     width="100%"
     backgroundColor="white"
-    borderRadius={6}
+    borderRadius="md"
     boxShadow="sm"
     p={16}
     justify="center"

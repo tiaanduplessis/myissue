@@ -2,6 +2,7 @@ import Head from "next/head"
 import { useRouter } from "next/router"
 import { mutate } from "swr"
 import { useForm, Controller } from "react-hook-form"
+import { yupResolver } from '@hookform/resolvers/yup';
 
 import {
     ButtonGroup,
@@ -27,18 +28,21 @@ import { createFeature } from "@/lib/db"
 
 import { PRIMARY_COLOR_SCHEME } from "@/styles/theme"
 
+import { featuresCreateSchema } from "@/schemas/features-create-schema"
+
 const FeaturesCreate = () => {
     const toast = useToast()
     const { user } = useAuth()
     const router = useRouter()
 
-    const { register, handleSubmit, watch, errors, control } = useForm({
+    const { register, handleSubmit, errors, control } = useForm({
+        mode: 'onTouched',
+        resolver: yupResolver(featuresCreateSchema),
         defaultValues: {
             type: "feature",
             priority: "low",
         },
     })
-
 
     const { projectId } = router.query
 
@@ -56,7 +60,7 @@ const FeaturesCreate = () => {
         mutate(
             key,
             (data) => {
-                return { feature: [feature, ...(data?.features ?? [])] }
+                return { features: [feature, ...(data?.features ?? [])] }
             },
             false
         )
@@ -83,7 +87,7 @@ const FeaturesCreate = () => {
             <Flex
                 width="100%"
                 backgroundColor="white"
-                borderRadius={8}
+                borderRadius="md"
                 boxShadow="sm"
                 p={{
                     base: 5,
@@ -94,15 +98,14 @@ const FeaturesCreate = () => {
                 onSubmit={handleSubmit(onCreateFeature)}
             >
 
-                <FormControl id="type">
-                    <FormLabel>Type</FormLabel>
+                <FormControl>
+                    <FormLabel htmlFor="type">Type</FormLabel>
                     <Controller
                         as={
                             <RadioGroup
+                                id="type"
                                 name="type"
-                                ref={register({
-                                    required: "Required",
-                                })}
+                                ref={register}
                                 defaultValue="feature"
                             >
                                 <Stack spacing={2}>
@@ -116,106 +119,106 @@ const FeaturesCreate = () => {
                     />
                 </FormControl>
 
-                <FormControl id="problem" isRequired maxW="3xl" mt={10}>
-                    <FormLabel>Problem statement</FormLabel>
+                <FormControl isRequired maxW="3xl" mt={10} isInvalid={errors.problem?.message?.length > 0}>
+                    <FormLabel htmlFor="problem">Problem statement</FormLabel>
 
                     <Input
+                        id="problem"
                         placeholder="The user can not sign in using Google..."
                         name="problem"
-                        ref={register({
-                            required: "Required",
-                        })}
+                        ref={register}
                     />
-                    <FormHelperText>
+                    {errors.problem?.message ? <FormErrorMessage>{errors.problem?.message}</FormErrorMessage> :<FormHelperText>
                         Describe the problem that the user has.
-                    </FormHelperText>
+                    </FormHelperText> }
+                    
+                    
                 </FormControl>
 
-                <FormControl id="impact" isRequired maxW="3xl" mt={10}>
-                    <FormLabel>Impact on user</FormLabel>
+                <FormControl isRequired maxW="3xl" mt={10} isInvalid={errors.impact?.message?.length > 0}>
+                    <FormLabel htmlFor="impact">Impact on user</FormLabel>
                     <Textarea
                         size="lg"
+                        id="impact"
                         placeholder={"User's without a Google account can not sign in to the platform..."}
                         name="impact"
-                        ref={register({
-                            required: "Required",
-                        })}
+                        ref={register}
                     />
-                    <FormHelperText>
-                        Describe the impact this has on the user.
-                    </FormHelperText>
+
+                    {errors.impact?.message ? <FormErrorMessage>{errors.impact?.message}</FormErrorMessage> :<FormHelperText>
+                    Describe the impact this has on the user.
+                    </FormHelperText> }
                 </FormControl>
 
 
 
-                <FormControl id="cost" isRequired maxW="3xl" mt={10}>
-                    <FormLabel>Cost</FormLabel>
+                <FormControl isRequired maxW="3xl" mt={10} isInvalid={errors.cost?.message?.length > 0}>
+                    <FormLabel htmlFor="cost">Cost</FormLabel>
                     <Textarea
                         size="lg"
+                        id="cost"
                         placeholder={"We loose 100s of potential customers who only have a Google account"}
                         name="cost"
-                        ref={register({
-                            required: "Required",
-                        })}
+                        ref={register}
                     />
-                    <FormHelperText>
-                        Describe the cost of not doing this request.
-                    </FormHelperText>
+        
+                    {errors.cost?.message ? <FormErrorMessage>{errors.cost?.message}</FormErrorMessage> :<FormHelperText>
+                    Describe the cost of not doing this request.
+                    </FormHelperText> }
                 </FormControl>
 
 
 
-                <FormControl id="goal" isRequired maxW="3xl" mt={10}>
-                    <FormLabel>Business goal</FormLabel>
-                    <Textarea
-                        size="lg"
+                <FormControl isRequired maxW="3xl" mt={10} isInvalid={errors.goal?.message?.length > 0}>
+                    <FormLabel htmlFor="goal">Business goal</FormLabel>
+                    <Input
+                        id="goal"
                         placeholder="Increase user sign ups by 10%..."
                         name="goal"
-                        ref={register({
-                            required: "Required",
-                        })}
+                        ref={register}
                     />
-                    <FormHelperText>
-                        What business goal does the request help us fulfill.
-                    </FormHelperText>
+                    {errors.goal?.message ? <FormErrorMessage>{errors.goal?.message}</FormErrorMessage> :<FormHelperText>
+                    What business goal does the request help us fulfill.
+                    </FormHelperText> }
                 </FormControl>
 
-                <FormControl id="need" isRequired maxW="3xl" mt={10}>
-                    <FormLabel>Need for solution</FormLabel>
+                <FormControl isRequired maxW="3xl" mt={10} isInvalid={errors.need?.message?.length > 0}>
+                    <FormLabel htmlFor="need">Need for solution</FormLabel>
                     <Textarea
                         size="lg"
+                        id="need"
                         placeholder="After conducting user testing, we've found..."
                         name="need"
-                        ref={register({
-                            required: "Required",
-                        })}
+                        ref={register}
                     />
-                    <FormHelperText>Describe the evidence you have on the need to solve this request.</FormHelperText>
+                    {errors.need?.message ? <FormErrorMessage>{errors.need?.message}</FormErrorMessage> :<FormHelperText>
+                    Describe the evidence you have on the need to solve this request.
+                    </FormHelperText> }
                 </FormControl>
 
-                <FormControl id="solution" isRequired maxW="3xl" mt={10}>
-                    <FormLabel>Potential solution</FormLabel>
+                <FormControl isRequired maxW="3xl" mt={10} isInvalid={errors.solution?.message?.length > 0}>
+                    <FormLabel htmlFor="solution">Potential solution</FormLabel>
                     <Textarea
                         size="lg"
+                        id="solution"
                         placeholder="Add a 'Sign-in with Google' button to the sign in page of the website..."
                         name="solution"
-                        ref={register({
-                            required: "Required",
-                        })}
+                        ref={register}
                     />
-                    <FormHelperText>Describe any ideas you have on a potential solution.</FormHelperText>
+                    {errors.solution?.message ? <FormErrorMessage>{errors.solution?.message}</FormErrorMessage> :<FormHelperText>
+                    Describe any ideas you have on a potential solution.
+                    </FormHelperText> }
                 </FormControl>
 
-                <FormControl id="priority" mt={10}>
-                    <FormLabel>Priority</FormLabel>
+                <FormControl mt={10}>
+                    <FormLabel htmlFor="priority">Priority</FormLabel>
 
                     <Controller
                         as={
                             <RadioGroup
+                                id="priority"
                                 name="priority"
-                                ref={register({
-                                    required: "Required",
-                                })}
+                                ref={register}
                                 defaultValue="low"
                             >
                                 <Stack spacing={2}>
@@ -233,7 +236,7 @@ const FeaturesCreate = () => {
                 <ButtonGroup mt={20} size="lg" spacing={4}>
                     <Button colorScheme={PRIMARY_COLOR_SCHEME} fontWeight="medium" type="submit">
                         Create
-          </Button>
+                    </Button>
                 </ButtonGroup>
             </Flex>
         </PageLayout>

@@ -16,28 +16,24 @@ import {
   Input,
   useDisclosure,
   useToast,
-  useFormControlContext,
 } from "@chakra-ui/react"
 import { yupResolver } from '@hookform/resolvers/yup';
-import {object, string} from "yup";
-
-const schema = object().shape({
-  name: string().required('Required'),
-  link: string().url("Invalid URL"),
-});
 
 import { createProject } from "@/lib/db"
+
 import { useAuth } from "@/lib/auth"
 
-import {PRIMARY_COLOR_SCHEME} from "@/styles/theme"
+import {projectsCreateSchema}  from "@/schemas/projects-create-schema"
 
+import {PRIMARY_COLOR_SCHEME} from "@/styles/theme"
 
 export const ProjectCreateModal = ({ children = "Create project", ...props }) => {
   const toast = useToast()
   const auth = useAuth()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { handleSubmit, register, errors } = useForm({
-    resolver: yupResolver(schema)
+    mode: 'onTouched',
+    resolver: yupResolver(projectsCreateSchema)
   })
 
   const onCreateProject = ({ name, description = null, link = null }) => {
@@ -67,7 +63,8 @@ export const ProjectCreateModal = ({ children = "Create project", ...props }) =>
 
     onClose()
   }
-  
+
+
   return (
     <>
       <Button fontWeight="medium" colorScheme={PRIMARY_COLOR_SCHEME} onClick={onOpen} {...props}>
@@ -79,7 +76,7 @@ export const ProjectCreateModal = ({ children = "Create project", ...props }) =>
           <ModalHeader fontWeight="bold">Add new project</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
-            <FormControl isRequired isInvalid={!!errors.name?.message?.length > 0}>
+            <FormControl isRequired isInvalid={errors.name?.message?.length > 0}>
               <FormLabel htmlFor="name">Name</FormLabel>
 
               <Input
