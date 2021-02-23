@@ -1,11 +1,13 @@
 import dynamic from 'next/dynamic'
 import {
     Badge, Stack,
-    Flex, Heading, Text,
+    Flex, Heading, Text, Divider
 } from '@chakra-ui/react'
 import { NextSeo } from 'next-seo';
 
 import { PageLayout } from "@/layouts/page"
+
+import {MarkdownPreview} from "@/components/markdown-preview"
 
 import { PRIMARY_COLOR_SCHEME } from "@/styles/theme"
 
@@ -49,22 +51,28 @@ export default function FeatureDetail({ feature }) {
             </Stack>
 
             <Heading as="h2" size='md' mb={2}>Problem statement</Heading>
+            <Divider/>
             <Text maxW="2xl" mb={8}>{feature.problem}</Text>
 
             <Heading as="h2" size='md' mb={2}>Impact on users</Heading>
-            <Text maxW="2xl" mb={8}>{feature.impact}</Text>
+            <Divider/>
+            <MarkdownPreview maxW="2xl" mb={8}>{feature.impact}</MarkdownPreview>
 
             <Heading as="h2" size='md' mb={2}>Cost</Heading>
-            <Text maxW="2xl" mb={8}>{feature.cost}</Text>
+            <Divider/>
+            <MarkdownPreview maxW="2xl" mb={8}>{feature.cost}</MarkdownPreview>
 
             <Heading as="h2" size='md' mb={2}>Business goal</Heading>
-            <Text maxW="2xl" mb={8}>{feature.goal}</Text>
+            <Divider/>
+            <MarkdownPreview maxW="2xl" mb={8}>{feature.goal}</MarkdownPreview>
 
             <Heading as="h2" size='md' mb={2}>Need for solution</Heading>
-            <Text maxW="2xl" mb={8}>{feature.need}</Text>
+            <Divider/>
+            <MarkdownPreview maxW="2xl" mb={8}>{feature.need}</MarkdownPreview>
 
             <Heading as="h2" size='md' mb={2}>Potential solution</Heading>
-            <Text maxW="2xl" mb={8}>{feature.solution}</Text>
+            <Divider/>
+            <MarkdownPreview maxW="2xl" mb={8}>{feature.solution}</MarkdownPreview>
 
         </Flex>
     </PageLayout>

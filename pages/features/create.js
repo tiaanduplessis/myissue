@@ -14,10 +14,8 @@ import {
     Radio,
     Stack,
     RadioGroup,
-    Switch,
     FormErrorMessage,
     FormHelperText,
-    usePrefersReducedMotion,
     useToast,
 } from "@chakra-ui/react"
 
@@ -120,9 +118,9 @@ const FeaturesCreate = () => {
 
                 <FormControl id="problem" isRequired maxW="3xl" mt={10}>
                     <FormLabel>Problem statement</FormLabel>
-                    <Textarea
-                        size="lg"
-                        placeholder={"The user can not sign in using Google..."}
+
+                    <Input
+                        placeholder="The user can not sign in using Google..."
                         name="problem"
                         ref={register({
                             required: "Required",
@@ -177,8 +175,8 @@ const FeaturesCreate = () => {
                             required: "Required",
                         })}
                     />
-                     <FormHelperText>
-                     What business goal does the request help us fulfill.
+                    <FormHelperText>
+                        What business goal does the request help us fulfill.
                     </FormHelperText>
                 </FormControl>
 
