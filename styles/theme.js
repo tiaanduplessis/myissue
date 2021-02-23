@@ -19,6 +19,7 @@ export default extendTheme({
     },
     Button: {
       baseStyle: {
+        fontWeight: "medium",
         "&:active": {
           transform: "scale(.98)",
         },

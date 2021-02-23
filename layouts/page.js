@@ -72,11 +72,14 @@ export const PageLayout = ({
           maxW="7xl"
           margin="0 auto"
           w="full"
-          px={8}
+          px={{
+            base: 4,
+            md: 8
+          }}
         >
           <Flex alignItems="center">
-            <NextLink href="/">
-              <LogoIcon width={10} height={10} mr={8} />
+            <NextLink href="/" passHref>
+              <a><LogoIcon width={10} height={10} mr={8} /> <VisuallyHidden>Home</VisuallyHidden></a>
             </NextLink>
 
             <Box as="nav">
@@ -88,7 +91,6 @@ export const PageLayout = ({
                       <NextLink  href={href} passHref>
                         <Link
                           mr={4}
-
                           fontWeight={isActive ? "medium" : "normal"}
                           aria-current={isActive ? "page" : null}
                           textDecoration={isActive ? 'underline' : 'none'}
@@ -119,7 +121,10 @@ export const PageLayout = ({
           </Flex>
         </Flex>
       </Flex>
-      <Flex id="content" margin="0 auto" direction="column" maxW="7xl" px={8}>
+      <Flex id="content" margin="0 auto" direction="column" maxW="7xl" px={{
+        base: 4,
+        md: 8
+      }}>
         {(breadcrumbs && user) && (
           <Breadcrumb>
             {breadcrumbs.map(({ label, href = null }) => (

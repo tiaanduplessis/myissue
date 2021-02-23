@@ -17,7 +17,7 @@ export const FeaturesEmptyDashboard = ({ href }) => (
   >
     <Text size="xl" maxW="lg" textAlign="center" my={8}>You haven’t added any features yet. <br/>Let’s get started.</Text>
     <NextLink href={href}>
-      <Button variant="ghost"  mt={8} fontWeight="medium" colorScheme={PRIMARY_COLOR_SCHEME}>
+      <Button variant="ghost"  mt={8} colorScheme={PRIMARY_COLOR_SCHEME}>
         + Create new feature
       </Button>
     </NextLink>

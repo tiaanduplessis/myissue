@@ -7,6 +7,7 @@ class Doc extends Document {
         <Head>
           <title>myissue</title>
           <meta content="IE=edge" httpEquiv="X-UA-Compatible" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
 
           <link rel="icon" href="/favicon.ico" />
           <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />

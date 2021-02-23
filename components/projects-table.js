@@ -8,7 +8,6 @@ import { RiArrowDownSLine } from "react-icons/ri"
 import { Table, Tr, Th, Td } from "@/components/table"
 import {ProjectsDeleteButton} from "@/components/projects-delete-button"
 
-
 const Row = ({ name, id, link, createdAt }) => {
     const { hasCopied, onCopy } = useClipboard(link)
     return <Box as="tr" >
@@ -62,9 +61,9 @@ export const ProjectsTable = ({ projects }) => {
         <Table>
             <thead>
                 <Tr>
-                    <Th>Name</Th>
-                    <Th>Link</Th>
-                    <Th>Date Added</Th>
+                    <Th minW="12rem">Name</Th>
+                    <Th minW="16rem">Link</Th>
+                    <Th minW="10rem">Date Added</Th>
                     <Th>{""}</Th>
                 </Tr>
             </thead>

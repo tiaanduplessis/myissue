@@ -17,7 +17,7 @@ const Row = ({ title, id, priority, createdAt, projectId }) => {
   const { hasCopied, onCopy } = useClipboard(`${window.location.origin}/bugs/${id}`)
 
   return <Box as="tr">
-      <Td fontWeight="medium" style={{
+      <Td style={{
           textOverflow: 'ellipsis',
           whiteSpace: 'nowrap',
           maxWidth: '20rem',
@@ -31,7 +31,7 @@ const Row = ({ title, id, priority, createdAt, projectId }) => {
       <Td>{format(parseISO(createdAt), "PPpp")}</Td>
       <Td style={{display: 'flex', justifyContent: 'flex-end'}}>
           <Menu>
-              <MenuButton as={Button} fontWeight="medium" rightIcon={<RiArrowDownSLine />}>
+              <MenuButton as={Button} rightIcon={<RiArrowDownSLine />}>
                   {hasCopied ? 'Copied' : 'Actions'}
               </MenuButton>
               <MenuList>
@@ -57,9 +57,9 @@ export const BugsTable = ({ bugs }) => {
     <Table>
       <thead>
         <Tr>
-          <Th>Title</Th>
-          <Th>Priorty</Th>
-          <Th>Date Added</Th>
+          <Th minW="20rem">Title</Th>
+          <Th minW="5rem">Priorty</Th>
+          <Th minW="10rem">Date Added</Th>
           <Th>{""}</Th>
         </Tr>
       </thead>

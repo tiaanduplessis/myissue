@@ -67,7 +67,7 @@ export const ProjectCreateModal = ({ children = "Create project", ...props }) =>
 
   return (
     <>
-      <Button fontWeight="medium" colorScheme={PRIMARY_COLOR_SCHEME} onClick={onOpen} {...props}>
+      <Button colorScheme={PRIMARY_COLOR_SCHEME} onClick={onOpen} {...props}>
         {children}
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>

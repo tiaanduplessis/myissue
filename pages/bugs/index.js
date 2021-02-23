@@ -47,7 +47,7 @@ const Dashboard = () => {
       breadcrumbs={[{ label: "Bugs" }]}
       actions={[
         <NextLink key="create-new-bug" href={href}>
-          <Button fontWeight="medium" colorScheme={PRIMARY_COLOR_SCHEME}>
+          <Button  colorScheme={PRIMARY_COLOR_SCHEME}>
             + Create new bug
           </Button>
         </NextLink>,

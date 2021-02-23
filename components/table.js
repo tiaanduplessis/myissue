@@ -45,15 +45,17 @@ export const Tr = (props) => (
 
 export const Table = (props) => {
   return (
-    <Box
-      as="table"
-      textAlign="left"
-      backgroundColor="white"
-      mx={0}
-      rounded="sm"
-      w="full"
-      boxShadow="sm"
-      {...props}
-    />
+    <Box overflowX="auto">
+      <Box
+        as="table"
+        textAlign="left"
+        backgroundColor="white"
+        mx={0}
+        rounded="sm"
+        w="full"
+        boxShadow="sm"
+        {...props}
+      />
+    </Box>
   )
 }
