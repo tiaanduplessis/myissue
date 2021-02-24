@@ -37,7 +37,7 @@ const SignIn = () => {
         </Heading>
 
 
-        <Box mt={10} bg={"white"} rounded={"sm"} boxShadow="sm" p={{ base: 4, md: 8 }} w={"full"} maxW="md">
+        <Box mt={10} bg={"white"} mx={4} rounded={"sm"} boxShadow="sm" p={{ base: 4, md: 8 }} w={"full"} maxW="md">
           <Stack spacing={4}>
             <Button leftIcon={<IoLogoGithub/>} iconSpacing={3} colorScheme="gray" size="md" onClick={handleAuth(auth.signinWithGitHub)}>
               Sign in with Github

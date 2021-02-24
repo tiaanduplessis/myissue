@@ -1,3 +1,4 @@
+import {useState} from 'react'
 import Head from "next/head"
 import { useRouter } from "next/router"
 import { mutate } from "swr"
@@ -26,6 +27,7 @@ import { useAuth } from "@/lib/auth"
 
 import { PageLayout } from "@/layouts/page"
 import { DeviceTable } from "@/components/device-table"
+import {ResourceUpload} from '@/components/resource-upload'
 
 import { useDetectBrowser } from "@/hooks/use-detect-browser"
 import { useNetworkInfo } from "@/hooks/use-network-info"
@@ -39,7 +41,12 @@ import { PRIMARY_COLOR_SCHEME } from "@/styles/theme"
 
 import { bugsCreateSchema } from "@/schemas/bugs-create-schema"
 
+import {uploadFromBlob} from "@/utils/upload-from-blob"
+
+
+
 const BugsCreate = () => {
+  const [files, setFiles] = useState([])
   const browser = useDetectBrowser()
   const networkInfo = useNetworkInfo()
   const language = useLanguage()
@@ -47,7 +54,7 @@ const BugsCreate = () => {
   const cookieEnabled = useCookieEnabled()
   const prefersReducedMotion = usePrefersReducedMotion()
 
-  const { register, handleSubmit, watch, errors, control, formState } = useForm({
+  const { register, handleSubmit, watch, errors, control, formState}  = useForm({
     mode: 'onTouched',
     resolver: yupResolver(bugsCreateSchema),
     defaultValues: {
@@ -66,6 +73,7 @@ const BugsCreate = () => {
   const backURL = `/bugs${projectId ? `?projectId=${projectId}` : ""}`
 
   const onCreateBug = async ({ share, ...values }) => {
+
     const bug = {
       authorId: user?.uid || null,
       projectId: projectId || null,
@@ -81,6 +89,26 @@ const BugsCreate = () => {
       }),
     }
 
+
+    if (files.length > 0) {
+      toast({
+        title: "Files uploading!",
+        description: "We are uploading your files. Sorry for the wait...",
+        status: "info",
+        duration: 3000,
+      })
+      
+    
+      bug.files = await Promise.all(files.map(file => uploadFromBlob({
+        path: 'bugs/',
+        blobUri: file.preview,
+        name: file.name,
+        type: file.type,
+        authorId: bug.authorId,
+        projectId: bug.projectId
+      })))
+    }
+ 
     const key = projectId ? `/api/projects/${projectId}/bugs` : "/api/bugs"
 
     mutate(
@@ -225,6 +253,7 @@ const BugsCreate = () => {
                   <Radio value="occasionally">Occasionally</Radio>
                   <Radio value="once">Once</Radio>
                 </Stack>
+                
               </RadioGroup>
             }
             name="frequency"
@@ -254,6 +283,11 @@ const BugsCreate = () => {
             control={control}
           />
         </FormControl>
+
+            {user && <ResourceUpload mt={10} onFilesChanged={(files) => {
+          setFiles(files)
+        }}/>}
+      
 
         <FormControl id="share" display="flex" alignItems="center" mt={10}>
           <FormLabel>Share device information?</FormLabel>

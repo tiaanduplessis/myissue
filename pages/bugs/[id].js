@@ -11,6 +11,7 @@ import { NextSeo } from 'next-seo';
 
 import { DeviceTable } from "@/components/device-table"
 import {MarkdownPreview} from "@/components/markdown-preview"
+import {ResourcePreview} from "@/components/resource-preview"
 
 import { PageLayout } from "@/layouts/page"
 
@@ -38,7 +39,7 @@ export default function BugDetail({ bug }) {
   const router = useRouter()
   const { title: description } = bug
   const title = router.query?.created ? "Sorted! Bug created" : "Bug report"
-
+  
   return <PageLayout title={title} actions={<ShareLinkButton description={description} title="Bug report" />}>
     <NextSeo
       title={title}
@@ -60,7 +61,7 @@ export default function BugDetail({ bug }) {
         <AlertIcon />
         <Box flex="1" ml={2}>
           <AlertTitle mb={2}>A link to your bug report has been generated. </AlertTitle>
-          <AlertDescription><NextLink href='/sign-in' passHref><Link textDecoration="underline">Sign in</Link></NextLink> to get the ability to manage projects, create feature requests and view all your previous bugs and features. If you aren't interested you are free to keep using the service as is. No stress.</AlertDescription>
+          <AlertDescription><NextLink href='/sign-in' passHref><Link textDecoration="underline">Sign in</Link></NextLink> to get the ability to manage projects, attach files, create feature requests and view all your previous bugs and features. If you aren't interested you are free to keep using the service as is. No stress.</AlertDescription>
         </Box>
       </Alert>}
 
@@ -90,6 +91,15 @@ export default function BugDetail({ bug }) {
       <Heading as="h2" size='md' mb={2}>Steps to reproduce</Heading>
       <Divider mb={2}/>
       <MarkdownPreview maxW="2xl" mb={14}>{bug.steps}</MarkdownPreview>
+
+
+  
+
+      {bug.files?.length > 0 && <>
+        <Heading as="h2" size='md' mb={2}>Files</Heading>
+        <Divider mb={2}/>
+        <ResourcePreview files={bug.files.map(file => ({name: file.name, preview: file.downloadLink, type: file.type}))} mb={14}/>
+      </>}
 
         {bug.name && <DeviceTable
             data={{

@@ -79,7 +79,10 @@ export const PageLayout = ({
         >
           <Flex alignItems="center">
             <NextLink href="/" passHref>
-              <a><LogoIcon width={10} height={10} mr={8} /> <VisuallyHidden>Home</VisuallyHidden></a>
+              <a><LogoIcon width={10} height={10} mr={{
+                base: 4,
+                md: 8
+              }} /> <VisuallyHidden>Home</VisuallyHidden></a>
             </NextLink>
 
             <Box as="nav">

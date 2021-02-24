@@ -1,5 +1,5 @@
 import React from "react"
-import { Box, useMediaQuery, StatGroup, Stat, StatLabel, StatNumber, StatHelpText, StatArrow } from "@chakra-ui/react"
+import { Box, useMediaQuery, StatGroup, Stat, StatLabel, StatNumber } from "@chakra-ui/react"
 
 import { Table, Tr, Th, Td } from "@/components/table"
 
