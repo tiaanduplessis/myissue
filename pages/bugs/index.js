@@ -4,7 +4,7 @@ import { useRouter } from "next/router"
 import NextLink from "next/link"
 import { useToast, Button } from "@chakra-ui/react"
 import useSWR from "swr"
-import { HiPlus } from "react-icons/hi";
+import { HiPlus } from "react-icons/hi"
 
 import { useAuth } from "@/lib/auth"
 
@@ -14,16 +14,17 @@ import { BugsTableSkeleton } from "@/components/bugs-table-skeleton"
 import { BugsTable } from "@/components/bugs-table"
 import { BugsEmptyDashboard } from "@/components/bugs-empty-dashboard"
 
-import {PRIMARY_COLOR_SCHEME} from "@/styles/theme"
+import { PRIMARY_COLOR_SCHEME } from "@/styles/theme"
 
 const Dashboard = () => {
   const toast = useToast()
   const router = useRouter()
-  const {user} = useAuth()
+  const { user } = useAuth()
 
   const { projectId } = router.query
   const { data, error } = useSWR(
-    user ? projectId ? `/api/projects/${projectId}/bugs` : "/api/bugs" : null)
+    user ? (projectId ? `/api/projects/${projectId}/bugs` : "/api/bugs") : null
+  )
 
   useEffect(() => {
     if (error) {
@@ -41,14 +42,13 @@ const Dashboard = () => {
     ? `/bugs/create?projectId=${projectId}`
     : "/bugs/create"
 
-
   return (
     <PageLayout
       title={projectId ? `Project's bugs` : "All bugs"}
       breadcrumbs={[{ label: "Bugs" }]}
       actions={[
         <NextLink key="create-new-bug" href={href}>
-          <Button  colorScheme={PRIMARY_COLOR_SCHEME} leftIcon={<HiPlus />}>
+          <Button colorScheme={PRIMARY_COLOR_SCHEME} leftIcon={<HiPlus />}>
             Create new bug
           </Button>
         </NextLink>,

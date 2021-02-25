@@ -33,7 +33,11 @@ const Projects = () => {
     <PageLayout
       title="All projects"
       breadcrumbs={[{ label: "Projects" }]}
-      actions={[<ProjectCreateModal key="create-new-project">+ Create project</ProjectCreateModal>]}
+      actions={[
+        <ProjectCreateModal key="create-new-project">
+          + Create project
+        </ProjectCreateModal>,
+      ]}
     >
       <Head>
         <title>Projects</title>

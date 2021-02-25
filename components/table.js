@@ -22,9 +22,9 @@ export const Td = (props) => (
     borderBottomColor="gray.100"
     sx={{
       "&:last-child": {
-        "display": "flex",
-        "justifyContent": "flex-end"
-      }
+        display: "flex",
+        justifyContent: "flex-end",
+      },
     }}
     {...props}
   />

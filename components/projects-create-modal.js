@@ -17,23 +17,26 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react"
-import { yupResolver } from '@hookform/resolvers/yup';
+import { yupResolver } from "@hookform/resolvers/yup"
 
 import { createProject } from "@/lib/db"
 
 import { useAuth } from "@/lib/auth"
 
-import {projectsCreateSchema}  from "@/schemas/projects-create-schema"
+import { projectsCreateSchema } from "@/schemas/projects-create-schema"
 
-import {PRIMARY_COLOR_SCHEME} from "@/styles/theme"
+import { PRIMARY_COLOR_SCHEME } from "@/styles/theme"
 
-export const ProjectCreateModal = ({ children = "Create project", ...props }) => {
+export const ProjectCreateModal = ({
+  children = "Create project",
+  ...props
+}) => {
   const toast = useToast()
   const auth = useAuth()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { handleSubmit, register, errors } = useForm({
-    mode: 'onTouched',
-    resolver: yupResolver(projectsCreateSchema)
+    mode: "onTouched",
+    resolver: yupResolver(projectsCreateSchema),
   })
 
   const onCreateProject = ({ name, description = null, link = null }) => {
@@ -56,14 +59,13 @@ export const ProjectCreateModal = ({ children = "Create project", ...props }) =>
     mutate(
       "/api/projects",
       async (data) => {
-        return { projects: [project, ...data.projects ] }
+        return { projects: [project, ...data.projects] }
       },
       false
     )
 
     onClose()
   }
-
 
   return (
     <>
@@ -76,11 +78,13 @@ export const ProjectCreateModal = ({ children = "Create project", ...props }) =>
           <ModalHeader fontWeight="bold">Add new project</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
-            <FormControl isRequired isInvalid={errors.name?.message?.length > 0}>
+            <FormControl
+              isRequired
+              isInvalid={errors.name?.message?.length > 0}
+            >
               <FormLabel htmlFor="name">Name</FormLabel>
 
               <Input
-                
                 placeholder="My project"
                 id="name"
                 name="name"
@@ -98,17 +102,16 @@ export const ProjectCreateModal = ({ children = "Create project", ...props }) =>
               />
             </FormControl> */}
 
-            <FormControl  mt={6} isInvalid={errors.link?.message?.length > 0}>
+            <FormControl mt={6} isInvalid={errors.link?.message?.length > 0}>
               <FormLabel htmlFor="link">Link</FormLabel>
               <Input
                 id="link"
-                
                 placeholder="Link to the project board"
                 name="link"
                 ref={register}
               />
 
-             <FormErrorMessage>{errors.link?.message}</FormErrorMessage>
+              <FormErrorMessage>{errors.link?.message}</FormErrorMessage>
             </FormControl>
           </ModalBody>
 
@@ -118,7 +121,11 @@ export const ProjectCreateModal = ({ children = "Create project", ...props }) =>
                 Cancel
               </Button>
 
-              <Button colorScheme={PRIMARY_COLOR_SCHEME} fontWeight="medium" type="submit">
+              <Button
+                colorScheme={PRIMARY_COLOR_SCHEME}
+                fontWeight="medium"
+                type="submit"
+              >
                 Create
               </Button>
             </ButtonGroup>

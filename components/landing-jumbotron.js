@@ -11,8 +11,7 @@ import {
   createIcon,
 } from "@chakra-ui/react"
 
-import {PRIMARY_COLOR_SCHEME} from "@/styles/theme"
-
+import { PRIMARY_COLOR_SCHEME } from "@/styles/theme"
 
 import { useAuth } from "@/lib/auth"
 
@@ -22,15 +21,18 @@ export const LandingJumbotron = () => {
   return (
     <>
       <Head>
+        <link
+          rel="preload"
+          as="style"
+          href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap&subset=latin"
+        />
 
-        <link rel="preload"
-              as="style"
-              href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap&subset=latin" />
-
-        <link rel="stylesheet"
-              href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap&subset=latin"
-              media="print" onLoad="this.media='all'" />
-  
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap&subset=latin"
+          media="print"
+          onLoad="this.media='all'"
+        />
       </Head>
 
       <Flex
@@ -55,14 +57,17 @@ export const LandingJumbotron = () => {
             lineHeight={"110%"}
             as="h1"
           >
-            <Text  as={"span"} color={`${PRIMARY_COLOR_SCHEME}.400`}>
+            <Text as={"span"} color={`${PRIMARY_COLOR_SCHEME}.400`}>
               Save time and money
             </Text>
             <br />
             with better issues
           </Heading>
           <Text mb={3} color={"gray.300"} maxW="2xl" letterSpacing=".01rem">
-          A lot of time and money goes into dealing with ambiguity and vagueness in bug reports and feature requests. Cut down on that cost by giving your developer the information required to get the job done.
+            A lot of time and money goes into dealing with ambiguity and
+            vagueness in bug reports and feature requests. Cut down on that cost
+            by giving your developer the information required to get the job
+            done.
           </Text>
           <Stack
             direction={"column"}
@@ -73,7 +78,11 @@ export const LandingJumbotron = () => {
           >
             {auth?.user ? (
               <NextLink href="/projects">
-                <Button colorScheme={PRIMARY_COLOR_SCHEME} fontWeight="medium" rounded="full">
+                <Button
+                  colorScheme={PRIMARY_COLOR_SCHEME}
+                  fontWeight="medium"
+                  rounded="full"
+                >
                   View Dashboard
                 </Button>
               </NextLink>
@@ -106,10 +115,10 @@ export const LandingJumbotron = () => {
                     top={"10px"}
                   />
                   <Text
-                  color={"gray.300"}
+                    color={"gray.300"}
                     fontSize={{
-                      base: 'sm',
-                      md: "lg"
+                      base: "sm",
+                      md: "lg",
                     }}
                     fontFamily={"Caveat"}
                     position={"absolute"}

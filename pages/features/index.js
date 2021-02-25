@@ -4,7 +4,7 @@ import { useRouter } from "next/router"
 import NextLink from "next/link"
 import { useToast, Button } from "@chakra-ui/react"
 import useSWR from "swr"
-import { HiPlus } from "react-icons/hi";
+import { HiPlus } from "react-icons/hi"
 
 import { useAuth } from "@/lib/auth"
 
@@ -14,18 +14,22 @@ import { FeaturesTableSkeleton } from "@/components/features-table-skeleton"
 import { FeaturesTable } from "@/components/features-table"
 import { FeaturesEmptyDashboard } from "@/components/features-empty-dashboard"
 
-import {PRIMARY_COLOR_SCHEME} from "@/styles/theme"
-
+import { PRIMARY_COLOR_SCHEME } from "@/styles/theme"
 
 const Dashboard = () => {
   const toast = useToast()
   const router = useRouter()
-  const {user} = useAuth()
+  const { user } = useAuth()
 
   const { projectId } = router.query
   const { data, error } = useSWR(
-    user ? projectId ? `/api/projects/${projectId}/features` : "/api/features" : null)
-   
+    user
+      ? projectId
+        ? `/api/projects/${projectId}/features`
+        : "/api/features"
+      : null
+  )
+
   useEffect(() => {
     if (error) {
       toast({
@@ -42,14 +46,17 @@ const Dashboard = () => {
     ? `/features/create?projectId=${projectId}`
     : "/features/create"
 
-
   return (
     <PageLayout
       title={projectId ? `Project's features` : "All features"}
       breadcrumbs={[{ label: "Features" }]}
       actions={[
         <NextLink key="create-new-feature" href={href}>
-          <Button fontWeight="medium" colorScheme={PRIMARY_COLOR_SCHEME} leftIcon={<HiPlus />}>
+          <Button
+            fontWeight="medium"
+            colorScheme={PRIMARY_COLOR_SCHEME}
+            leftIcon={<HiPlus />}
+          >
             Create new feature
           </Button>
         </NextLink>,

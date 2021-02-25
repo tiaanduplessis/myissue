@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import { useState } from "react"
 import Head from "next/head"
 import { useRouter } from "next/router"
 import { mutate } from "swr"
@@ -21,13 +21,13 @@ import {
   usePrefersReducedMotion,
   useToast,
 } from "@chakra-ui/react"
-import { yupResolver } from '@hookform/resolvers/yup';
+import { yupResolver } from "@hookform/resolvers/yup"
 
 import { useAuth } from "@/lib/auth"
 
 import { PageLayout } from "@/layouts/page"
 import { DeviceTable } from "@/components/device-table"
-import {ResourceUpload} from '@/components/resource-upload'
+import { ResourceUpload } from "@/components/resource-upload"
 
 import { useDetectBrowser } from "@/hooks/use-detect-browser"
 import { useNetworkInfo } from "@/hooks/use-network-info"
@@ -41,7 +41,7 @@ import { PRIMARY_COLOR_SCHEME } from "@/styles/theme"
 
 import { bugsCreateSchema } from "@/schemas/bugs-create-schema"
 
-import {uploadFromBlob} from "@/utils/upload-from-blob"
+import { uploadFromBlob } from "@/utils/upload-from-blob"
 
 const BugsCreate = () => {
   const [isSubmitting, setSubmitting] = useState(false)
@@ -53,8 +53,8 @@ const BugsCreate = () => {
   const cookieEnabled = useCookieEnabled()
   const prefersReducedMotion = usePrefersReducedMotion()
 
-  const { register, handleSubmit, watch, errors, control}  = useForm({
-    mode: 'onTouched',
+  const { register, handleSubmit, watch, errors, control } = useForm({
+    mode: "onTouched",
     resolver: yupResolver(bugsCreateSchema),
     defaultValues: {
       frequency: "every-time",
@@ -88,7 +88,6 @@ const BugsCreate = () => {
       }),
     }
 
-
     if (files.length > 0) {
       toast({
         title: "Files uploading!",
@@ -96,17 +95,21 @@ const BugsCreate = () => {
         status: "info",
         duration: 3000,
       })
-      
-      bug.files = await Promise.all(files.map(file => uploadFromBlob({
-        path: 'bugs/',
-        blobUri: file.preview,
-        name: file.name,
-        type: file.type,
-        authorId: bug.authorId,
-        projectId: bug.projectId
-      })))
+
+      bug.files = await Promise.all(
+        files.map((file) =>
+          uploadFromBlob({
+            path: "bugs/",
+            blobUri: file.preview,
+            name: file.name,
+            type: file.type,
+            authorId: bug.authorId,
+            projectId: bug.projectId,
+          })
+        )
+      )
     }
- 
+
     const key = projectId ? `/api/projects/${projectId}/bugs` : "/api/bugs"
 
     if (user) {
@@ -144,7 +147,6 @@ const BugsCreate = () => {
       description="Create a new bug report with a proven template"
       breadcrumbs={[{ label: "Bugs", href: backURL }, { label: "Create" }]}
     >
-
       <Flex
         width="100%"
         backgroundColor="white"
@@ -158,7 +160,11 @@ const BugsCreate = () => {
         as="form"
         onSubmit={handleSubmit(onCreateBug)}
       >
-        <FormControl isRequired maxW="xl" isInvalid={errors.title?.message?.length > 0}>
+        <FormControl
+          isRequired
+          maxW="xl"
+          isInvalid={errors.title?.message?.length > 0}
+        >
           <FormLabel htmlFor="title">Title</FormLabel>
           <Input
             id="title"
@@ -169,7 +175,11 @@ const BugsCreate = () => {
           <FormErrorMessage>{errors.title?.message}</FormErrorMessage>
         </FormControl>
 
-        <FormControl maxW="3xl" mt={10} isInvalid={errors.overview?.message?.length > 0}>
+        <FormControl
+          maxW="3xl"
+          mt={10}
+          isInvalid={errors.overview?.message?.length > 0}
+        >
           <FormLabel htmlFor="overview">Overview</FormLabel>
           <Textarea
             id="overview"
@@ -179,12 +189,19 @@ const BugsCreate = () => {
             ref={register}
           />
 
-          {errors.overview?.message ? <FormErrorMessage>{errors.overview?.message}</FormErrorMessage> : <FormHelperText>
-            Briefly describe the bug.
-            </FormHelperText>}
+          {errors.overview?.message ? (
+            <FormErrorMessage>{errors.overview?.message}</FormErrorMessage>
+          ) : (
+            <FormHelperText>Briefly describe the bug.</FormHelperText>
+          )}
         </FormControl>
 
-        <FormControl isRequired maxW="3xl" mt={10} isInvalid={errors.expecting?.message?.length > 0}>
+        <FormControl
+          isRequired
+          maxW="3xl"
+          mt={10}
+          isInvalid={errors.expecting?.message?.length > 0}
+        >
           <FormLabel htmlFor="expecting">What should happen?</FormLabel>
           <Textarea
             minHeight="10rem"
@@ -193,12 +210,21 @@ const BugsCreate = () => {
             name="expecting"
             ref={register}
           />
-          {errors.expecting?.message ? <FormErrorMessage>{errors.expecting?.message}</FormErrorMessage> : <FormHelperText>
-          How the software should have performed. The expected behaviour.
-            </FormHelperText>}
+          {errors.expecting?.message ? (
+            <FormErrorMessage>{errors.expecting?.message}</FormErrorMessage>
+          ) : (
+            <FormHelperText>
+              How the software should have performed. The expected behaviour.
+            </FormHelperText>
+          )}
         </FormControl>
 
-        <FormControl isRequired maxW="3xl" mt={10}  isInvalid={errors.resulting?.message?.length > 0}>
+        <FormControl
+          isRequired
+          maxW="3xl"
+          mt={10}
+          isInvalid={errors.resulting?.message?.length > 0}
+        >
           <FormLabel htmlFor="resulting">What happened?</FormLabel>
           <Textarea
             id="resulting"
@@ -209,12 +235,21 @@ const BugsCreate = () => {
               required: "Required",
             })}
           />
-          {errors.resulting?.message ? <FormErrorMessage>{errors.resulting?.message}</FormErrorMessage> : <FormHelperText>
-            How the software actually performed. The Resulting behaviour.
-            </FormHelperText>}
+          {errors.resulting?.message ? (
+            <FormErrorMessage>{errors.resulting?.message}</FormErrorMessage>
+          ) : (
+            <FormHelperText>
+              How the software actually performed. The Resulting behaviour.
+            </FormHelperText>
+          )}
         </FormControl>
 
-        <FormControl isRequired maxW="3xl" mt={10} isInvalid={errors.steps?.message?.length > 0}>
+        <FormControl
+          isRequired
+          maxW="3xl"
+          mt={10}
+          isInvalid={errors.steps?.message?.length > 0}
+        >
           <FormLabel htmlFor="steps">Steps to reproduce the bug</FormLabel>
           <Textarea
             id="steps"
@@ -223,15 +258,16 @@ const BugsCreate = () => {
             name="steps"
             ref={register}
           />
-          <FormHelperText>
-            
-          </FormHelperText>
+          <FormHelperText></FormHelperText>
 
-          {errors.steps?.message ? <FormErrorMessage>{errors.steps?.message}</FormErrorMessage> : <FormHelperText>
-          Describe what actions you took before you encountered a bug.
-            </FormHelperText>}
+          {errors.steps?.message ? (
+            <FormErrorMessage>{errors.steps?.message}</FormErrorMessage>
+          ) : (
+            <FormHelperText>
+              Describe what actions you took before you encountered a bug.
+            </FormHelperText>
+          )}
         </FormControl>
-
 
         <FormControl mt={10}>
           <FormLabel htmlFor="frequency">Frequency</FormLabel>
@@ -248,7 +284,6 @@ const BugsCreate = () => {
                   <Radio value="occasionally">Occasionally</Radio>
                   <Radio value="once">Once</Radio>
                 </Stack>
-                
               </RadioGroup>
             }
             name="frequency"
@@ -279,10 +314,14 @@ const BugsCreate = () => {
           />
         </FormControl>
 
-            {user && <ResourceUpload mt={10} onFilesChanged={(files) => {
-          setFiles(files)
-        }}/>}
-      
+        {user && (
+          <ResourceUpload
+            mt={10}
+            onFilesChanged={(files) => {
+              setFiles(files)
+            }}
+          />
+        )}
 
         <FormControl id="share" display="flex" alignItems="center" mt={10}>
           <FormLabel>Share device information?</FormLabel>
@@ -301,7 +340,7 @@ const BugsCreate = () => {
               "Estimated effective round-trip time (ms)": networkInfo.rtt,
               "Prefers reduced data usage": networkInfo.saveData ? "Yes" : "No",
               "Prefers reduced motion": prefersReducedMotion ? "Yes" : "No",
-              "Cookies enabled": cookieEnabled ? 'Yes' : 'No',
+              "Cookies enabled": cookieEnabled ? "Yes" : "No",
               "Pixel ratio": `${display.devicePixelRatio}`,
               "Screen (width x height)": `${display.screenWidth} x ${display.screenHeight}`,
               "Viewport (width x height)": `${display.windowWidth} x ${display.windowHeight}`,
@@ -312,17 +351,21 @@ const BugsCreate = () => {
           />
         )}
 
-        <ButtonGroup mt={{
-          base: 10,
-          lg: 20
-        }} size="lg" spacing={4}>
-
+        <ButtonGroup
+          mt={{
+            base: 10,
+            lg: 20,
+          }}
+          size="lg"
+          spacing={4}
+        >
           <Button
             colorScheme={PRIMARY_COLOR_SCHEME}
             fontWeight="medium"
             isLoading={isSubmitting}
             loadingText="Submitting"
-            type="submit">
+            type="submit"
+          >
             Create
           </Button>
         </ButtonGroup>

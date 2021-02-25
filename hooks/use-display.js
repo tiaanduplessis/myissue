@@ -7,20 +7,22 @@ const getVisualViewport = () => ({
   cssPixelWidth: window.visualViewport.width,
 })
 const getWindow = () => {
-  const contentWidth = [...document.body.children].reduce( 
-    (a, el) => Math.max(a, el.getBoundingClientRect().right), 0) 
-    - document.body.getBoundingClientRect().x;
+  const contentWidth =
+    [...document.body.children].reduce(
+      (a, el) => Math.max(a, el.getBoundingClientRect().right),
+      0
+    ) - document.body.getBoundingClientRect().x
 
-  return  {
+  return {
     innerHeight: window.innerHeight,
     innerWidth: window.innerWidth,
     outerHeight: window.outerHeight,
     outerWidth: window.outerWidth,
-    windowWidth:  document.documentElement.clientWidth,
+    windowWidth: document.documentElement.clientWidth,
     windowHeight: document.documentElement.clientHeight,
-    pageWidth:    Math.min(document.body.scrollWidth, contentWidth),
-    pageHeight:   document.body.scrollHeight,
-    screenWidth:  window.screen.width,
+    pageWidth: Math.min(document.body.scrollWidth, contentWidth),
+    pageHeight: document.body.scrollHeight,
+    screenWidth: window.screen.width,
     screenHeight: window.screen.height,
   }
 }

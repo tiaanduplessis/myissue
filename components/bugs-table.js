@@ -1,6 +1,16 @@
 import React from "react"
 import NextLink from "next/link"
-import { Box, Link, Badge, Button, Menu, MenuButton, MenuList, MenuItem, useClipboard  } from "@chakra-ui/react"
+import {
+  Box,
+  Link,
+  Badge,
+  Button,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  useClipboard,
+} from "@chakra-ui/react"
 import { parseISO, format } from "date-fns"
 import { RiArrowDownSLine } from "react-icons/ri"
 
@@ -14,42 +24,44 @@ const PRIORTY_COLOR_MAP = {
 }
 
 const Row = ({ title, id, priority, createdAt, projectId }) => {
-  const { hasCopied, onCopy } = useClipboard(`${window.location.origin}/bug-report/${id}`)
+  const { hasCopied, onCopy } = useClipboard(
+    `${window.location.origin}/bug-report/${id}`
+  )
 
-  return <Box as="tr">
-      <Td style={{
-          textOverflow: 'ellipsis',
-          whiteSpace: 'nowrap',
-          maxWidth: '20rem',
-          overflow: 'hidden'
-      }}>{title}</Td>
+  return (
+    <Box as="tr">
+      <Td
+        style={{
+          textOverflow: "ellipsis",
+          whiteSpace: "nowrap",
+          maxWidth: "20rem",
+          overflow: "hidden",
+        }}
+      >
+        {title}
+      </Td>
       <Td>
-        <Badge colorScheme={PRIORTY_COLOR_MAP[priority]}>
-          {priority}
-        </Badge>
+        <Badge colorScheme={PRIORTY_COLOR_MAP[priority]}>{priority}</Badge>
       </Td>
       <Td>{format(parseISO(createdAt), "PPpp")}</Td>
-      <Td style={{display: 'flex', justifyContent: 'flex-end'}}>
-          <Menu>
-              <MenuButton as={Button} rightIcon={<RiArrowDownSLine />}>
-                  {hasCopied ? 'Copied' : 'Actions'}
-              </MenuButton>
-              <MenuList>
-                  {id ?
-                      <NextLink href={`/bug-report/${id}`} passHref>
-                          <MenuItem as={Link}>
-                              View bug
-                          </MenuItem>
-                      </NextLink>
-                      : null}
-                  <MenuItem onClick={onCopy}>
-                      Copy bug link
-                  </MenuItem>
-                  <BugsDeleteButton id={id} projectId={projectId}/>
-              </MenuList>
-          </Menu>
+      <Td style={{ display: "flex", justifyContent: "flex-end" }}>
+        <Menu>
+          <MenuButton as={Button} rightIcon={<RiArrowDownSLine />}>
+            {hasCopied ? "Copied" : "Actions"}
+          </MenuButton>
+          <MenuList>
+            {id ? (
+              <NextLink href={`/bug-report/${id}`} passHref>
+                <MenuItem as={Link}>View bug</MenuItem>
+              </NextLink>
+            ) : null}
+            <MenuItem onClick={onCopy}>Copy bug link</MenuItem>
+            <BugsDeleteButton id={id} projectId={projectId} />
+          </MenuList>
+        </Menu>
       </Td>
-  </Box>
+    </Box>
+  )
 }
 
 export const BugsTable = ({ bugs }) => {
