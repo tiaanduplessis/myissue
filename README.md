@@ -4,10 +4,10 @@
 
 > Bug reports and feature requests made simple
 
-<div style="dislay: flex; align-items: center; justify-content: center; flex-wrap: wrap">
-    <img src="./screenshots/bugs-board.png>" width="50%" alt="Bugs dashboard"/>
-    <img src="./screenshots/create-bug.png>" width="50%"  alt="Create bug"/>
-</div>
+<img src="./screenshots/bugs-board.png" width="400px" alt="Bugs dashboard"/>
+<img src="./screenshots/create-bug.png" width="400px"  alt="Create bug"/>
+
+
 ## Setup
 
 After cloning the repo, install the required dependencies using `npm`:
