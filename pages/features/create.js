@@ -1,4 +1,4 @@
-import Head from "next/head"
+import { useState } from 'react'
 import { useRouter } from "next/router"
 import { mutate } from "swr"
 import { useForm, Controller } from "react-hook-form"
@@ -31,6 +31,7 @@ import { PRIMARY_COLOR_SCHEME } from "@/styles/theme"
 import { featuresCreateSchema } from "@/schemas/features-create-schema"
 
 const FeaturesCreate = () => {
+    const [isSubmitting, setSubmitting] = useState(false)
   const toast = useToast()
   const { user } = useAuth()
   const router = useRouter()
@@ -49,6 +50,7 @@ const FeaturesCreate = () => {
   const backURL = `/features${projectId ? `?projectId=${projectId}` : ""}`
 
   const onCreateFeature = ({ share, ...values }) => {
+      setSubmitting(true)
     const feature = {
       authorId: user?.uid || null,
       projectId: projectId || null,
@@ -75,6 +77,7 @@ const FeaturesCreate = () => {
     })
     createFeature(feature).then(() => mutate(key))
     router.push(backURL)
+    setSubmitting(false)
   }
 
   return (
@@ -286,6 +289,8 @@ const FeaturesCreate = () => {
           <Button
             colorScheme={PRIMARY_COLOR_SCHEME}
             fontWeight="medium"
+            isLoading={isSubmitting}
+            loadingText="Submitting"
             type="submit"
           >
             Create

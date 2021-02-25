@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Flex, Box, Stack, Button, Heading, useToast } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import { IoLogoGithub, IoLogoGoogle } from "react-icons/io5"
@@ -7,13 +8,16 @@ import { LogoIcon } from "@/icons/logo"
 import { useAuth } from "@/lib/auth"
 
 const SignIn = () => {
+  const [isSubmitting, setSubmitting] = useState(false)
   const toast = useToast()
   const router = useRouter()
   const auth = useAuth()
 
   const handleAuth = (authHandler) => async () => {
     try {
+      setSubmitting(true)
       const user = await authHandler()
+      setSubmitting(false)
       if (user) router.push("/projects")
     } catch (error) {
       console.error(error)
@@ -34,6 +38,7 @@ const SignIn = () => {
       justify={"center"}
       flexDirection="column"
       bg={"gray.100"}
+      p={4}
     >
       <LogoIcon w={14} h={14} />
 
@@ -42,9 +47,8 @@ const SignIn = () => {
       </Heading>
 
       <Box
-        mt={10}
+        my={10}
         bg={"white"}
-        mx={4}
         rounded={"sm"}
         boxShadow="sm"
         p={{ base: 4, md: 8 }}
@@ -57,6 +61,8 @@ const SignIn = () => {
             iconSpacing={3}
             colorScheme="gray"
             size="md"
+            isLoading={isSubmitting}
+            loadingText="Submitting"
             onClick={handleAuth(auth.signinWithGitHub)}
           >
             Sign in with Github
@@ -67,6 +73,8 @@ const SignIn = () => {
             iconSpacing={3}
             mt={6}
             size="md"
+            isLoading={isSubmitting}
+            loadingText="Submitting"
             onClick={handleAuth(auth.signinWithGoogle)}
           >
             Sign in with Google

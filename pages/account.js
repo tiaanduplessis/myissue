@@ -21,7 +21,7 @@ import { PageLayout } from "@/layouts/page"
 
 const PROVIDERS = {
   "github.com": <Icon as={IoLogoGithub} color="gray.800" />,
-  "google.com": <Icon as={IoLogoGoogle} colorScheme="red.800" />,
+  "google.com": <Icon as={IoLogoGoogle} color="red.600" />,
 }
 
 const Account = () => {

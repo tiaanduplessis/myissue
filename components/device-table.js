@@ -18,7 +18,7 @@ export const DeviceTable = ({ data, ...props }) => {
       <StatGroup flexDirection="column">
         {Object.entries(data).map(([name, value]) => {
           return (
-            <Stat mb={4}>
+            <Stat key={name} mb={4}>
               <StatLabel>{name}</StatLabel>
               <StatNumber>{value}</StatNumber>
             </Stat>

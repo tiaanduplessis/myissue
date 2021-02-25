@@ -48,8 +48,8 @@ export const LandingFeatures = () => {
       id="features"
       px={4}
       py={{
-        base: 12,
-        md: 18,
+        base: "2rem",
+        md: "4rem"
       }}
     >
       <Stack spacing={4} as={Container} maxW="3xl" textAlign={"center"}>

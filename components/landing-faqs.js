@@ -39,8 +39,8 @@ export const LandingFAQs = () => {
       id="faqs"
       px={4}
       py={{
-        base: 12,
-        md: 18,
+        base: "2rem",
+        md: "4rem"
       }}
     >
       <Heading as="h2" fontSize={"3xl"} textAlign="center" maxW="3xl" mx="auto">

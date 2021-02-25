@@ -10,13 +10,14 @@ export const ResourcePreview = ({ files, ...props }) => (
     {...props}
   >
     {files.map((file) => (
-      <li>
+      <li key={`${file.name}-${file.type}`}>
         {file.type.startsWith("image") && (
           <a href={file.preview} target="_blank">
             <Image
               alt={file.name}
               src={file.preview}
-              maxW="sm"
+              w="sm"
+              maxW="100%"
               m={2}
               loading="lazy"
               border="1px solid"
@@ -30,7 +31,8 @@ export const ResourcePreview = ({ files, ...props }) => (
           <Box
             as="video"
             src={file.preview}
-            maxW="sm"
+            w="sm"
+            maxW="100%"
             controls
             m={2}
             loading="lazy"
