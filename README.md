@@ -3,6 +3,11 @@
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 > Bug reports and feature requests made simple
+
+<div style="dislay: flex; align-items: center; justify-content: center; flex-wrap: wrap">
+    <img src="./screenshots/bugs-board.png>" width="50%" alt="Bugs dashboard"/>
+    <img src="./screenshots/create-bug.png>" width="50%"  alt="Create bug"/>
+</div>
 ## Setup
 
 After cloning the repo, install the required dependencies using `npm`:
@@ -20,10 +25,18 @@ NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
 NEXT_PUBLIC_FIREBASE_PROJECT_ID=
 FIREBASE_PRIVATE_KEY=
 FIREBASE_CLIENT_EMAIL=
+
+NEXT_PUBLIC_FIREBASE_API_KEY=
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=
+NEXT_PUBLIC_FIREBASE_DB_URL=
+NEXT_PUBLIC_APP_ID=
+FIREBASE_PRIVATE_KEY=
+FIREBASE_CLIENT_EMAIL=
 ```
 
-
-Now the development server can be run:
+Now you can run the development server:
 
 ```bash
 npm run dev
