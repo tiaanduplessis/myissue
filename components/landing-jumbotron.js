@@ -41,7 +41,7 @@ export const LandingJumbotron = () => {
         marginX="0"
         p={2}
         alignItems="center"
-        justifyContent="center"
+        justify="center"
       >
         <Stack
           as={Box}
@@ -61,14 +61,12 @@ export const LandingJumbotron = () => {
             <br />
             with better issues
           </Heading>
-          <Text color={"gray.300"} maxW="2xl" letterSpacing=".01rem">
-
-          Building software can be expensive and not everyone can afford to have a dedicated QA person on staff. With our suite of tools, a small business owner can create bug reports and feature requests without ambiguity.
-
+          <Text mb={3} color={"gray.300"} maxW="2xl" letterSpacing=".01rem">
+          A lot of time and money goes into dealing with ambiguity and vagueness in bug reports and feature requests. Cut down on that cost by giving your developer the information required to get the job done.
           </Text>
           <Stack
             direction={"column"}
-            spacing={5}
+            spacing={6}
             align={"center"}
             alignSelf={"center"}
             position={"relative"}

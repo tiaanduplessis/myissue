@@ -17,7 +17,7 @@ import {PRIMARY_COLOR_SCHEME} from "@/styles/theme"
 
 const features = [
   {
-    title: "Instantly sharable issue link",
+    title: "Instantly sharable link",
     text: "Use with any project management tool you like. Just drop the link.",
   },
   {
@@ -29,8 +29,8 @@ const features = [
     text: "Attach all your device information with the bug.",
   },
   {
-    title: "Manage issues",
-    text: "Group issues under projects and their priorty and status",
+    title: "Group into projects",
+    text: "Working on a lot of different things? Group bugs and features into projects.",
   },
   {
     title: "Smart feedback",
@@ -45,11 +45,14 @@ const features = [
 
 export const LandingFeatures = () => {
   return (
-    <Box id="features" px={4} py={20}>
+    <Box id="features" px={4} py={{
+      base: 12,
+      md: 18
+    }}>
       <Stack spacing={4} as={Container} maxW="3xl" textAlign={"center"}>
         <Heading fontSize={"3xl"} mb={5}>Features</Heading>
         <Text color={"gray.700"} fontSize={"xl"}>
-        A lot of time and money goes into dealing with ambiguity and vagueness in bug reports and feature requests. Cut down on that cost by giving your developer the information required to get the job done.
+        Building software can be expensive and not everyone can afford to have a dedicated QA person on staff. By using us, a small business owner can create bug reports and feature requests without ambiguity.
         </Text>
       </Stack>
 

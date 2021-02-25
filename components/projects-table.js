@@ -14,7 +14,7 @@ const Row = ({ name, id, link, createdAt }) => {
         <Td fontWeight="medium">{name}</Td>
         <Td>
             <Link
-                color="blue.600"
+                color="blue.700"
                 href={link}
                 target="_blank"
                 isExternal
