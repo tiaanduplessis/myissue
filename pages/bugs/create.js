@@ -43,6 +43,9 @@ import { bugsCreateSchema } from "@/schemas/bugs-create-schema"
 
 import { uploadFromBlob } from "@/utils/upload-from-blob"
 
+import {PRIORITY_LEVELS} from "@/constants/priority"
+
+
 const BugsCreate = () => {
   const [isSubmitting, setSubmitting] = useState(false)
   const [files, setFiles] = useState([])
@@ -58,7 +61,7 @@ const BugsCreate = () => {
     resolver: yupResolver(bugsCreateSchema),
     defaultValues: {
       frequency: "every-time",
-      priority: "low",
+      priority: "1",
       share: true,
     },
   })
@@ -300,12 +303,10 @@ const BugsCreate = () => {
                 id="priority"
                 name="priority"
                 ref={register}
-                defaultValue="low"
+                defaultValue="1"
               >
                 <Stack spacing={2}>
-                  <Radio value="low">Low</Radio>
-                  <Radio value="medium">Medium</Radio>
-                  <Radio value="high">High</Radio>
+                  {Object.entries(PRIORITY_LEVELS).map(([value, label]) => <Radio key={value} value={value}>{label}</Radio>)}
                 </Stack>
               </RadioGroup>
             }

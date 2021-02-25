@@ -18,11 +18,7 @@ import { Table, Tr, Th, Td } from "@/components/table"
 
 import { FeaturesDeleteButton } from "@/components/features-delete-button"
 
-const PRIORTY_COLOR_MAP = {
-  low: "green",
-  medium: "yellow",
-  high: "red",
-}
+import {PRIORITY_COLOR_MAP, PRIORITY_BADGE_MAP} from "@/constants/priority"
 
 const TYPE_COLOR_MAP = {
   feature: "blue",
@@ -52,7 +48,7 @@ const Row = ({ type, problem, id, priority, createdAt, projectId }) => {
         <Badge colorScheme={TYPE_COLOR_MAP[type]}>{type}</Badge>
       </Td>
       <Td>
-        <Badge colorScheme={PRIORTY_COLOR_MAP[priority]}>{priority}</Badge>
+        <Badge colorScheme={PRIORITY_COLOR_MAP[priority]}>{PRIORITY_BADGE_MAP[priority]}</Badge>
       </Td>
       <Td>{format(parseISO(createdAt), "PPpp")}</Td>
       <Td style={{ display: "flex", justifyContent: "flex-end" }}>

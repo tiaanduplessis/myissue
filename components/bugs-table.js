@@ -16,12 +16,8 @@ import { RiArrowDownSLine } from "react-icons/ri"
 
 import { Table, Tr, Th, Td } from "@/components/table"
 import { BugsDeleteButton } from "@/components/bugs-delete-button"
+import {PRIORITY_COLOR_MAP, PRIORITY_BADGE_MAP} from "@/constants/priority"
 
-const PRIORTY_COLOR_MAP = {
-  low: "green",
-  medium: "yellow",
-  high: "red",
-}
 
 const Row = ({ title, id, priority, createdAt, projectId }) => {
   const { hasCopied, onCopy } = useClipboard(
@@ -41,7 +37,7 @@ const Row = ({ title, id, priority, createdAt, projectId }) => {
         {title}
       </Td>
       <Td>
-        <Badge colorScheme={PRIORTY_COLOR_MAP[priority]}>{priority}</Badge>
+        <Badge colorScheme={PRIORITY_COLOR_MAP[priority]}>{PRIORITY_BADGE_MAP[priority]}</Badge>
       </Td>
       <Td>{format(parseISO(createdAt), "PPpp")}</Td>
       <Td style={{ display: "flex", justifyContent: "flex-end" }}>

@@ -29,15 +29,12 @@ import { getBugById } from "@/lib/db-admin"
 
 import { useScrollRestore } from "@/hooks/use-scroll-restore"
 
+import {PRIORITY_COLOR_MAP, PRIORITY_LEVELS} from "@/constants/priority"
+
 const ShareLinkButton = dynamic(() =>
   import("@/components/share-link-button").then((mod) => mod.ShareLinkButton)
 )
 
-const PRIORTY_COLOR_MAP = {
-  low: "green",
-  medium: "yellow",
-  high: "red",
-}
 
 const FREQUENCY_TEXT_MAP = {
   "every-time": "Happens every time",
@@ -91,8 +88,8 @@ export default function BugReport({ bug }) {
         )}
 
         <Stack direction="row" mb={4}>
-          <Badge size="lg" colorScheme={PRIORTY_COLOR_MAP[bug.priority]}>
-            {bug.priority} priority
+          <Badge size="lg" colorScheme={PRIORITY_COLOR_MAP[bug.priority]}>
+            {PRIORITY_LEVELS[bug.priority]}
           </Badge>
           <Badge size="lg" colorScheme={PRIMARY_COLOR_SCHEME}>
             {FREQUENCY_TEXT_MAP[bug.frequency]}

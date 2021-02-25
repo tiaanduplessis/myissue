@@ -30,6 +30,8 @@ import { PRIMARY_COLOR_SCHEME } from "@/styles/theme"
 
 import { featuresCreateSchema } from "@/schemas/features-create-schema"
 
+import {PRIORITY_LEVELS} from "@/constants/priority"
+
 const FeaturesCreate = () => {
     const [isSubmitting, setSubmitting] = useState(false)
   const toast = useToast()
@@ -271,12 +273,10 @@ const FeaturesCreate = () => {
                 id="priority"
                 name="priority"
                 ref={register}
-                defaultValue="low"
+                defaultValue="1"
               >
                 <Stack spacing={2}>
-                  <Radio value="low">Low</Radio>
-                  <Radio value="medium">Medium</Radio>
-                  <Radio value="high">High</Radio>
+                {Object.entries(PRIORITY_LEVELS).map(([value, label]) => <Radio key={value} value={value}>{label}</Radio>)}
                 </Stack>
               </RadioGroup>
             }

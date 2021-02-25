@@ -9,7 +9,8 @@
         "@/icons/*": ["icons/*"],
         "@/utils/*": ["utils/*"],
         "@/hooks/*": ["hooks/*"],
-        "@/schemas/*": ["schemas/*"]
+        "@/schemas/*": ["schemas/*"],
+        "@/constants/*": ["constants/*"],
       }
     }
   }

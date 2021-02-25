@@ -12,15 +12,11 @@ import { useScrollRestore } from "@/hooks/use-scroll-restore"
 
 import { getFeatureById } from "@/lib/db-admin"
 
+import {PRIORITY_COLOR_MAP, PRIORITY_LEVELS} from "@/constants/priority"
+
 const ShareLinkButton = dynamic(() =>
   import("@/components/share-link-button").then((mod) => mod.ShareLinkButton)
 )
-
-const PRIORTY_COLOR_MAP = {
-  low: "green",
-  medium: "yellow",
-  high: "red",
-}
 
 export default function FeatureDetail({ feature }) {
   const { problem: description } = feature
@@ -50,8 +46,8 @@ export default function FeatureDetail({ feature }) {
           <Badge size="lg" colorScheme={PRIMARY_COLOR_SCHEME}>
             {feature.type}
           </Badge>
-          <Badge size="lg" colorScheme={PRIORTY_COLOR_MAP[feature.priority]}>
-            {feature.priority} priority
+          <Badge size="lg" colorScheme={PRIORITY_COLOR_MAP[feature.priority]}>
+            {PRIORITY_LEVELS[feature.priority]}
           </Badge>
         </Stack>
 
