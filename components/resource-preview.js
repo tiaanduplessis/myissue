@@ -1,4 +1,4 @@
-import { Flex, Image } from "@chakra-ui/react"
+import { Flex, Image, Box } from "@chakra-ui/react"
 
 export const ResourcePreview = ({ files, ...props }) => <Flex flexWrap="wrap" as="ul" sx={{
     listStyle: 'none'
@@ -17,7 +17,17 @@ export const ResourcePreview = ({ files, ...props }) => <Flex flexWrap="wrap" as
                     borderRadius="md"
                 />
             </a>}
-            
+
+            {file.type.startsWith('video') && <Box as="video" src={file.preview}
+                maxW="sm"
+                controls
+                m={2}
+                loading="lazy"
+                border="1px solid"
+                borderColor="gray.100"
+                borderRadius="md"
+            />}
+
         </li>
 
     ))}
