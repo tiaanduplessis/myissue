@@ -17,7 +17,6 @@ const SignIn = () => {
     try {
       setSubmitting(true)
       const user = await authHandler()
-      setSubmitting(false)
       if (user) router.push("/projects")
     } catch (error) {
       console.error(error)
@@ -28,6 +27,8 @@ const SignIn = () => {
         duration: 10000,
         isClosable: true,
       })
+    } finally {
+      setSubmitting(false)
     }
   }
 
