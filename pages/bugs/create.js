@@ -344,9 +344,9 @@ const BugsCreate = () => {
               "Pixel ratio": `${display.devicePixelRatio}`,
               "Screen (width x height)": `${display.screenWidth} x ${display.screenHeight}`,
               "Viewport (width x height)": `${display.windowWidth} x ${display.windowHeight}`,
-              "Page (width x height)": `${display.pageWidth} x ${display.pageHeight}`,
+              // "Page (width x height)": `${display.pageWidth} x ${display.pageHeight}`,
               "CSS pixel (width x height)": `${display.cssPixelWidth} x ${display.cssPixelHight}`,
-              "Mobile pinch zoom": `${display.pinchZoomScalingFactor * 100}%`,
+              // "Mobile pinch zoom": `${display.pinchZoomScalingFactor * 100}%`,
             }}
           />
         )}

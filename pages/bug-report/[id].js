@@ -175,9 +175,9 @@ export default function BugReport({ bug }) {
               "Pixel ratio": `${bug.devicePixelRatio}`,
               "Screen (width x height)": `${bug.screenWidth} x ${bug.screenHeight}`,
               "Viewport (width x height)": `${bug.windowWidth} x ${bug.windowHeight}`,
-              "Page (width x height)": `${bug.pageWidth} x ${bug.pageHeight}`,
+              // "Page (width x height)": `${bug.pageWidth} x ${bug.pageHeight}`,
               "CSS pixel (width x height)": `${bug.cssPixelWidth} x ${bug.cssPixelHight}`,
-              "Mobile pinch zoom": `${bug.pinchZoomScalingFactor * 100}%`,
+              // "Mobile pinch zoom": `${bug.pinchZoomScalingFactor * 100}%`,
             }}
           />
         )}
