@@ -4,6 +4,7 @@ import { useRouter } from "next/router"
 import NextLink from "next/link"
 import { useToast, Button } from "@chakra-ui/react"
 import useSWR from "swr"
+import { HiPlus } from "react-icons/hi";
 
 import { useAuth } from "@/lib/auth"
 
@@ -48,8 +49,8 @@ const Dashboard = () => {
       breadcrumbs={[{ label: "Features" }]}
       actions={[
         <NextLink key="create-new-feature" href={href}>
-          <Button fontWeight="medium" colorScheme={PRIMARY_COLOR_SCHEME}>
-            + Create new feature
+          <Button fontWeight="medium" colorScheme={PRIMARY_COLOR_SCHEME} leftIcon={<HiPlus />}>
+            Create new feature
           </Button>
         </NextLink>,
       ]}

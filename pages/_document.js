@@ -28,7 +28,7 @@ class Doc extends Document {
 
         <link rel="stylesheet"
               href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap&subset=latin" 
-              media="print" onload="this.media='all'" />
+              media="print" onLoad="this.media='all'" />
 
         </Head>
         <body>

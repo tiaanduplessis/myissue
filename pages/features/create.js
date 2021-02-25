@@ -80,9 +80,6 @@ const FeaturesCreate = () => {
             title="Create a feature"
             breadcrumbs={[{ label: "Features", href: backURL }, { label: "Create" }]}
         >
-            <Head>
-                <title>Create new feature</title>
-            </Head>
 
             <Flex
                 width="100%"

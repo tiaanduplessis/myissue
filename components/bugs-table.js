@@ -14,7 +14,7 @@ const PRIORTY_COLOR_MAP = {
 }
 
 const Row = ({ title, id, priority, createdAt, projectId }) => {
-  const { hasCopied, onCopy } = useClipboard(`${window.location.origin}/bugs/${id}`)
+  const { hasCopied, onCopy } = useClipboard(`${window.location.origin}/bug-report/${id}`)
 
   return <Box as="tr">
       <Td style={{
@@ -36,7 +36,7 @@ const Row = ({ title, id, priority, createdAt, projectId }) => {
               </MenuButton>
               <MenuList>
                   {id ?
-                      <NextLink href={`/bugs/${id}`} passHref>
+                      <NextLink href={`/bug-report/${id}`} passHref>
                           <MenuItem as={Link}>
                               View bug
                           </MenuItem>

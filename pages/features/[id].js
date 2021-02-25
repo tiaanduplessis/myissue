@@ -11,6 +11,8 @@ import {MarkdownPreview} from "@/components/markdown-preview"
 
 import { PRIMARY_COLOR_SCHEME } from "@/styles/theme"
 
+import {useScrollRestore} from '@/hooks/use-scroll-restore'
+
 import { getFeatureById } from "@/lib/db-admin"
 
 const ShareLinkButton = dynamic(() =>
@@ -26,6 +28,8 @@ const PRIORTY_COLOR_MAP = {
 export default function FeatureDetail({ feature }) {
     const { problem: description } = feature
     const title = "Feature request"
+
+    useScrollRestore()
 
     return <PageLayout title={title} actions={<ShareLinkButton title={title} description={description} />}>
         <NextSeo

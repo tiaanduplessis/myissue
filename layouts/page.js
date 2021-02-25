@@ -48,6 +48,7 @@ export const PageLayout = ({
   title,
   breadcrumbs,
   actions = [],
+  ...props
 }) => {
   useOnlineNotifcation()
   const { user } = useAuth()
@@ -56,6 +57,7 @@ export const PageLayout = ({
   return (<>
     <NextSeo
       title={title}
+      {...props}
     />
     <SkipLink/>
     <Box backgroundColor="gray.100" minHeight="100vh" pb={8}>
@@ -66,7 +68,7 @@ export const PageLayout = ({
       }} w="full">
         <Flex
           alignItems="center"
-          justifyContent="space-between"
+          justify="space-between"
           pt={4}
           pb={4}
           maxW="7xl"
@@ -108,7 +110,7 @@ export const PageLayout = ({
             </Box>
             
           </Flex>
-          <Flex justifyContent="center" alignItems="center">
+          <Flex justify="center" alignItems="center">
             {user && (
               <>
               <NextLink href="/account" passHref>
@@ -118,7 +120,6 @@ export const PageLayout = ({
                 </a>            
               </NextLink>
               </>
-             
             )}
             
           </Flex>
@@ -138,8 +139,13 @@ export const PageLayout = ({
           </Breadcrumb>
         )}
 
-        <Flex justifyContent="space-between" mb={8}>
-          <Heading as="h1">{title}</Heading>
+        <Flex justify="space-between" mb={8}>
+          <Heading as="h1" fontSize={
+          {
+            base: '2xl',
+            lg: '4xl'
+          }
+          } >{title}</Heading>
           <SimpleGrid spacing={2}>{actions}</SimpleGrid>
         </Flex>
         {children}

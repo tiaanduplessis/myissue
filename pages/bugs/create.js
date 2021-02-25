@@ -43,9 +43,8 @@ import { bugsCreateSchema } from "@/schemas/bugs-create-schema"
 
 import {uploadFromBlob} from "@/utils/upload-from-blob"
 
-
-
 const BugsCreate = () => {
+  const [isSubmitting, setSubmitting] = useState(false)
   const [files, setFiles] = useState([])
   const browser = useDetectBrowser()
   const networkInfo = useNetworkInfo()
@@ -54,7 +53,7 @@ const BugsCreate = () => {
   const cookieEnabled = useCookieEnabled()
   const prefersReducedMotion = usePrefersReducedMotion()
 
-  const { register, handleSubmit, watch, errors, control, formState}  = useForm({
+  const { register, handleSubmit, watch, errors, control}  = useForm({
     mode: 'onTouched',
     resolver: yupResolver(bugsCreateSchema),
     defaultValues: {
@@ -73,7 +72,7 @@ const BugsCreate = () => {
   const backURL = `/bugs${projectId ? `?projectId=${projectId}` : ""}`
 
   const onCreateBug = async ({ share, ...values }) => {
-
+    setSubmitting(true)
     const bug = {
       authorId: user?.uid || null,
       projectId: projectId || null,
@@ -98,7 +97,6 @@ const BugsCreate = () => {
         duration: 3000,
       })
       
-    
       bug.files = await Promise.all(files.map(file => uploadFromBlob({
         path: 'bugs/',
         blobUri: file.preview,
@@ -111,16 +109,16 @@ const BugsCreate = () => {
  
     const key = projectId ? `/api/projects/${projectId}/bugs` : "/api/bugs"
 
-    mutate(
-      key,
-      (data) => {
-        return { bugs: [bug, ...(data?.bugs ?? [])] }
-      },
-      false
-    )
-
     if (user) {
+      mutate(
+        key,
+        (data) => {
+          return { bugs: [bug, ...(data?.bugs ?? [])] }
+        },
+        false
+      )
       createBug(bug).then(() => mutate(key))
+
       toast({
         title: "Success!",
         description: "We've created your bug.",
@@ -132,11 +130,10 @@ const BugsCreate = () => {
     } else {
       const doc = await createBug(bug)
       mutate(key)
-      router.push({
-        pathname: '/bugs/[id]',
-        query: { id: doc.id, created: true },
-      })
+      router.push(`/bug-report/${doc.id}?created=true`)
     }
+
+    setSubmitting(false)
   }
 
   const share = watch("share")
@@ -144,11 +141,9 @@ const BugsCreate = () => {
   return (
     <PageLayout
       title="Create a bug"
+      description="Create a new bug report with a proven template"
       breadcrumbs={[{ label: "Bugs", href: backURL }, { label: "Create" }]}
     >
-      <Head>
-        <title>Create new bug</title>
-      </Head>
 
       <Flex
         width="100%"
@@ -156,8 +151,8 @@ const BugsCreate = () => {
         borderRadius="md"
         boxShadow="sm"
         p={{
-          base: 5,
-          md: 10,
+          base: 4,
+          md: 8,
         }}
         direction="column"
         as="form"
@@ -190,7 +185,7 @@ const BugsCreate = () => {
         </FormControl>
 
         <FormControl isRequired maxW="3xl" mt={10} isInvalid={errors.expecting?.message?.length > 0}>
-          <FormLabel htmlFor="expecting">What should happen? (Expected behaviour)</FormLabel>
+          <FormLabel htmlFor="expecting">What should happen?</FormLabel>
           <Textarea
             minHeight="10rem"
             id="expecting"
@@ -199,12 +194,12 @@ const BugsCreate = () => {
             ref={register}
           />
           {errors.expecting?.message ? <FormErrorMessage>{errors.expecting?.message}</FormErrorMessage> : <FormHelperText>
-          How the software should have performed.
+          How the software should have performed. The expected behaviour.
             </FormHelperText>}
         </FormControl>
 
         <FormControl isRequired maxW="3xl" mt={10}  isInvalid={errors.resulting?.message?.length > 0}>
-          <FormLabel htmlFor="resulting">What happened? (Resulting behaviour)</FormLabel>
+          <FormLabel htmlFor="resulting">What happened?</FormLabel>
           <Textarea
             id="resulting"
             minHeight="10rem"
@@ -215,7 +210,7 @@ const BugsCreate = () => {
             })}
           />
           {errors.resulting?.message ? <FormErrorMessage>{errors.resulting?.message}</FormErrorMessage> : <FormHelperText>
-            How the software actually performed.
+            How the software actually performed. The Resulting behaviour.
             </FormHelperText>}
         </FormControl>
 
@@ -317,12 +312,15 @@ const BugsCreate = () => {
           />
         )}
 
-        <ButtonGroup mt={20} size="lg" spacing={4}>
+        <ButtonGroup mt={{
+          base: 10,
+          lg: 20
+        }} size="lg" spacing={4}>
 
           <Button
             colorScheme={PRIMARY_COLOR_SCHEME}
             fontWeight="medium"
-            isLoading={formState.isSubmitting}
+            isLoading={isSubmitting}
             loadingText="Submitting"
             type="submit">
             Create

@@ -19,6 +19,8 @@ import {PRIMARY_COLOR_SCHEME} from "@/styles/theme"
 
 import { getBugById } from "@/lib/db-admin"
 
+import {useScrollRestore} from '@/hooks/use-scroll-restore'
+
 const ShareLinkButton = dynamic(() =>
     import('@/components/share-link-button').then((mod) => mod.ShareLinkButton)
 )
@@ -35,10 +37,12 @@ const FREQUENCY_TEXT_MAP = {
   'once': 'Happened once'
 }
 
-export default function BugDetail({ bug }) {
+export default function BugReport({ bug }) {
   const router = useRouter()
   const { title: description } = bug
   const title = router.query?.created ? "Sorted! Bug created" : "Bug report"
+
+  useScrollRestore()
   
   return <PageLayout title={title} actions={<ShareLinkButton description={description} title="Bug report" />}>
     <NextSeo
@@ -91,9 +95,6 @@ export default function BugDetail({ bug }) {
       <Heading as="h2" size='md' mb={2}>Steps to reproduce</Heading>
       <Divider mb={2}/>
       <MarkdownPreview maxW="2xl" mb={14}>{bug.steps}</MarkdownPreview>
-
-
-  
 
       {bug.files?.length > 0 && <>
         <Heading as="h2" size='md' mb={2}>Files</Heading>

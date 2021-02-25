@@ -29,7 +29,7 @@ export const LandingJumbotron = () => {
 
         <link rel="stylesheet"
               href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap&subset=latin"
-              media="print" onload="this.media='all'" />
+              media="print" onLoad="this.media='all'" />
   
       </Head>
 
