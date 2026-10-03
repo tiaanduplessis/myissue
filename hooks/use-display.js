@@ -1,11 +1,19 @@
 import { isRenderingOnServer } from "@/utils/is-rendering-on-server"
 
 const getDevicePxRatio = () => window.devicePixelRatio || 1
-const getVisualViewport = () => ({
-  pinchZoomScalingFactor: window.visualViewport.scale,
-  cssPixelHight: window.visualViewport.height,
-  cssPixelWidth: window.visualViewport.width,
-})
+const getVisualViewport = () => {
+  const viewport = window.visualViewport
+  if (!viewport) return {}
+
+  return [
+    ["pinchZoomScalingFactor", "scale"],
+    ["cssPixelHight", "height"],
+    ["cssPixelWidth", "width"],
+  ].reduce((info, [key, field]) => {
+    if (viewport[field] !== undefined) info[key] = viewport[field]
+    return info
+  }, {})
+}
 const getWindow = () => {
   const contentWidth =
     [...document.body.children].reduce(
