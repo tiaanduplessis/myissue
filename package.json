@@ -8,7 +8,8 @@
     "start": "next start",
     "commit": "cz",
     "release": "standard-version",
-    "format": "prettier --write './**/*.js'"
+    "format": "prettier --write './**/*.js'",
+    "test": "node tests/browser-metadata.js"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.1.2",
@@ -54,6 +55,7 @@
     "commitizen": "^4.2.2",
     "conventional-changelog-cli": "^2.1.1",
     "cz-conventional-changelog": "^3.3.0",
-    "husky": "^4.3.7"
+    "husky": "^4.3.7",
+    "react-test-renderer": "17.0.1"
   }
 }

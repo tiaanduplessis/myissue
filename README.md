@@ -40,3 +40,9 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Tests
+
+Run `npm test` for browser-metadata regressions. These tests use React's test
+renderer and isolated browser globals; they do not require Firebase credentials
+or submit any reports. They cover server rendering, unsupported and partial
+browser APIs, network changes, and listener cleanup.

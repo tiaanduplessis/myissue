@@ -8,27 +8,42 @@ const getConnection = () =>
 const getInitialState = () =>
   isRenderingOnServer ? {} : getInfo(getConnection())
 
-const getInfo = (connection) => ({
-  downlink: connection.downlink,
-  effectiveType: connection.effectiveType,
-  rtt: connection.rtt,
-  saveData: connection.saveData,
-})
+const getInfo = (connection) => {
+  if (!connection) return {}
+
+  // Unsupported fields must be omitted: Firestore rejects undefined values.
+  return ["downlink", "effectiveType", "rtt", "saveData"].reduce(
+    (info, key) => {
+      if (connection[key] !== undefined) info[key] = connection[key]
+      return info
+    },
+    {}
+  )
+}
 
 export const useNetworkInfo = () => {
   const [networkInfo, setNetworkInfo] = useState(getInitialState)
 
   useEffect(() => {
-    if (!isRenderingOnServer) {
-      const connection = getConnection()
+    if (isRenderingOnServer) return
 
-      const handleNetworkInfoChanged = () => {
-        setNetworkInfo(getInfo(connection))
-      }
-
-      connection.addEventListener("change", handleNetworkInfoChanged)
+    const connection = getConnection()
+    if (
+      !connection ||
+      typeof connection.addEventListener !== "function" ||
+      typeof connection.removeEventListener !== "function"
+    ) {
+      return
     }
-  })
+
+    const handleNetworkInfoChanged = () => {
+      setNetworkInfo(getInfo(connection))
+    }
+
+    connection.addEventListener("change", handleNetworkInfoChanged)
+    return () =>
+      connection.removeEventListener("change", handleNetworkInfoChanged)
+  }, [])
 
   return networkInfo
 }
